@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborLinko Top Bar</title>
+    <style>
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* General Styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #F5F5F5;
+        color: #333;
+        line-height: 1.6;
+        font-family: 'montserrat' sans-serif;
+    }
+
+    /* For Hindi, Urdu, Sindhi, and Arabic languages */
+    body[data-lang="hi"], body[data-lang="ur"], body[data-lang="sd"], body[data-lang="ar"] {
+        font-family: 'Scheherazade New', serif;
+        direction: rtl;  /* Apply rtl only to the body */
+        text-align: right;
+    }
+
+    /* For German, Italian, French */
+    body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Language Button */
+    .language-button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .language-button:hover {
+        background-color: #0056B3;
+    }
+
+    /* Language Pop-up */
+    .language-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+
+    .popup-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+    }
+
+    .popup-content select {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #007BFF;
+        margin-top: 10px;
+    }
+
+    .popup-content h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .close-btn {
+        font-size: 30px;
+        color: #333;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        color: #007BFF;
+    }
+
+    .change-btn {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+
+    .change-btn:hover {
+        background-color: #218838;
+    }
+
+    .top-bar {
+        font-family: 'roboto', sans-serif !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 20px;
+        background-color: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #ddd;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    /* Top Bar Item Styling */
+    .top-bar-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        padding: 10px;
+    }
+
+    .top-bar-item:hover {
+        color: #007BFF;
+    }
+
+    .top-bar-item .top-bar-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+    }
+
+    .top-bar-item .top-bar-label {
+        font-size: 18px;
+        font-weight: 500;
+        color: gray;
+    }
+
+    .top-bar-item:hover .top-bar-label {
+        color: #007BFF;
+    }
+
+    /* Logo Styling */
+    .logo {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #007BFF;
+        padding-right: 8px;
+    }
+
+    .logo .labor {
+        font-weight: 700;
+        color: gray;
+    }
+
+    .logo .linko {
+        font-weight: 400;
+        color: #007BFF;
+    }
+
+    /* Navigation styling */
+    .nav {
+        display: flex;
+        gap: 30px;
+    }
+
+    .nav a {
+        text-decoration: none;
+        color: gray;
+        font-size: 20px;
+        font-weight: 500;
+        position: relative;
+    }
+
+    .nav a:hover {
+        color: #007BFF;
+    }
+
+    .nav a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #007BFF;
+        transition: width 0.3s ease-in-out;
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .nav a:hover::after {
+        width: 100%;
+    }
+
+    /* Mobile-Only Styling (Small Screen) */
+    @media (max-width: 768px) {
+        .top-bar {
+            top: 0%;
+            padding: 12px 10px;
+        }
+
+        .top-bar-item .top-bar-label {
+            display: none;
+        }
+
+        .top-bar-item .top-bar-icon {
+            display: block;
+            width: 6vw;
+            height: 6vw;
+            max-width: 28px;
+            max-height: 28px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+
+        .top-bar-item {
+            padding: 1px;
+            cursor: pointer;
+        }
+
+        .nav {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .top-bar-item .top-bar-icon {
+            display: block;
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    /* Footer Section */
+    .footer {
+        background-color: #fff;
+        color: gray;
+        padding: 40px 0;
+        text-align: center;
+        position: relative;
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .footer-nav {
+        margin-bottom: 10px;
+    }
+
+    .footer-nav a {
+        color: gray;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 1rem;
+    }
+
+    .footer-nav a:hover {
+        text-decoration: underline;
+    }
+
+    .footer p {
+        font-size: 0.875rem;
+    }
+
+    /* For the entire page to have a flex layout to push the footer down */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex-grow: 1;
+    }
+    </style>
+</head>
+<body>
+    <!-- Language Change Button -->
+    <button id="languageButton" class="language-button">Change Language</button>
+
+    <!-- Language Pop-up -->
+    <div id="languagePopup" class="language-popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup">&times;</span>
+            <h2>Select Language</h2>
+            <select id="languageSelect">
+                <option value="en" data-flag="🇬🇧">🇬🇧 English</option>
+                <option value="de" data-flag="🇩🇪">🇩🇪 German</option>
+                <option value="ur" data-flag="🇵🇰">🇵🇰 Urdu</option>
+                <option value="sd" data-flag="🇵🇰">🇵🇰 Sindhi</option>
+                <option value="hi" data-flag="🇮🇳">🇮🇳 Hindi</option>
+                <option value="ar" data-flag="🇸🇦">🇸🇦 Arabic</option>
+                <option value="ru" data-flag="🇷🇺">🇷🇺 Russian</option>
+            </select>
+            <button class="change-btn">Change</button>
+        </div>
+    </div>
+
+    <script>
+        // Language change logic
+        document.getElementById('languageButton').onclick = function () {
+            document.getElementById('languagePopup').style.display = 'block';
+        }
+
+        document.getElementById('closePopup').onclick = function () {
+            document.getElementById('languagePopup').style.display = 'none';
+        }
+
+        document.querySelector('.change-btn').onclick = function () {
+            var selectedLang = document.getElementById('languageSelect').value;
+            document.body.setAttribute('data-lang', selectedLang); // Change the language of the page
+            localStorage.setItem('language', selectedLang); // Save the language preference
+            document.getElementById('languagePopup').style.display = 'none'; // Close the popup
+        }
+
+        // Load saved language from localStorage
+        window.onload = function () {
+            var savedLanguage = localStorage.getItem('language') || 'en'; // Default to English
+            document.body.setAttribute('data-lang', savedLanguage);
+            document.getElementById('languageSelect').value = savedLanguage;
+        }
+    </script>
+
+    <div class="top-bar">
+        <div class="logo">
+            <span class="labor">Labor</span><span class="linko">Linko</span>
+        </div>
+        <div class="nav">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    <!-- Rest of the content -->
+
+</body>
+</html>

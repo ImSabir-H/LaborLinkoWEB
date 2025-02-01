@@ -1,0 +1,1197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="language.js"></script>
+    <title>Labor/Worker Account Setup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .form-step {
+    display: none;
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.form-step.active {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+        /* Heading */
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* Subheading */
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Account Type Container */
+        .account-type-container {
+            width: 100%;
+            display: flex;
+            height: 100%;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Account Box Styling */
+        .account-box {
+            background: linear-gradient(to bottom right, #fdfdfd, #f9f9f9);
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1 1 calc(50% - 10px); /* Flexible grid layout */
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+        }
+
+        .account-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.1);
+            border-color: #007BFF;
+        }
+
+        .account-box.selected {
+            border-color: #007BFF;
+            background-color: #e7f5ff;
+        }
+
+        .account-box h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .account-box p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Button Styling */
+        .next-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #dcdcdc;
+            border: none;
+            border-radius: 5px;
+            color: #666;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: not-allowed;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .next-btn.enabled {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .next-btn:hover.enabled {
+            background-color: #0056b3;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .next-btn:active.enabled {
+            transform: scale(0.98);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            margin-top: 20px;
+            position: relative;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #007BFF;
+            transition: width 0.5s ease-in-out;
+            border-radius: 5px;
+        }
+
+
+        /* Form Group */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .account-box {
+                flex: 1 1 100%; /* Full width for smaller screens */
+            }
+            
+
+            input,
+            select {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .next-btn {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            label {
+                font-size: 12px;
+            }
+
+            input,
+            select {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .next-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        /* Back Icon Styling */
+        .back-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            z-index: 1000; /* Ensure it's on top of other elements */
+        }
+
+        .back-icon img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Back Icon hover effect */
+        .back-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+
+        /* Hide back icon initially */
+        .back-icon.hidden {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .back-icon {
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                left: 15px;
+            }
+        }
+       /* Container for the alert */
+.alert-container {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Dark background for focus */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style for the alert box */
+.alert-box {
+    background: linear-gradient(to bottom right, #fdfdfd, #f9f9f9);
+    color: #007BFF;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgb(197, 197, 197);
+}
+
+/* Close button for the alert */
+.alert-close-btn {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(78, 78, 78);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* OK Button Style */
+.alert-ok-btn {
+    background-color: #28a745; /* Green background */
+    color: white;
+    border: none;
+    padding: 8px 26px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* OK Button Hover Effect */
+.alert-ok-btn:hover {
+    background-color: #1f8537; /* Darker green on hover */
+}
+
+/* Title of the alert */
+.alert-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Message of the alert */
+.alert-message {
+    font-size: 16px;
+}
+
+/* Display the alert */
+.alert-container.show {
+    display: flex; /* Show the alert */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animation for the fade-in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* RTL Languages Styling */
+        body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+            font-family: 'Scheherazade New', serif;
+            direction: rtl !important;
+            text-align: right !important;
+        }
+
+        body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+            font-family: 'Roboto', sans-serif;
+            direction: ltr;
+        }
+        /* Close Icon */
+        .close-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #007BFF;
+            cursor: pointer;
+            transition: color 0.3s;
+            text-decoration: none;
+            z-index: 999;
+        }
+
+        .close-icon:hover {
+            color: #0056b3;
+        }
+        
+.profile-form-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 100%;
+    max-height: 100%;
+    background: linear-gradient(to bottom right, #fdfdfd, #f9f9f9);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-height: 100vh; /* Adjusted height for better container visibility */
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    padding: 10px
+}
+
+button.next-btn {
+    padding: 12px 25px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.next-btn:hover {
+    background-color: #0056b3;
+}
+
+button.next-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.upload-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.file-upload-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.upload-label {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 0.5px solid #ddd;
+    background-color: #f8f8f8;
+    color: #007BFF;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+.form-group {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .form-group img {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .form-group input {
+        width: 100%;
+        padding-left: 45px;
+        padding-right: 45px;
+        height: 40px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    /* You can place your custom styles here if needed */
+
+/* Example: */
+.next-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.next-btn.enabled {
+    background-color: #007bff;
+}
+
+.next-btn:disabled {
+    background-color: #ccc;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-step {
+    margin-top: 40px;
+}
+
+.review-container {
+    margin-top: 20px;
+}
+
+.review-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Close Icon (Redirects to Dashboard) -->
+    <a href="home.html" class="close-icon">&#x2716;</a> <!-- Unicode 'X' symbol -->
+
+
+    <!-- Back Icon -->
+    <a class="back-icon hidden" id="back-icon">
+        <img src="icon/back-icon.png" alt="Back">
+    </a>
+
+    <!-- Step 1: Choose Account Type -->
+<div class="form-step active" id="step-1">
+    <h2 data-en="Step 1: Choose Your Account Type" 
+        data-ur="مرحلہ 1: اپنا اکاؤنٹ کی قسم منتخب کریں" 
+        data-sd="مرحلو 1: پنهنجو اڪائونٽ قسم چونڊيو" 
+        data-ar="الخطوة 1: اختر نوع حسابك" 
+        data-fr="Étape 1 : Choisissez votre type de compte" 
+        data-it="Passo 1: Scegli il tipo di account" 
+        data-de="Schritt 1: Wählen Sie Ihren Kontotyp" 
+        data-hi="चरण 1: अपने खाता प्रकार का चयन करें">
+        Step 1: Choose Your Account Type
+    </h2>
+    
+    <p data-en="Select the account type that best fits your needs." 
+        data-ur="اپنی ضروریات کے مطابق اکاؤنٹ کی قسم منتخب کریں" 
+        data-sd="پنهنجي ضرورتن مطابق اڪائونٽ جو قسم چونڊيو" 
+        data-ar="حدد نوع الحساب الذي يناسب احتياجاتك." 
+        data-fr="Sélectionnez le type de compte qui correspond le mieux à vos besoins." 
+        data-it="Seleziona il tipo di account che meglio si adatta alle tue esigenze." 
+        data-de="Wählen Sie den Kontotyp, der am besten zu Ihren Bedürfnissen passt." 
+        data-hi="उस खाता प्रकार का चयन करें जो आपकी जरूरतों के अनुरूप हो।">
+        Select the account type that best fits your needs.
+    </p>
+
+    <div class="account-type-container">
+        <div class="account-box" id="labor" data-account="Labor/Worker">
+            <h3 data-en="Labor/Worker" 
+                data-ur="مزدور/ورکر" 
+                data-sd="مزدور/ورڪر" 
+                data-ar="عامل/عامل" 
+                data-fr="Travailleur/Travailleur" 
+                data-it="Lavoratore/Lavoratore" 
+                data-de="Arbeiter/Arbeiter" 
+                data-hi="कर्मचारी/कामकाजी">
+                Labor/Worker
+            </h3>
+            <p data-en="For individuals seeking job opportunities in various fields." 
+                data-ur="مختلف شعبوں میں ملازمت کے مواقع تلاش کرنے والے افراد کے لئے" 
+                data-sd="مختلف شعبن ۾ نوڪري جو موقعا ڳولڻ لاءِ فرد" 
+                data-ar="للأفراد الذين يبحثون عن فرص عمل في مجالات مختلفة." 
+                data-fr="Pour les personnes cherchant des opportunités d'emploi dans divers domaines." 
+                data-it="Per coloro che cercano opportunità di lavoro in vari settori." 
+                data-de="Für Einzelpersonen, die nach Arbeitsmöglichkeiten in verschiedenen Bereichen suchen." 
+                data-hi="उन व्यक्तियों के लिए जो विभिन्न क्षेत्रों में नौकरी के अवसर तलाश रहे हैं।">
+                For individuals seeking job opportunities in various fields.
+            </p>
+        </div>
+        <div class="account-box" id="employer" data-account="Employer">
+            <h3 data-en="Employer" 
+                data-ur="ملازمت دینے والا" 
+                data-sd="ملازمت ڏيڻ وارو" 
+                data-ar="صاحب العمل" 
+                data-fr="Employeur" 
+                data-it="Datore di lavoro" 
+                data-de="Arbeitgeber" 
+                data-hi="नियोक्ता">
+                Employer
+            </h3>
+            <p data-en="For businesses looking to hire skilled workers." 
+                data-ur="ہنر مند ورکرز کو بھرتی کرنے والی کاروباری اداروں کے لئے" 
+                data-sd="ماهر ورڪرز کي ڀرتي ڪرڻ وارن ڪاروباري ادارن لاءِ" 
+                data-ar="للشركات التي تبحث عن توظيف عمال ماهرين." 
+                data-fr="Pour les entreprises cherchant à embaucher des travailleurs qualifiés." 
+                data-it="Per le aziende che cercano di assumere lavoratori qualificati." 
+                data-de="Für Unternehmen, die qualifizierte Arbeitskräfte einstellen möchten." 
+                data-hi="व्यवसायों के लिए जो कुशल श्रमिकों को भर्ती करना चाहते हैं।">
+                For businesses looking to hire skilled workers.
+            </p>
+        </div>
+        <div class="account-box" id="contractor" data-account="Contractor">
+            <h3 data-en="Contractor" 
+                data-ur="ٹھیکیدار" 
+                data-sd="ڪنٽريڪٽر" 
+                data-ar="مقاول" 
+                data-fr="Entrepreneur" 
+                data-it="Appaltatore" 
+                data-de="Auftragnehmer" 
+                data-hi="ठेकेदार">
+                Contractor
+            </h3>
+            <p data-en="For individuals or companies offering contract-based services." 
+                data-ur="ان افراد یا کمپنیوں کے لئے جو معاہدے کی بنیاد پر خدمات فراہم کرتے ہیں۔" 
+                data-sd="انهن فردن يا ڪمپنين لاءِ جيڪي معاهدي جي بنياد تي خدمتون مهيا ڪن ٿيون." 
+                data-ar="للأفراد أو الشركات التي تقدم خدمات قائمة على العقود." 
+                data-fr="Pour les individus ou les entreprises offrant des services basés sur des contrats." 
+                data-it="Per individui o aziende che offrono servizi basati su contratti." 
+                data-de="Für Einzelpersonen oder Unternehmen, die vertraglich basierte Dienstleistungen anbieten." 
+                data-hi="उन व्यक्तियों या कंपनियों के लिए जो अनुबंध आधारित सेवाएँ प्रदान करते हैं।">
+                For individuals or companies offering contract-based services.
+            </p>
+        </div>
+        <div class="account-box" id="organization" data-account="Organization">
+            <h3 data-en="Organization" 
+                data-ur="ادارہ" 
+                data-sd="ادارو" 
+                data-ar="منظمة" 
+                data-fr="Organisation" 
+                data-it="Organizzazione" 
+                data-de="Organisation" 
+                data-hi="संस्था">
+                Organization
+            </h3>
+            <p data-en="For large organizations managing multiple workers." 
+                data-ur="بڑی تنظیموں کے لئے جو متعدد ورکرز کو منظم کرتی ہیں۔" 
+                data-sd="وڏي تنظيمون جيڪي ڪيترن ئي ورڪرز کي منظم ڪن ٿيون." 
+                data-ar="للحكومات أو الشركات الكبيرة التي تدير العديد من العمال." 
+                data-fr="Pour les grandes organisations qui gèrent de nombreux travailleurs." 
+                data-it="Per grandi organizzazioni che gestiscono più lavoratori." 
+                data-de="Für große Organisationen, die mehrere Arbeiter verwalten." 
+                data-hi="बड़ी संस्थाओं के लिए जो कई श्रमिकों का प्रबंधन करती हैं।">
+                For large organizations managing multiple workers.
+            </p>
+        </div>
+    </div>
+
+    <button class="next-btn" id="next-btn" disabled 
+        data-en="Next" 
+        data-ur="اگلا" 
+        data-sd="اڳين" 
+        data-ar="التالي" 
+        data-fr="Suivant" 
+        data-it="Avanti" 
+        data-de="Weiter" 
+        data-hi="अगला">
+        Next
+    </button>
+
+</div>
+    <!-- Step 2: Profile Details -->
+     <!-- Custom Alert Popup -->
+<div id="custom-alert" class="alert-container">
+    <div class="alert-box">
+        <span class="alert-close-btn" id="alert-close-btn">&times;</span>
+        <h3 class="alert-title" 
+    data-en="Complete Your Details" 
+    data-ur="اپنی تفصیلات مکمل کریں" 
+    data-sd="پنهنجون تفصيلات مڪمل ڪريو" 
+    data-ar="أكمل تفاصيلك" 
+    data-fr="Complétez vos détails" 
+    data-it="Completa i tuoi dettagli" 
+    data-de="Vervollständige deine Details" 
+    data-hi="अपनी जानकारी पूरी करें">
+    Complete Your Details
+</h3>
+
+<p class="alert-message" 
+    data-en="Please fill in the following fields: " 
+    data-ur="براہ کرم مندرجہ ذیل شعبوں کو مکمل کریں: " 
+    data-sd="مهرباني ڪري هيٺين شعبن کي مڪمل ڪريو:" 
+    data-ar="يرجى تعبئة الحقول التالية: " 
+    data-fr="Veuillez remplir les champs suivants : " 
+    data-it="Compila i seguenti campi: " 
+    data-de="Bitte füllen Sie die folgenden Felder aus: " 
+    data-hi="कृपया निम्नलिखित फ़ील्ड भरें: ">
+    Please fill in the following fields: 
+</p>
+
+<span id="missing-fields"></span>
+<br><br>
+<button class="alert-ok-btn" id="alert-ok-btn" 
+    data-en="OK" 
+    data-ur="ٹھیک ہے" 
+    data-sd="ٺيڪ آهي" 
+    data-ar="موافق" 
+    data-fr="OK" 
+    data-it="OK" 
+    data-de="OK" 
+    data-hi="ठीक है">
+    OK
+</button>
+    </div>
+</div>
+    <div class="form-step" id="step-2">
+        <h2 
+    data-en="Step 2: Complete Your Profile" 
+    data-ur="مرحلہ 2: اپنا پروفائل مکمل کریں" 
+    data-sd="مرحلو 2: پنهنجو پروفائل مڪمل ڪريو" 
+    data-ar="الخطوة 2: أكمل ملفك الشخصي" 
+    data-fr="Étape 2 : Complétez votre profil" 
+    data-it="Passo 2: Completa il tuo profilo" 
+    data-de="Schritt 2: Vervollständigen Sie Ihr Profil" 
+    data-hi="चरण 2: अपनी प्रोफ़ाइल पूरी करें">
+    Step 2: Complete Your Profile
+</h2>
+
+<p 
+    data-en="Please fill in your profile details." 
+    data-ur="براہ کرم اپنی پروفائل کی تفصیلات مکمل کریں۔" 
+    data-sd="مهرباني ڪري پنهنجو پروفائل تفصيلات ڀريو." 
+    data-ar="يرجى تعبئة تفاصيل ملفك الشخصي." 
+    data-fr="Veuillez remplir vos détails de profil." 
+    data-it="Compila i tuoi dettagli del profilo." 
+    data-de="Bitte füllen Sie Ihre Profildaten aus." 
+    data-hi="कृपया अपनी प्रोफ़ाइल विवरण भरें।">
+    Please fill in your profile details.
+</p>
+            <div class="form-group">
+                
+   <!--porfile picture-->
+            <div class="file-upload-container" style="text-align: center; margin-top: 10px;">
+                <label for="profile-pic" class="upload-label" 
+                    data-en="Upload Profile Picture" 
+                    data-ur="پروفائل تصویر اپ لوڈ کریں" 
+                    data-sd="پروفائل تصویر اپلوڊ ڪريو" 
+                    data-ar="تحميل صورة الملف الشخصي" 
+                    data-it="Carica la foto del profilo" 
+                    data-de="Lade Profilbild hoch" 
+                    data-hi="प्रोफ़ाइल चित्र अपलोड करें">
+                    <span id="upload-text">Upload Profile Picture</span>
+                </label>
+                <input type="file" id="profile-pic" accept="image/*" style="display: none;" onchange="loadImage(event)">
+            </div>
+            
+            <!-- Profile Picture Preview -->
+            <div id="profile-pic-preview" style="display: none; margin-top: 20px; text-align: center;">
+                <p id="profile-uploaded-text" 
+                    data-en="Profile Picture Uploaded"
+                    data-ur="پروفائل تصویر اپ لوڈ کی گئی"
+                    data-sd="پروفائل تصوير اپ لوڊ ڪئي وئي"
+                    data-ar="تم تحميل صورة الملف الشخصي"
+                    data-it="Foto del profilo caricata"
+                    data-de="Profilbild hochgeladen"
+                    data-hi="प्रोफ़ाइल चित्र अपलोड किया गया"
+                    style="font-size: 16px; color: #28a745; margin-bottom: 10px;"></p>
+                <img id="profile-pic-display" src="" alt="Profile Picture Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+            </div>
+            
+            <script>
+                let profilePicUploaded = false; // Variable to track if profile picture is uploaded
+            
+                function loadImage(event) {
+                    const file = event.target.files[0];
+                    
+                    if (file) {
+                        // Check if the file is an image
+                        if (file.type.startsWith("image/")) {
+                            const reader = new FileReader();
+                            
+                            reader.onload = function(e) {
+                                const imagePreview = document.getElementById("profile-pic-display");
+                                const previewContainer = document.getElementById("profile-pic-preview");
+                                const uploadedText = document.getElementById("profile-uploaded-text");
+            
+                                imagePreview.src = e.target.result;
+                                previewContainer.style.display = "block"; // Show the preview
+                                uploadedText.style.display = "block"; // Show the "Profile Picture Uploaded" text
+            
+                                // Set profilePicUploaded to true
+                                profilePicUploaded = true;
+            
+                                // Update the message text dynamically based on selected language
+                                const selectedLanguage = localStorage.getItem("selectedLanguage") || "en";
+                                uploadedText.textContent = uploadedText.getAttribute(`data-${selectedLanguage}`) || uploadedText.getAttribute("data-en");
+                            }
+            
+                            reader.readAsDataURL(file);
+                        } else {
+                            alert("Please upload a valid image file.");
+                        }
+                    } else {
+                        alert("No file selected.");
+                    }
+                }
+            </script>
+            
+            <style>
+                /* File upload label style */
+                .upload-label {
+                    cursor: pointer;
+                    padding: 10px 20px;
+                    border: 2px dashed #007BFF;
+                    background-color: #f0f8ff;
+                    border-radius: 8px;
+                    color: #007BFF;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+            
+                /* Profile picture preview style */
+                #profile-pic-display {
+                    max-width: 200px;
+                    max-height: 200px;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+            
+                /* Profile uploaded text style */
+                #profile-uploaded-text {
+                    font-size: 16px;
+                    color: #28a745;
+                    margin-bottom: 10px;
+                }
+            </style>
+            
+            <br>
+
+<div class="form-group">
+    <img src="icon/name-icon.png" alt="Name Icon" class="input-icon" id="name-icon">
+    <input type="text" id="full-name" name="full-name" placeholder="Enter your full name"
+        data-placeholder-en="Enter your full name"
+        data-placeholder-ur="اپنا پورا نام درج کریں"
+        data-placeholder-sd="پنھنجو پورو نالو داخل ڪريو"
+        data-placeholder-ar="أدخل اسمك الكامل"
+        data-placeholder-ru="Введите ваше полное имя"
+        data-placeholder-it="Inserisci il tuo nome completo"
+        data-placeholder-de="Geben Sie Ihren vollständigen Namen ein"
+        data-placeholder-hi="अपना पूरा नाम दर्ज करें">
+</div>
+
+<div class="form-group">
+    <img src="icon/phone-icon.png" alt="Phone Icon" class="input-icon" id="phone-icon">
+    <input type="tel" id="phone-number" name="phone-number" placeholder="Enter your phone number"
+        data-placeholder-en="Enter your phone number"
+        data-placeholder-ur="اپنا فون نمبر درج کریں"
+        data-placeholder-sd="پنھنجو فون نمبر داخل ڪريو"
+        data-placeholder-ar="أدخل رقم هاتفك"
+        data-placeholder-ru="Введите ваш номер телефона"
+        data-placeholder-it="Inserisci il tuo numero di telefono"
+        data-placeholder-de="Geben Sie Ihre Telefonnummer ein"
+        data-placeholder-hi="अपना फोन नंबर दर्ज करें">
+</div>
+
+<div class="form-group">
+    <img src="icon/mail-icon.png" alt="Mail Icon" class="input-icon" id="mail-icon">
+    <input type="email" id="email" name="email" placeholder="Enter your email"
+        data-placeholder-en="Enter your email"
+        data-placeholder-ur="اپنا ای میل درج کریں"
+        data-placeholder-sd="پنھنجو ای ميل داخل ڪريو"
+        data-placeholder-ar="أدخل بريدك الإلكتروني"
+        data-placeholder-ru="Введите вашу электронную почту"
+        data-placeholder-it="Inserisci la tua email"
+        data-placeholder-de="Geben Sie Ihre E-Mail ein"
+        data-placeholder-hi="अपना ईमेल दर्ज करें">
+</div>
+
+<div class="form-group">
+    <img src="icon/city-icon.png" alt="Location Icon" class="input-icon" id="location-icon">
+    <input type="text" id="location" name="location" placeholder="Enter your city or region"
+        data-placeholder-en="Enter your city or region"
+        data-placeholder-ur="اپنا شہر یا علاقے کا نام درج کریں"
+        data-placeholder-sd="پنھنجو شهر يا علائقو داخل ڪريو"
+        data-placeholder-ar="أدخل مدينتك أو منطقتك"
+        data-placeholder-ru="Введите ваш город или регион"
+        data-placeholder-it="Inserisci la tua città o regione"
+        data-placeholder-de="Geben Sie Ihre Stadt oder Region ein"
+        data-placeholder-hi="अपना शहर या क्षेत्र दर्ज करें">
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+        setLanguage(savedLanguage);
+
+        function setLanguage(language) {
+            const rtlLanguages = ["ur", "sd", "ar"];
+            const inputs = document.querySelectorAll(".form-group input");
+            const icons = document.querySelectorAll(".form-group img");
+
+            inputs.forEach((input, index) => {
+                const icon = icons[index];
+                if (rtlLanguages.includes(language)) {
+                    document.body.setAttribute("dir", "rtl");
+                    icon.style.right = "12px";
+                    icon.style.left = "auto";
+                    input.style.textAlign = "right";
+                    input.style.paddingLeft = "10px"; 
+                    input.style.paddingRight = "45px";
+                } else {
+                    document.body.setAttribute("dir", "ltr");
+                    icon.style.left = "12px";
+                    icon.style.right = "auto";
+                    input.style.textAlign = "left";
+                    input.style.paddingLeft = "45px";
+                    input.style.paddingRight = "10px";
+                }
+
+                // Update placeholder dynamically
+                input.placeholder = input.getAttribute(`data-placeholder-${language}`) || input.getAttribute("data-placeholder-en");
+            });
+        }
+    });
+</script>
+<div class="form-group" style="position: relative; display: flex; align-items: center;">
+    <img src="icon/skills-icon.png" alt="Skills Icon" id="skills-icon"
+        style="position: absolute; width: 20px; height: 20px; top: 50%; transform: translateY(-50%);">
+    <input type="text" id="skills" name="skills" 
+        placeholder="Enter your skills" 
+        data-placeholder-en="Enter your skills" 
+        data-placeholder-ur="اپنے ہنر درج کریں" 
+        data-placeholder-sd="پنھنجا مهارت داخل ڪريو" 
+        data-placeholder-ar="أدخل مهاراتك" 
+        data-placeholder-ru="Введите ваши навыки" 
+        data-placeholder-it="Inserisci le tue competenze" 
+        data-placeholder-de="Geben Sie Ihre Fähigkeiten ein" 
+        data-placeholder-hi="अपनी कौशल दर्ज करें" 
+        style="width: 100%; padding-left: 45px; padding-right: 45px; height: 40px; font-size: 16px; 
+               border: 1px solid #ccc; border-radius: 5px;">
+</div>
+
+<div class="form-group" style="position: relative; display: flex; align-items: center;">
+    <img src="icon/experience-icon.png" alt="Experience Icon" id="experience-icon"
+        style="position: absolute; width: 20px; height: 20px; top: 50%; transform: translateY(-50%);">
+    <input type="text" id="experience" name="experience" 
+        placeholder="Enter your experience" 
+        data-placeholder-en="Enter your experience"
+        data-placeholder-ur="اپنا تجربہ درج کریں"
+        data-placeholder-sd="پنھنجي تجربو داخل ڪريو"
+        data-placeholder-ar="أدخل تجربتك"
+        data-placeholder-ru="Введите ваш опыт"
+        data-placeholder-it="Inserisci la tua esperienza"
+        data-placeholder-de="Geben Sie Ihre Erfahrung ein"
+        data-placeholder-hi="अपना अनुभव दर्ज करें"
+        style="width: 100%; padding-left: 45px; padding-right: 45px; height: 40px; font-size: 16px; 
+               border: 1px solid #ccc; border-radius: 5px;">
+</div>
+
+<button class="next-btn enabled" id="next-btn-2" 
+   data-en="Next" 
+   data-ur="اگلا" 
+   data-sd="اڳين" 
+   data-ar="التالي" 
+   data-ru="Далее" 
+   data-it="Avanti" 
+   data-de="Weiter" 
+   data-hi="अगला">
+   Next
+</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+        setLanguage(savedLanguage);
+
+        function setLanguage(language) {
+            const rtlLanguages = ["ur", "sd", "ar"];
+            const inputFieldSkills = document.getElementById("skills");
+            const iconSkills = document.getElementById("skills-icon");
+            const inputFieldExperience = document.getElementById("experience");
+            const iconExperience = document.getElementById("experience-icon");
+
+            if (rtlLanguages.includes(language)) {
+                document.body.setAttribute("dir", "rtl");
+                iconSkills.style.right = "12px";
+                iconSkills.style.left = "auto";
+                inputFieldSkills.style.textAlign = "right";
+                inputFieldSkills.style.paddingLeft = "10px"; 
+                inputFieldSkills.style.paddingRight = "45px";
+
+                iconExperience.style.right = "12px";
+                iconExperience.style.left = "auto";
+                inputFieldExperience.style.textAlign = "right";
+                inputFieldExperience.style.paddingLeft = "10px"; 
+                inputFieldExperience.style.paddingRight = "45px";
+            } else {
+                document.body.setAttribute("dir", "ltr");
+                iconSkills.style.left = "12px";
+                iconSkills.style.right = "auto";
+                inputFieldSkills.style.textAlign = "left";
+                inputFieldSkills.style.paddingLeft = "45px";
+                inputFieldSkills.style.paddingRight = "10px";
+
+                iconExperience.style.left = "12px";
+                iconExperience.style.right = "auto";
+                inputFieldExperience.style.textAlign = "left";
+                inputFieldExperience.style.paddingLeft = "45px";
+                inputFieldExperience.style.paddingRight = "10px";
+            }
+
+            // Update placeholder text dynamically
+            inputFieldSkills.placeholder = inputFieldSkills.getAttribute(`data-placeholder-${language}`) || inputFieldSkills.getAttribute("data-placeholder-en");
+            inputFieldExperience.placeholder = inputFieldExperience.getAttribute(`data-placeholder-${language}`) || inputFieldExperience.getAttribute("data-placeholder-en");
+        }
+    });
+</script>
+
+    
+
+<script>
+    const backIcon = document.getElementById('back-icon');
+    const nextBtn = document.getElementById('next-btn');
+    const nextBtn2 = document.getElementById('next-btn-2');
+    const steps = document.querySelectorAll('.form-step');
+    const profileInputs = document.querySelectorAll('#step-2 .form-group input[required]');
+    let currentStep = 0;
+
+    // Select Account Type
+    document.querySelectorAll('.account-box').forEach((box) => {
+        box.addEventListener('click', function () {
+            document.querySelectorAll('.account-box').forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            nextBtn.disabled = false;
+            nextBtn.classList.add('enabled');
+        });
+    });
+
+    // Show next step
+    nextBtn.addEventListener('click', function () {
+        if (currentStep < steps.length - 1) {
+            steps[currentStep].classList.remove('active');
+            currentStep++;
+            steps[currentStep].classList.add('active');
+        }
+        backIcon?.classList.remove('hidden');
+    });
+
+   // Show next step from Step 2 to Step 3 with validation and alert
+nextBtn2.addEventListener('click', function () {
+    if (validateProfileFormWithAlert()) {
+        console.log("Validation passed, moving to Step 3");
+
+        // Redirect to the user profile page
+        window.location.href = 'account/laboraccount/userprofile.html';  // Change location
+
+        // Proceed with the steps update (if still needed)
+        if (currentStep < steps.length - 1) {
+            steps[currentStep].classList.remove('active');
+            currentStep++;
+            console.log("Current Step:", currentStep);
+            steps[currentStep].classList.add('active');
+        }
+    } else {
+        console.log("Validation failed! Missing required fields.");
+    }
+});
+
+   // Check if all required inputs in Step 2 are valid and show alerts for missing fields
+   function validateProfileFormWithAlert() {
+    let isValid = true;
+    let missingFields = [];
+
+    // Select all required inputs in Step 2
+    document.querySelectorAll('#step-2 .form-group input').forEach(input => {
+        if (!input.value.trim() && input.id !== 'experience') { // Skip experience in validation
+            isValid = false;
+            missingFields.push(input.placeholder);
+        }
+    });
+
+    if (!isValid) {
+        document.getElementById('missing-fields').innerText = missingFields.join(', ');
+        document.getElementById('custom-alert').classList.add('show');
+    }
+
+    return isValid;
+}
+
+    // Close the alert when the user clicks the close button or OK button
+    document.getElementById('alert-close-btn').addEventListener('click', function () {
+        document.getElementById('custom-alert').classList.remove('show');
+    });
+
+    document.getElementById('alert-ok-btn').addEventListener('click', function () {
+        document.getElementById('custom-alert').classList.remove('show');
+    });
+
+    // Back button functionality
+    backIcon?.addEventListener('click', function () {
+        if (currentStep > 0) {
+            steps[currentStep].classList.remove('active');
+            currentStep--;
+            steps[currentStep].classList.add('active');
+        }
+
+        if (currentStep === 0) {
+            backIcon.classList.add('hidden');
+        }
+    });
+
+    // Handle profile picture safely
+    let profilePic = 'No picture uploaded';
+    const profilePicInput = document.getElementById('profile-pic');
+    if (profilePicInput?.files.length > 0) {
+        profilePic = profilePicInput.files[0].name;
+    }
+
+    // Debugging: Log stored data to check if all values are captured
+    console.log("Profile Data Stored:", {
+        fullName, phoneNumber, email, location, skills, experience, profilePic
+    });
+
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+    
+    // Language Script to Update Translations
+    document.addEventListener("DOMContentLoaded", function() {
+        const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+        setLanguage(savedLanguage);
+
+        function setLanguage(language) {
+            // Set the language in the body tag to identify the current language
+            document.body.setAttribute("data-lang", language);
+
+            // Check if the selected language is an RTL language (Urdu, Sindhi, Arabic)
+            const rtlLanguages = ["ur", "sd", "ar"];
+            if (rtlLanguages.includes(language)) {
+                document.body.setAttribute("dir", "rtl");
+            } else {
+                document.body.setAttribute("dir", "ltr");
+            }
+
+            // Update translatable text in the content area (header and description)
+            document.querySelectorAll("[data-en]").forEach((element) => {
+                element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+            });
+
+            // Update placeholders for form input elements (all types, including email, phone, etc.)
+            document.querySelectorAll("input, textarea").forEach((element) => {
+                // Check if a placeholder translation exists for the selected language
+                const placeholder = element.getAttribute(`data-placeholder-${language}`);
+                if (placeholder) {
+                    // If a translated placeholder exists, set it
+                    element.setAttribute("placeholder", placeholder);
+                } else if (element.getAttribute("placeholder")) {
+                    // If no translation exists, keep the default placeholder
+                    const defaultPlaceholder = element.getAttribute("placeholder");
+                    element.setAttribute("placeholder", defaultPlaceholder);
+                }
+            });
+
+            // Update text content for input, button, and other elements with translatable text
+            document.querySelectorAll("[data-en-text]").forEach((element) => {
+                element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en-text");
+            });
+
+            // Translate button values (for buttons with type="submit" or type="button")
+            document.querySelectorAll("[data-en-button]").forEach((element) => {
+                const buttonText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en-button");
+                element.value = buttonText;
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

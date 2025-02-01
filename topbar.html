@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborLinko Top Bar</title>
+    <style>
+    /* General Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+    font-family: 'montserrat' sans-serif;
+}
+
+/* For Hindi, Urdu, Sindhi, and Arabic languages */
+body[data-lang="hi"] {
+    font-family: 'Scheherazade New', serif;;
+    
+}
+
+body[data-lang="ur"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="sd"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+/* For German, Italian, French */
+body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Language Button */
+.language-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.language-button:hover {
+    background-color: #0056B3;
+}
+
+/* Language Pop-up */
+.language-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 20% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+
+.popup-content select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #007BFF;
+    margin-top: 10px;
+    color: #0056B3;
+}
+
+.popup-content h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.close-btn {
+    font-size: 30px;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #007BFF;
+}
+
+.change-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.change-btn:hover {
+    background-color: #218838;
+}
+
+
+.top-bar {
+    font-family: 'roboto', sans-serif !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    direction: ltr !important;  /* Prevent any changes from language affecting the top bar */
+}
+/* Top Bar Item Styling */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 10px;  /* Adds spacing around each item */
+}
+
+.top-bar-item:hover {
+    color: #007BFF;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px; /* Set icon size to 24px */
+    height: 24px; /* Set icon size to 24px */
+    margin-right: 8px;
+}
+
+.top-bar-item .top-bar-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: gray;
+}
+
+.top-bar-item:hover .top-bar-label {
+    color: #007BFF;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem; /* Default size */
+    font-weight: 600;
+    color: #007BFF;
+    padding-right: 8px;
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 400;
+    color: #007BFF;
+}
+
+/* Responsive Logo Size */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 6.4vw;  /* Set size relative to the viewport width */
+    }
+}
+
+@media (min-width: 769px) {
+    .logo {
+        font-size: 2rem;  /* Default size for larger screens */
+    }
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #007BFF;
+}
+
+.nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #007BFF;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile-Only Styling (Small Screen) */
+@media (max-width: 768px) {
+    .top-bar {
+        top: 0%;
+        padding: 12px 10px;
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none;  /* Hide text labels on small screens */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 5vw;  /* Icon width relative to viewport width */
+        height: 5vw; /* Icon height relative to viewport width */
+        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
+        max-height: 28px; /* Maintain a max size */
+        min-width: 20px; /* Ensure icons do not shrink too small */
+        min-height: 20px; /* Minimum size for better usability */
+    }
+
+    .top-bar-item {
+        padding: 1px;
+        cursor: pointer;
+    }
+
+    .nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    /* Profile Icon size adjustments for mobile responsiveness */
+    .profile-icon {
+        width: 12vw;  /* Profile icon width relative to viewport width */
+        height: 12vw; /* Profile icon height relative to viewport width */
+        max-width: 50px;  /* Ensure profile icon does not get too large */
+        max-height: 50px; /* Max profile icon size */
+        min-width: 40px; /* Minimum profile icon size */
+        min-height: 40px; /* Keep profile icon size practical */
+        border-radius: 50%; /* Ensure it's circular */
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 24px;  /* Static size on desktop */
+        height: 24px; /* Static size on desktop */
+    }
+
+    .profile-icon {
+        width: 40px;  /* Fixed size on desktop */
+        height: 40px; /* Fixed size on desktop */
+    }
+}
+
+
+/* Desktop-Only Styling (Larger Screen) */
+@media (min-width: 769px) {
+    /* Show only text on desktop */
+    .top-bar-item .top-bar-label {
+        display: inline-block; /* Show text labels */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: none; /* Hide icons */
+    }
+}
+/* Login Button Container (for alignment) */
+.login-btn-container {
+    margin-left: 20px; /* Spacing from other top bar items */
+    display: flex;
+    align-items: center;
+}
+
+/* Login Button Styling */
+/* Adjusted Login Button */
+
+.login-btn {
+    background-color: rgba(0, 123, 255, 0.1); /* Subtle blue background */
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    font-size: 16px; /* Adjusted font size for consistency */
+    border-radius: 4px;
+    color: #007BFF; /* Brand blue color */
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif; /* Brand font */
+    font-weight: 500; /* Medium weight for balance */
+    text-transform: uppercase;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transitions */
+}
+
+/* Hover Effect for Login Button */
+.login-btn:hover {
+    background-color: #007BFF; /* Solid blue background */
+    color: #FFFFFF; /* White text */
+    border: 1px solid #007BFF; /* Blue border */
+}
+
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* For the entire page to have a flex layout to push the footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+    /* Hero Section */
+    section.hero {
+        background-color: #007BFF;
+        color: #fff;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+/* Language-specific styling for the body */
+body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;
+    direction: rtl;  /* Apply rtl only to the body */
+    text-align: right;
+}
+
+/* For other languages, ensure left-to-right text direction and proper layout */
+body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+    font-family: 'Roboto', sans-serif;
+    direction: ltr;
+}
+
+    </style>
+    
+    <div class="top-bar">
+    <div class="logo">
+        <span class="labor">Labor</span><span class="linko">Linko</span>
+    </div>
+    <div class="nav">
+        <a href="home.html">
+            <div class="top-bar-item">
+                <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
+                <span class="top-bar-label">Home</span>
+            </div>
+        </a>
+        <a href="services.html">
+            <div class="top-bar-item">
+                <img src="icon/services-icon.png" alt="Services" class="top-bar-icon">
+                <span class="top-bar-label">Services</span>
+            </div>
+        </a>
+        <a href="about.html">
+            <div class="top-bar-item">
+                <img src="icon/about-icon.png" alt="About" class="top-bar-icon">
+                <span class="top-bar-label">About</span>
+            </div>
+        </a>
+    </div>
+    <div class="profile-section">
+       
+            <div class="login-section">
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+        /* Language Button */
+        .language-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-button:hover {
+            background-color: #0056B3;
+        }
+
+        /* Language Pop-up */
+        .language-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .popup-content select {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #007BFF;
+            margin-top: 10px;
+        }
+
+        .popup-content h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .flag-icon {
+            margin-right: 8px;
+            width: 20px;
+            height: 14px;
+            vertical-align: middle;
+        }
+
+        .change-btn {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .change-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Top Bar (Unchanged) */
+        #topBar {
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            direction: ltr;  /* Ensure the top bar stays left-to-right */
+        }
+
+        /* Body and Footer Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+            font-family: 'Scheherazade New', serif;
+            direction: rtl; /* Apply rtl only to the body */
+            text-align: right;
+        }
+        body[data-lang="sd"] {
+            font-family: 'Scheherazade New', serif;
+
+}
+
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer[data-lang="ar"], footer[data-lang="ur"], footer[data-lang="sd"] {
+            direction: rtl; /* Apply rtl only to footer */
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Change Button -->
+    <button id="languageButton" class="language-button">Change Language</button>
+
+    <!-- Language Pop-up -->
+    <div id="languagePopup" class="language-popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup">&times;</span>
+            <h2>Select Language</h2>
+            <select id="languageSelect">
+                <option value="en" data-flag="🇬🇧">🇬🇧 English</option>
+                <option value="de" data-flag="🇩🇪">🇩🇪 German</option>
+                <option value="ur" data-flag="🇵🇰">🇵🇰 Urdu</option>
+                <option value="hi" data-flag="🇮🇳">🇮🇳 Hindi</option>
+                <option value="sd" data-flag="🇵🇰">🇵🇰 Sindhi</option>
+                <option value="it" data-flag="🇮🇹">🇮🇹 Italian</option>
+                <option value="ar" data-flag="🇸🇦">🇸🇦 Arabic</option>
+                <option value="ru" data-flag="🇷🇺">🇷🇺 Russian</option>
+            </select>
+            <button id="changeButton" class="change-btn">Change</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const languageButton = document.getElementById("languageButton");
+            const languagePopup = document.getElementById("languagePopup");
+            const closePopup = document.getElementById("closePopup");
+            const selectElement = document.getElementById("languageSelect");
+            const changeButton = document.getElementById("changeButton");
+
+            // Load language from localStorage
+            const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+            setLanguage(savedLanguage);
+
+            // Show popup
+            languageButton.onclick = () => languagePopup.style.display = "block";
+
+            // Hide popup
+            closePopup.onclick = () => languagePopup.style.display = "none";
+
+            // Hide popup when clicking outside
+            window.onclick = (event) => {
+                if (event.target === languagePopup) languagePopup.style.display = "none";
+            };
+
+            // Change language
+            changeButton.onclick = () => {
+                const selectedLang = selectElement.value;
+                setLanguage(selectedLang);
+                localStorage.setItem("selectedLanguage", selectedLang);
+                languagePopup.style.display = "none";
+            };
+
+            // Function to set language
+            function setLanguage(language) {
+                document.body.setAttribute("data-lang", language);
+                document.querySelector("footer").setAttribute("data-lang", language);
+
+                // Update translatable text in the content area (body and footer only)
+                document.querySelectorAll("[data-en]").forEach((element) => {
+                    element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+                });
+
+                // Set dropdown to the current language
+                selectElement.value = language;
+            }
+        });
+        document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        languagePopup.style.display = 'none';
+    }
+});
+
+    </script>
+
+    <!-- Hero Section -->
+
+
+<!-- Footer Section -->
+<footer class="footer">
+    <nav class="footer-nav">
+        <a href="#" data-en="About Us" data-ur="ہمارے بارے میں" data-hi="हमारे बारे में" data-sd="اسان بابت" data-de="Über uns" data-it="Chi siamo" data-ar="معلومات عنا" data-fr="À propos de nous">About Us</a>
+        <a href="#" data-en="FAQs" data-ur="عمومی سوالات" data-hi="अक्सर पूछे जाने वाले सवाल" data-sd="عام سوالات" data-de="FAQs" data-it="Domande frequenti" data-ar="الأسئلة الشائعة" data-fr="FAQ">FAQs</a>
+        <a href="#" data-en="Terms of Service" data-ur="سروس کی شرائط" data-hi="सेवा की शर्तें" data-sd="سروس جون شرائط" data-de="Nutzungsbedingungen" data-it="Termini di servizio" data-ar="شروط الخدمة" data-fr="Conditions d'utilisation">Terms of Service</a>
+        <a href="#" data-en="Privacy Policy" data-ur="پرائیویسی پالیسی" data-hi="गोपनीयता नीति" data-sd="رازداري پاليسي" data-de="Datenschutzrichtlinie" data-it="Politica sulla privacy" data-ar="سياسة الخصوصية" data-fr="Politique de confidentialité">Privacy Policy</a>
+    </nav>
+    <p data-en="&copy; 2025 LaborLinko" data-ur="© 2025 LaborLinko" data-hi="© 2025 LaborLinko" data-sd="© 2025 LaborLinko" data-de="© 2025 LaborLinko" data-it="© 2025 LaborLinko" data-ar="© 2025 LaborLinko" data-fr="© 2025 LaborLinko">
+        &copy; 2025 LaborLinko
+    </p>
+</footer>
+<script>
+    // Language Script to Update Translations
+    document.addEventListener("DOMContentLoaded", function() {
+        const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+        setLanguage(savedLanguage);
+
+        function setLanguage(language) {
+            // Set the language in the body tag to identify current language
+            document.body.setAttribute("data-lang", language);
+
+            // Update translatable text in the content area (header and description)
+            document.querySelectorAll("[data-en]").forEach((element) => {
+                element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+            });
+        }
+    });
+</script>
+</body>
+</html>

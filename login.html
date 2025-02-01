@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="language.js"></script>
+    <title>LaborLinko - Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background: linear-gradient(to bottom right, #f9f9f9, #eaeaea);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Close Icon */
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #007BFF;
+            cursor: pointer;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .close-icon:hover {
+            color: #0056b3;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .logo .labor {
+            font-weight: 600;
+        }
+
+        .logo .linko {
+            font-weight: 400;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: linear-gradient(to bottom right, #eaeaea, #f9f9f9);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            text-align: left;
+            position: relative;
+        }
+
+        .header {
+            font-size: 28px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+            margin-top: 80px; /* Align Sign In header with logo */
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input {
+            width: 95%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .extra-links {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .extra-links a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Media Buttons */
+        .social-login-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .social-login-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+        }
+
+        .social-login-button:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-login-button img {
+            width: 24px;
+            margin-right: 10px;
+        }
+
+        /* Responsive Design for small devices */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 30px;
+        top: 40px;
+    }
+
+    .container {
+        top: 0px;
+        position: fixed;
+        margin-bottom: 200px;
+        padding: 30px 20px;
+    }
+
+    .header {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    input, button {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    .social-login-buttons {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo {
+        font-size: 24px;
+        top: 52px;
+    }
+
+    .container {
+        padding: 25px 15px;
+        width: 90%;
+    }
+
+    .header {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .extra-links {
+        font-size: 13px;
+        padding: 4px;
+    }
+}
+/* Align labels and placeholders to the right for RTL languages */
+body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+    direction: rtl; /* Ensures the entire page is aligned for RTL */
+    text-align: right; /* Aligns text to the right */
+}
+
+/* Specific adjustment for labels in RTL */
+body[data-lang="ar"] label, body[data-lang="ur"] label, body[data-lang="sd"] label {
+    text-align: right; /* Aligns label text to the right */
+    float: right; /* Moves the label to the right */
+}
+
+/* Specific adjustment for input fields in RTL */
+body[data-lang="ar"] input, body[data-lang="ur"] input, body[data-lang="sd"] input {
+    text-align: right; /* Aligns input text to the right */
+    direction: rtl; /* Ensures the input text is typed from right to left */
+}
+
+/* Adjust button text for RTL */
+body[data-lang="ar"] button, body[data-lang="ur"] button, body[data-lang="sd"] button {
+    text-align: right; /* Aligns the button text to the right */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Close Icon (Redirects to Dashboard) -->
+        <a href="home.html" class="close-icon">&#x2716;</a> <!-- Unicode 'X' symbol -->
+        <!-- Logo -->
+        <div class="logo">
+            <span class="labor">Labor</span><span class="linko">Linko</span>
+        </div>
+        <div class="header">Sign In</div>
+        <form action="/login" method="POST">
+            <label for="email" 
+    data-en="Email Address" 
+    data-de="E-Mail-Adresse" 
+    data-ur="ای میل ایڈریس" 
+    data-hi="ईमेल पता" 
+    data-sd="اي ميل پتو" 
+    data-it="Indirizzo email" 
+    data-fr="Adresse e-mail" 
+    data-ar="عنوان البريد الإلكتروني">
+    Email Address
+</label>
+<input type="email" id="email" name="email" 
+    placeholder="Enter your email address" required
+    data-en="Enter your email address" 
+    data-de="Geben Sie Ihre E-Mail-Adresse ein" 
+    data-ur="اپنی ای میل ایڈریس درج کریں" 
+    data-hi="अपना ईमेल पता दर्ज करें" 
+    data-sd="پنھنجو اي ميل ايڊريس داخل ڪريو" 
+    data-it="Inserisci il tuo indirizzo email" 
+    data-fr="Entrez votre adresse e-mail" 
+    data-ar="أدخل عنوان بريدك الإلكتروني">
+    
+<label for="password" 
+    data-en="Password" 
+    data-de="Passwort" 
+    data-ur="پاس ورڈ" 
+    data-hi="पासवर्ड" 
+    data-sd="پاسورڊ" 
+    data-it="Password" 
+    data-fr="Mot de passe" 
+    data-ar="كلمة المرور">
+    Password
+</label>
+<input type="password" id="password" name="password" 
+    placeholder="Enter your password" required
+    data-en="Enter your password" 
+    data-de="Geben Sie Ihr Passwort ein" 
+    data-ur="اپنا پاس ورڈ درج کریں" 
+    data-hi="अपना पासवर्ड दर्ज करें" 
+    data-sd="پنھنجو پاسورڊ داخل ڪريو" 
+    data-it="Inserisci la tua password" 
+    data-fr="Entrez votre mot de passe" 
+    data-ar="أدخل كلمة المرور الخاصة بك">
+
+<button style="text-align: center;" type="submit" 
+    data-en="Sign In" 
+    data-de="Anmelden" 
+    data-ur="لاگ ان کریں" 
+    data-hi="साइन इन करें" 
+    data-sd="لاگ ان ڪريو" 
+    data-it="Accedi" 
+    data-fr="Se connecter" 
+    data-ar="تسجيل الدخول">
+    Sign In
+</button>
+
+        </form>
+        <div class="extra-links">
+            <h3 
+                data-en="Don’t have an account?" 
+                data-de="Haben Sie kein Konto?" 
+                data-ur= "کیا آپ کا اکاؤنٹ نہیں ہے ؟"
+                data-hi="क्या आपके पास खाता नहीं है?" 
+                data-sd="ڇا اوهان وٽ اڪائونٽ ناهي؟" 
+                data-it="Non hai un account?" 
+                data-fr="Vous n'avez pas de compte ?" 
+                data-ar="ليس لديك حساب؟">
+                Don’t have an account? 
+        </h3>
+        
+            <a style="font-size: medium;" href="accountsetup.html" 
+                data-en= "Create a new account" 
+                data-de="Erstelle ein neues Konto" 
+                data-ur="نیا اکاؤنٹ بنائیں" 
+                data-hi="नया खाता बनाएं" 
+                data-sd="نئون اڪائونٽ ٺاهيو" 
+                data-it="Crea un nuovo account" 
+                data-fr="Créer un nouveau compte" 
+                data-ar="أنشئ حسابًا جديدًا">
+                Create a new account
+            </a>
+        </h3>
+            <p style="text-align: center;" 
+                data-en="OR" 
+                data-de="ODER" 
+                data-ur="یا" 
+                data-hi="या" 
+                data-sd="يا" 
+                data-it="O" 
+                data-fr="OU" 
+                data-ar="أو">
+                OR
+            </p>
+        
+            <a style="font-size: medium;" href="forgotpassword.html" 
+                data-en="Forgot Password?" 
+                data-de="Passwort vergessen?" 
+                data-ur="پاسورڈ بھول گئے؟" 
+                data-hi="पासवर्ड भूल गए?" 
+                data-sd="پاسورڊ وساري ويو؟" 
+                data-it="Password dimenticato?" 
+                data-fr="Mot de passe oublié?" 
+                data-ar="نسيت كلمة المرور؟">
+                Forgot Password?
+            </a>
+        
+            <p style="text-align: center;" 
+        data-en="You can also sign in using your social media accounts." 
+        data-de="Sie können sich auch mit Ihren sozialen Medien-Konten anmelden." 
+        data-ur="آپ اپنے سوشل میڈیا اکاؤنٹس کے ذریعے بھی لاگ ان کر سکتے ہیں۔" 
+        data-hi="आप अपने सोशल मीडिया खातों से भी साइन इन कर सकते हैं।" 
+        data-sd="توهان پڻ پنهنجن سوشل ميڊيا اڪائونٽن سان سائن ان ڪري سگهو ٿا." 
+        data-it="Puoi anche accedere con i tuoi account social." 
+        data-fr="Vous pouvez également vous connecter avec vos comptes de réseaux sociaux." 
+        data-ar="يمكنك أيضًا تسجيل الدخول باستخدام حساباتك على وسائل التواصل الاجتماعي.">
+        You can also sign in using your social media accounts.
+    </p>
+        </div>        
+        
+        <!-- Social Media Login Buttons -->
+        <div class="social-login-buttons">
+            <div class="social-login-button">
+                <img src="icon/google-icon.png" alt="Google Icon"> 
+                <span data-en="Sign in with Google" data-de="Mit Google anmelden" data-ur="گوگل کے ساتھ سائن ان کریں" data-hi="गूगल से साइन इन करें" data-sd="گوگل سان سائن ان ڪريو" data-it="Accedi con Google" data-fr="Se connecter avec Google" data-ar="تسجيل الدخول باستخدام جوجل">
+                    Sign in with Google 
+                </span>
+            </div>
+            <div class="social-login-button">
+                <img src="icon/fb-icon.png" alt="Facebook Icon"> 
+                <span data-en="Sign in with Facebook" data-de="Mit Facebook anmelden" data-ur="فیس بک کے ساتھ سائن ان کریں" data-hi="फेसबुक से साइन इन करें" data-sd="فيس بڪ سان سائن ان ڪريو" data-it="Accedi con Facebook" data-fr="Se connecter avec Facebook" data-ar="تسجيل الدخول باستخدام فيسبوك">
+                    Sign in with Facebook
+                </span>
+            </div>
+            <div class="social-login-button">
+                <img src="icon/x-icon.png" alt="X (Twitter) Icon"> 
+                <span data-en="Sign in with X (Twitter)" data-de="Mit X (Twitter) anmelden" data-ur="ایکس (ٹوئٹر) کے ساتھ سائن ان کریں" data-hi="X (ट्विटर) से साइन इन करें" data-sd="سان سائن ان ڪريو X (Twitter)" data-it="Accedi con X (Twitter)" data-fr="Se connecter avec X (Twitter)" data-ar="تسجيل الدخول باستخدام X (تويتر)">
+                    Sign in with X (Twitter)
+                </span>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        // Language Script to Update Translations
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+            setLanguage(savedLanguage);
+    
+            function setLanguage(language) {
+                // Set the language in the body tag to identify the current language
+                document.body.setAttribute("data-lang", language);
+    
+                // Adjust direction for RTL and LTR languages
+                const rtlLanguages = ["ur", "sd", "ar"];
+                if (rtlLanguages.includes(language)) {
+                    document.body.style.direction = "rtl";
+                    document.body.style.textAlign = "right";
+                } else {
+                    document.body.style.direction = "ltr";
+                    document.body.style.textAlign = "left";
+                }
+    
+                // Update translatable text in the content area (e.g., text and placeholders)
+                document.querySelectorAll("[data-en]").forEach((element) => {
+                    // For elements with inner text (like <p>, <span>, etc.)
+                    if (element.tagName !== "INPUT" && element.tagName !== "TEXTAREA") {
+                        element.innerText =
+                            element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+                    } else {
+                        // For input and textarea elements, update the placeholder
+                        element.placeholder =
+                            element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+                    }
+                });
+            }
+    
+            // Example: Change language when triggered (add your language switching logic here)
+            document.getElementById("changeLanguageButton").addEventListener("click", () => {
+                const selectedLanguage = document.getElementById("languageSelect").value;
+                localStorage.setItem("selectedLanguage", selectedLanguage);
+                setLanguage(selectedLanguage);
+            });
+        });
+    </script>
+    
+</body>
+</html>

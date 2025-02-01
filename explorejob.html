@@ -1,0 +1,1687 @@
+
+<style>
+    /* CSS Variables for easy customization */
+    :root {
+        --primary-color: #f8f8f8;
+        --primary-hover: #007BFF;
+        --success-color: #28a745;
+        --success-hover: #218838;
+        --background-overlay: rgba(0, 0, 0, 0.5);
+        --font-family-ltr: 'Roboto', sans-serif;
+        --font-family-rtl: 'Scheherazade New', serif;
+    }
+
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-family-ltr);
+    }
+
+
+/* Language Button - Now Positioned at the Top Right with Icon */
+.language-button {
+background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+backdrop-filter: blur(10px); /* Apply the blur effect */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    padding: 6px 6px;
+    margin: 0px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: fixed;
+    top: 20%;
+    max-height: 60px;
+    right: 0px;
+    z-index: 10000;
+    transition: background-color 0.3s ease-out;
+    align-items: center;
+    opacity: 80%;
+}
+
+.language-icon {
+    margin-right: 10px;  /* Space between icon and text */
+    width: 24px;         /* Icon size */
+    height: 24px;
+}
+
+.language-button:hover {
+    background-color: var(--primary-hover);
+    color: #fff;
+    opacity: 70%;
+}
+
+
+    /* Language Pop-up */
+    .language-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--background-overlay);
+        transition: opacity 0.3s ease;
+        z-index: 9999;
+    }
+
+    .popup-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .popup-content h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .popup-content select {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid var(--primary-color);
+        margin-top: 10px;
+    }
+
+    .popup-content select option {
+        display: flex;
+        align-items: center;
+    }
+
+    .popup-content select option img {
+        width: 20px;
+        height: 14px;
+        margin-right: 8px;
+    }
+
+    .change-btn {
+        background-color: var(--success-color);
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+
+    .change-btn:hover {
+        background-color: var(--success-hover);
+    }
+
+    /* Close Button for Pop-up */
+    .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .language-button {
+            right: 0px;
+            top: 140px;
+        }
+
+        .popup-content {
+            padding: 15px;
+            width: 80%;
+            max-width: 400px;
+            top: 10px;
+        }
+
+        .popup-content h2 {
+            font-size: 16px;
+        }
+
+        .popup-content select {
+            padding: 7px 10px;
+            font-size: 14px;
+        }
+
+        .change-btn {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+    }
+
+    /* RTL Languages Styling */
+    body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+        font-family: var(--font-family-rtl);
+        direction: rtl;
+        text-align: right;
+    }
+
+    body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+        font-family: var(--font-family-ltr);
+        direction: ltr;
+    }
+</style>
+</head>
+<body>
+<button id="languageButton" class="language-button" aria-label="Change language">
+    <img src="icon/language-icon.png" alt="Language Icon" class="language-icon" id="languageIcon">
+</button>
+
+<!-- Language Pop-up -->
+<div id="languagePopup" class="language-popup">
+    <div class="popup-content">
+        <span class="close-btn" id="closePopup" aria-label="Close Popup">&times;</span>
+        <h2 id="popupTitle">Select Language</h2>
+        <select id="languageSelect">
+            <option value="en">&#127468;&#127463; English</option>
+            <option value="de">&#127465;&#127466; German</option>
+            <option value="ur">&#127477;&#127472; Urdu</option> <!-- 🇵🇰 Pakistan -->
+            <option value="hi">&#127470;&#127475; Hindi</option>
+            <option value="sd">&#127477;&#127472; Sindhi</option> <!-- 🇵🇰 Pakistan -->
+            <option value="it">&#127470;&#127481; Italian</option>
+            <option value="ar">&#127462;&#127466; Arabic</option>
+            <option value="ru">&#127479;&#127482; Russian</option>
+        </select>
+        <button id="changeButton" class="change-btn" aria-label="Change language">Change</button>
+    </div>
+</div>
+
+<script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+    const languageButton = document.getElementById('languageButton');
+    const languageIcon = document.getElementById('languageIcon');
+    const languagePopup = document.getElementById("languagePopup");
+    const closePopup = document.getElementById("closePopup");
+    const selectElement = document.getElementById("languageSelect");
+    const changeButton = document.getElementById("changeButton");
+    const popupTitle = document.getElementById("popupTitle");
+
+    // Load language from localStorage or default to 'en'
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    setLanguage(savedLanguage);
+
+    // Change icon on hover
+    languageButton.addEventListener('mouseenter', () => {
+        languageIcon.src = 'icon/language-icon2.png';  // Hover icon
+    });
+
+    languageButton.addEventListener('mouseleave', () => {
+        languageIcon.src = 'icon/language-icon.png';  // Original icon
+    });
+
+    // Show popup
+    languageButton.onclick = () => languagePopup.style.display = "block";
+
+    // Hide popup
+    closePopup.onclick = () => languagePopup.style.display = "none";
+
+    // Hide popup when clicking outside
+    window.onclick = (event) => {
+        if (event.target === languagePopup) languagePopup.style.display = "none";
+    };
+
+    // Change language on button click
+    changeButton.onclick = () => {
+        const selectedLang = selectElement.value;
+        setLanguage(selectedLang);
+        localStorage.setItem("selectedLanguage", selectedLang);
+        languagePopup.style.display = "none";
+    };
+
+    // Function to update the language for the page
+    function setLanguage(language) {
+        document.body.setAttribute("data-lang", language);
+
+        // Update text for all elements with [data-en] attribute
+        document.querySelectorAll("[data-en]").forEach((element) => {
+            element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+        });
+
+        // Update placeholders for input fields
+        document.querySelectorAll("input[placeholder]").forEach((input) => {
+            if (input.hasAttribute("data-en")) {
+                input.setAttribute("placeholder", input.getAttribute(`data-${language}`) || input.getAttribute("data-en"));
+            }
+        });
+
+        // Set popup title and button text based on language
+        const languageText = {
+            en: { title: "Select Language", button: "Change" },
+            de: { title: "Sprache wählen", button: "Ändern" },
+            ur: { title: "زبان منتخب کریں", button: "تبدیل کریں" },
+            hi: { title: "भाषा चुनें", button: "बदले" },
+            sd: { title: "ٻولي چونڊيو", button: "تبديل ڪريو" },
+            it: { title: "Seleziona la lingua", button: "Cambia" },
+            ar: { title: "اختر اللغة", button: "تغيير" },
+            ru: { title: "Выберите язык", button: "Изменить" }
+        };
+
+        // Update popup title and change button text
+        popupTitle.innerText = languageText[language]?.title || languageText["en"].title;
+        changeButton.innerText = languageText[language]?.button || languageText["en"].button;
+
+        // Ensure correct RTL for languages like Sindhi, Urdu, and Arabic
+        if (["ur", "sd", "ar"].includes(language)) {
+            document.body.style.direction = "rtl";
+        } else {
+            document.body.style.direction = "ltr";
+        }
+
+        // Set the dropdown to the current language
+        selectElement.value = language;
+
+        // Reapply file input event listener (for profile pic upload)
+        const fileInput = document.getElementById("profile-pic");
+        if (fileInput) {
+            fileInput.removeEventListener("change", loadImage); // Remove previous listener
+            fileInput.addEventListener("change", loadImage); // Add it back
+        }
+    }
+
+    // Close language popup when ESC key is pressed
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            languagePopup.style.display = 'none';
+        }
+    });
+
+    // Profile picture upload functionality (loadImage function)
+    function loadImage(event) {
+        const uploadStatus = document.getElementById("upload-status");
+        const waterFill = document.getElementById("water-fill");
+        const uploadText = document.getElementById("upload-text");
+        const uploadLabel = document.querySelector(".upload-label");
+        const loadingSpinner = document.getElementById("loading-spinner");
+
+        // Get the current language setting
+        const lang = document.body.getAttribute("data-lang") || "en";
+
+        // Start water animation
+        waterFill.style.height = "100%";
+        uploadText.style.color = "white";
+
+        // Show upload success message
+        uploadStatus.style.display = "block";
+        uploadStatus.innerText = uploadStatus.getAttribute(`data-${lang}`) || "Picture Uploaded Successfully!";
+
+        // Show loading spinner
+        loadingSpinner.style.display = "block";
+
+        // Read file input
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            loadingSpinner.style.display = "none";
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborLinko Top Bar</title>
+    <style>
+    /* General Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+    font-family: 'montserrat' sans-serif;
+}
+
+/* For Hindi, Urdu, Sindhi, and Arabic languages */
+body[data-lang="hi"] {
+    font-family: 'Scheherazade New', serif;;
+    
+}
+
+body[data-lang="ur"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="sd"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+/* For German, Italian, French */
+body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.top-bar {
+    font-family: 'roboto', sans-serif !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    direction: ltr !important;  /* Prevent any changes from language affecting the top bar */
+}
+/* Top Bar Item Styling */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 10px;  /* Adds spacing around each item */
+}
+
+.top-bar-item:hover {
+    color: #007BFF;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px; /* Set icon size to 24px */
+    height: 24px; /* Set icon size to 24px */
+    margin-right: 6px;
+    margin-bottom: 0px;
+}
+
+.top-bar-item .top-bar-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: gray;
+}
+
+.top-bar-item:hover .top-bar-label {
+    color: #007BFF;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem; /* Default size */
+    font-weight: 600;
+    color: #007BFF;
+    padding-right: 8px;
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 400;
+    color: #007BFF;
+}
+
+/* Responsive Logo Size */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 6vw;  /* Set size relative to the viewport width */
+        max-font-size: 2rem;  /* Maximum size, keeping it from getting too big */
+        min-font-size: 1.5rem; /* Minimum size, keeping it readable */
+    }
+}
+
+@media (min-width: 769px) {
+    .logo {
+        font-size: 2rem;  /* Default size for larger screens */
+    }
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #007BFF;
+}
+
+.nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #007BFF;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile-Only Styling (Small Screen) */
+@media (max-width: 768px) {
+    .top-bar {
+        top: 0%;
+        padding: 12px 10px;
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none;  /* Hide text labels on small screens */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 5vw;  /* Icon width relative to viewport width */
+        height: 5vw; /* Icon height relative to viewport width */
+        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
+        max-height: 28px; /* Maintain a max size */
+        min-width: 20px; /* Ensure icons do not shrink too small */
+        min-height: 20px; /* Minimum size for better usability */
+    }
+
+    .top-bar-item {
+        padding: 0px;
+    }
+
+    .nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    /* Profile Icon size adjustments for mobile responsiveness */
+    .profile-icon {
+        width: 12vw;  /* Profile icon width relative to viewport width */
+        height: 12vw; /* Profile icon height relative to viewport width */
+        max-width: 50px;  /* Ensure profile icon does not get too large */
+        max-height: 50px; /* Max profile icon size */
+        min-width: 40px; /* Minimum profile icon size */
+        min-height: 40px; /* Keep profile icon size practical */
+        border-radius: 50%; /* Ensure it's circular */
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 24px;  /* Static size on desktop */
+        height: 24px; /* Static size on desktop */
+    }
+
+    .profile-icon {
+        width: 40px;  /* Fixed size on desktop */
+        height: 40px; /* Fixed size on desktop */
+    }
+}
+
+
+/* Desktop-Only Styling (Larger Screen) */
+@media (min-width: 769px) {
+    /* Show only text on desktop */
+    .top-bar-item .top-bar-label {
+        display: inline-block; /* Show text labels */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: none; /* Hide icons */
+    }
+}
+/* Login Button Container (for alignment) */
+.login-btn-container {
+    margin-left: 20px; /* Spacing from other top bar items */
+    display: flex;
+    align-items: center;
+}
+
+/* Login Button Styling */
+/* Adjusted Login Button */
+
+.login-btn {
+    background-color: rgba(0, 123, 255, 0.1); /* Subtle blue background */
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    font-size: 16px; /* Adjusted font size for consistency */
+    border-radius: 4px;
+    color: #007BFF; /* Brand blue color */
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif; /* Brand font */
+    font-weight: 500; /* Medium weight for balance */
+    text-transform: uppercase;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transitions */
+}
+
+/* Hover Effect for Login Button */
+.login-btn:hover {
+    background-color: #007BFF; /* Solid blue background */
+    color: #FFFFFF; /* White text */
+    border: 1px solid #007BFF; /* Blue border */
+}
+
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* For the entire page to have a flex layout to push the footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+    /* Hero Section */
+    section.hero {
+        background-color: #007BFF;
+        color: #fff;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+/* Language-specific styling for the body */
+body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;
+    direction: rtl;  /* Apply rtl only to the body */
+    text-align: right;
+}
+
+/* For other languages, ensure left-to-right text direction and proper layout */
+body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+    font-family: 'Roboto', sans-serif;
+    direction: ltr;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    gap: 12px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+/* Search Input Styles */
+.search-box, .location-box {
+    flex: 1;
+    position: relative;
+    min-width: 200px; /* Ensures a minimum width for smaller screens */
+}
+
+.search-box .search-input, 
+.location-box .location-input {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.search-box .search-input:focus, 
+.location-box .location-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Icon Styling */
+.search-box .search-input {
+    background: url('icon/search-icon.png') no-repeat 12px center;
+    background-size: 18px;
+}
+
+.location-box .location-input {
+    background: url('icon/location-icon.png') no-repeat 12px center;
+    background-size: 18px;
+}
+
+/* Button Styling */
+.btn-search, .filter-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-search:hover, .filter-button:hover {
+    background-color: #0056b3;
+}
+
+/* Filter Dropdown */
+/* Filter Dropdown */
+.filter-dropdown {
+    display: none;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.filter-dropdown.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Filter Item */
+.filter-item {
+    margin-bottom: 16px;
+}
+
+.filter-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Filter Input Fields */
+.filter-input {
+    width: 100%;
+    padding: 14px 26px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Apply Filter Button */
+.apply-filter-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.apply-filter-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Currency Button inside Filter Section */
+.currency-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 16px;
+}
+
+.currency-button:hover {
+    background-color: #218838;
+}
+
+/* Currency Popup */
+.currency-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.currency-popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.currency-popup h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+#currencySelect {
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.apply-currency-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.apply-currency-btn:hover {
+    background-color: #218838;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Responsive Design for Filter Section */
+@media (max-width: 768px) {
+    .filter-dropdown {
+        padding: 14px; /* Reduced padding for mobile */
+    }
+
+    .filter-item {
+        margin-bottom: 14px;
+    }
+
+    .filter-input {
+        font-size: 14px; /* Adjusted font size for better readability */
+        padding: 12px 14px;
+    }
+
+    .apply-filter-btn {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    .currency-button {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    .currency-popup-content {
+        padding: 20px;
+    }
+
+    .currency-popup h2 {
+        font-size: 18px;
+    }
+
+    #currencySelect {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .apply-currency-btn {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-dropdown {
+        padding: 12px;
+        margin-top: 8px;
+    }
+
+    .filter-item {
+        margin-bottom: 12px;
+    }
+
+    .filter-input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .apply-filter-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .currency-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .currency-popup-content {
+        padding: 15px;
+    }
+
+    .currency-popup h2 {
+        font-size: 16px;
+    }
+
+    #currencySelect {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .apply-currency-btn {
+        font-size: 14px;
+    }
+}
+
+        /* Top Bar (Unchanged) */
+        #topBar {
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            direction: ltr;  /* Ensure the top bar stays left-to-right */
+        }
+
+        /* Body and Footer Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+            font-family: 'Scheherazade New', serif;
+            direction: rtl; /* Apply rtl only to the body */
+            text-align: right;
+        }
+        body[data-lang="sd"] {
+            font-family: 'Scheherazade New', serif;
+
+}
+
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer[data-lang="ar"], footer[data-lang="ur"], footer[data-lang="sd"] {
+            direction: rtl; /* Apply rtl only to footer */
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="top-bar">
+    <div class="logo">
+        <span class="labor">Labor</span><span class="linko">Linko</span>
+    </div>
+    <div class="nav">
+        <a href="home.html">
+            <div class="top-bar-item">
+                <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
+                <span class="top-bar-label">Home</span>
+            </div>
+        </a>
+        <a href="services.html">
+            <div class="top-bar-item">
+                <img src="icon/services-icon.png" alt="Message" class="top-bar-icon">
+                <span class="top-bar-label">Message</span>
+            </div>
+        </a>
+        <a href="about.html">
+            <div class="top-bar-item">
+                <img src="icon/about-icon.png" alt="Notification" class="top-bar-icon">
+                <span class="top-bar-label">Notification</span>
+            </div>
+        </a>
+    </div>
+            <div class="login-section">
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+    </div>
+</div>
+<!--Hero Section-->
+<section class="search-bar">
+    <div class="search-box">
+        <i class="search-icon fas fa-search"></i>
+        <input type="text" 
+               placeholder="Search Job" 
+               class="search-input" 
+               data-en="Search Job" 
+               data-ur="نوکری تلاش کریں" 
+               data-fr="Rechercher un emploi" 
+               data-es="Buscar trabajo" 
+               data-de="Job suchen" 
+               data-ar="ابحث عن وظيفة" 
+               data-hi="नौकरी खोजें" 
+               data-zh="搜索工作">
+    </div>
+    <div class="location-box">
+        <i class="location-icon fas fa-map-marker-alt"></i>
+        <input type="text" 
+               placeholder="Enter Location" 
+               class="location-input" 
+               data-en="Enter Location" 
+               data-ur="مقام درج کریں" 
+               data-fr="Entrez l'emplacement" 
+               data-es="Ingresar ubicación" 
+               data-de="Standort eingeben" 
+               data-ar="أدخل الموقع" 
+               data-hi="स्थान दर्ज करें" 
+               data-zh="输入位置">
+    </div>
+    <div class="action-buttons">
+        <button class="btn-search" 
+                data-en="Search" 
+                data-ur="تلاش کریں" 
+                data-fr="Chercher" 
+                data-es="Buscar" 
+                data-de="Suchen" 
+                data-ar="بحث" 
+                data-hi="खोज" 
+                data-zh="搜索">Search</button>
+    </div>
+    <button class="filter-button" id="filterButton" 
+            data-en="Filter" 
+            data-ur="فلٹر" 
+            data-fr="Filtre" 
+            data-es="Filtrar" 
+            data-de="Filter" 
+            data-ar="تصفية" 
+            data-hi="फ़िल्टर" 
+            data-zh="筛选">Filter</button>
+</section>
+<!-- Filter Dropdown Section -->
+<div class="filter-dropdown" id="filterDropdown">
+    <div class="filter-item">
+        <label for="job-type" 
+               data-en="Job Type:" 
+               data-ur="کام کی قسم:" 
+               data-fr="Type d'emploi:" 
+               data-es="Tipo de trabajo:" 
+               data-de="Jobtyp:" 
+               data-ar="نوع الوظيفة:" 
+               data-hi="नौकरी का प्रकार:" 
+               data-zh="工作类型：">Job Type:</label>
+        <select id="job-type" class="filter-input">
+            <option value="full-time" 
+                    data-en="Full-time" 
+                    data-ur="کل وقتی" 
+                    data-fr="Temps plein" 
+                    data-es="Tiempo completo" 
+                    data-de="Vollzeit" 
+                    data-ar="دوام كامل" 
+                    data-hi="पूर्णकालिक" 
+                    data-zh="全职">Full-time</option>
+            <option value="part-time" 
+                    data-en="Part-time" 
+                    data-ur="جز وقتی" 
+                    data-fr="Temps partiel" 
+                    data-es="Medio tiempo" 
+                    data-de="Teilzeit" 
+                    data-ar="دوام جزئي" 
+                    data-hi="अंशकालिक" 
+                    data-zh="兼职">Part-time</option>
+            <option value="temporary" 
+                    data-en="Temporary" 
+                    data-ur="عارضی" 
+                    data-fr="Temporaire" 
+                    data-es="Temporal" 
+                    data-de="Vorübergehend" 
+                    data-ar="مؤقت" 
+                    data-hi="अस्थायी" 
+                    data-zh="临时">Temporary</option>
+            <option value="contract" 
+                    data-en="Contract" 
+                    data-ur="معاہدہ" 
+                    data-fr="Contrat" 
+                    data-es="Contrato" 
+                    data-de="Vertrag" 
+                    data-ar="عقد" 
+                    data-hi="ठेका" 
+                    data-zh="合同">Contract</option>
+            <option value="other" 
+                    data-en="Other" 
+                    data-ur="دیگر" 
+                    data-fr="Autre" 
+                    data-es="Otro" 
+                    data-de="Andere" 
+                    data-ar="آخر" 
+                    data-hi="अन्य" 
+                    data-zh="其他">Other</option>
+        </select>
+    </div>
+    <div class="filter-item">
+        <label for="salary-range" 
+       data-en="Salary Range:" 
+       data-ur="تنخواہ کی حد:" 
+       data-fr="Échelle salariale:" 
+       data-es="Rango salarial:" 
+       data-de="Gehaltsbereich:" 
+       data-ar="نطاق الراتب:" 
+       data-hi="वेतन सीमा:">Salary Range:</label>
+
+<input type="range" id="salary-range" class="filter-input" min="400" max="100000" value="5000">
+<span id="salary-output" class="range-value">5000</span>
+
+    </div>
+    <script>
+        
+    </script>
+    
+    <!-- Currency Dropdown Button inside Filter Section -->
+    <div class="filter-item">
+        <button class="currency-button" id="currencyButton">Change Currency</button>
+    </div>
+    
+    <div class="filter-item">
+        <button class="apply-filter-btn" 
+                data-en="Apply Filters" 
+                data-ur="فلٹر لاگو کریں" 
+                data-fr="Appliquer les filtres" 
+                data-es="Aplicar filtros" 
+                data-de="Filter anwenden" 
+                data-ar="تطبيق المرشحات" 
+                data-hi="फिल्टर लागू करें" 
+                data-zh="应用筛选器">Apply Filters</button>
+    </div>
+</div>
+
+<!-- Currency Popup -->
+<div class="currency-popup" id="currencyPopup">
+    <div class="currency-popup-content">
+        <span class="close-popup" id="closePopup">&times;</span>
+        <h2 data-en="Select Currency" data-ur="کرنسی منتخب کریں" data-fr="Sélectionner la devise" data-es="Seleccionar moneda" data-de="Währung auswählen" data-ar="اختر العملة" data-hi="मुद्रा चुनें">Select Currency</h2>
+        <select id="currencySelect">
+            <option value="usd" data-en="USD" data-ur="امریکی ڈالر" data-fr="USD" data-es="USD" data-de="USD" data-ar="دولار أمريكي" data-hi="यूएसडी">USD</option>
+            <option value="eur" data-en="EUR" data-ur="یورپی یورو" data-fr="EUR" data-es="EUR" data-de="EUR" data-ar="يورو" data-hi="यूरो">EUR</option>
+            <option value="pkr" data-en="PKR" data-ur="پاکستانی روپیہ" data-fr="PKR" data-es="PKR" data-de="PKR" data-ar="روبية باكستانية" data-hi="पीकेआर">PKR</option>
+            <option value="gbp" data-en="GBP" data-ur="برطانوی پاؤنڈ" data-fr="GBP" data-es="GBP" data-de="GBP" data-ar="جنيه استرليني" data-hi="ब्रिटिश पाउंड">GBP</option>
+            <option value="inr" data-en="INR" data-ur="بھارتی روپیہ" data-fr="INR" data-es="INR" data-de="INR" data-ar="روبية هندية" data-hi="भारतीय रुपया">INR</option>
+        </select>
+        <button class="apply-currency-btn" id="applyCurrencyBtn" 
+                data-en="Apply Currency" data-ur="کرنسی لاگو کریں" data-fr="Appliquer la devise" data-es="Aplicar moneda" data-de="Währung anwenden" data-ar="تطبيق العملة" data-hi="मुद्रा लागू करें">Apply Currency</button>
+    </div>
+</div>
+<script>
+    // Get elements
+const filterDropdown = document.getElementById('filterDropdown');
+const currencyButton = document.getElementById('currencyButton');
+const currencyPopup = document.getElementById('currencyPopup');
+const closePopup = document.getElementById('closePopup');
+const applyCurrencyBtn = document.getElementById('applyCurrencyBtn');
+const currencySelect = document.getElementById('currencySelect');
+const applyFilterBtn = document.querySelector('.apply-filter-btn');
+const salaryRange = document.getElementById('salary-range');
+const salaryOutput = document.getElementById('salary-output');
+
+// Language elements (Translation)
+const languageData = {
+    en: {
+        currencySelect: 'Select Currency',
+        applyCurrencyBtn: 'Apply Currency',
+        usd: 'USD ($)',
+        eur: 'EUR (€)',
+        pkr: 'PKR (₨)',
+        gbp: 'GBP (£)',
+        inr: 'INR (₹)',
+        changeCurrency: 'Change Currency'
+    },
+    ur: {
+        currencySelect: 'کرنسی منتخب کریں',
+        applyCurrencyBtn: 'کرنسی لاگو کریں',
+        usd: 'امریکی ڈالر ($)',
+        eur: 'یورپی یورو (€)',
+        pkr: 'پاکستانی روپیہ (₨)',
+        gbp: 'برطانوی پاؤنڈ (£)',
+        inr: 'بھارتی روپیہ (₹)',
+        changeCurrency: 'کرنسی تبدیل کریں'
+    },
+    fr: {
+        currencySelect: 'Sélectionner la devise',
+        applyCurrencyBtn: 'Appliquer la devise',
+        usd: 'USD ($)',
+        eur: 'EUR (€)',
+        pkr: 'PKR (₨)',
+        gbp: 'GBP (£)',
+        inr: 'INR (₹)',
+        changeCurrency: 'Changer la devise'
+    },
+    es: {
+        currencySelect: 'Seleccionar moneda',
+        applyCurrencyBtn: 'Aplicar moneda',
+        usd: 'USD ($)',
+        eur: 'EUR (€)',
+        pkr: 'PKR (₨)',
+        gbp: 'GBP (£)',
+        inr: 'INR (₹)',
+        changeCurrency: 'Cambiar moneda'
+    },
+    de: {
+        currencySelect: 'Währung auswählen',
+        applyCurrencyBtn: 'Währung anwenden',
+        usd: 'USD ($)',
+        eur: 'EUR (€)',
+        pkr: 'PKR (₨)',
+        gbp: 'GBP (£)',
+        inr: 'INR (₹)',
+        changeCurrency: 'Währung ändern'
+    },
+    ar: {
+        currencySelect: 'اختر العملة',
+        applyCurrencyBtn: 'تطبيق العملة',
+        usd: 'دولار أمريكي ($)',
+        eur: 'يورو (€)',
+        pkr: 'روبية باكستانية (₨)',
+        gbp: 'جنيه استرليني (£)',
+        inr: 'روبية هندية (₹)',
+        changeCurrency: 'تغيير العملة'
+    },
+    hi: {
+        currencySelect: 'मुद्रा चुनें',
+        applyCurrencyBtn: 'मुद्रा लागू करें',
+        usd: 'यूएसडी ($)',
+        eur: 'यूरो (€)',
+        pkr: 'पीकेआर (₨)',
+        gbp: 'ब्रिटिश पाउंड (£)',
+        inr: 'भारतीय रुपया (₹)',
+        changeCurrency: 'मुद्रा बदलें'
+    }
+};
+
+// Current language setting (default to English)
+let currentLanguage = 'en';
+
+// Update language text based on the current language
+function updateLanguageText() {
+    const language = languageData[currentLanguage];
+    
+    // Update Popup Texts
+    document.querySelector('.currency-popup h2').textContent = language.currencySelect;
+    applyCurrencyBtn.textContent = language.applyCurrencyBtn;
+
+    // Update Currency Options
+    const options = currencySelect.querySelectorAll('option');
+    options.forEach(option => {
+        option.textContent = language[option.value];
+    });
+
+    // Update the currency button text
+    updateCurrencyButtonText(currentCurrency);
+}
+
+// Store the selected currency
+let currentCurrency = 'usd';
+
+// Show the currency popup when the user clicks the "Change Currency" button
+currencyButton.addEventListener('click', function() {
+    currencyPopup.style.display = 'flex'; // Show the popup
+    updateLanguageText(); // Update language for popup when opened
+});
+
+// Close the currency popup
+closePopup.addEventListener('click', function() {
+    currencyPopup.style.display = 'none'; // Hide the popup
+});
+
+// Apply the selected currency and update the button text
+applyCurrencyBtn.addEventListener('click', function() {
+    const selectedCurrency = currencySelect.value;
+    currentCurrency = selectedCurrency;
+    updateCurrencyButtonText(selectedCurrency);
+    currencyPopup.style.display = 'none'; // Hide the popup after applying
+});
+
+// Update the currency button text based on the selected currency
+function updateCurrencyButtonText(currency) {
+    let currencyText = '';
+    switch(currency) {
+        case 'usd':
+            currencyText = 'USD ($)';
+            break;
+        case 'eur':
+            currencyText = 'EUR (€)';
+            break;
+        case 'pkr':
+            currencyText = 'PKR (₨)';
+            break;
+        case 'gbp':
+            currencyText = 'GBP (£)';
+            break;
+        case 'inr':
+            currencyText = 'INR (₹)';
+            break;
+        default:
+            currencyText = 'Change Currency';
+            break;
+    }
+    currencyButton.textContent = `${languageData[currentLanguage].changeCurrency} - ${currencyText}`;
+}
+
+// Display selected salary range value
+salaryRange.addEventListener('input', function() {
+    salaryOutput.textContent = salaryRange.value;
+});
+
+// Handle the Apply Filters button click
+applyFilterBtn.addEventListener('click', function() {
+    // Handle the filter logic and apply the selected filters (e.g., job type, salary range, etc.)
+    console.log('Filters Applied');
+    hideFilterDropdown();
+});
+
+// Optionally, you can toggle the filter dropdown by clicking the Apply Filters button or other elements
+// For demonstration, let's automatically show the dropdown
+showFilterDropdown();
+</script>
+
+<!--JOB CARD-->
+<section class="job-post-section">
+    <div class="job-card">
+        <div class="header">
+            <img src="image/job-profile-pic.jpg" alt="Profile Picture">&nbsp;&nbsp;
+            <div class="info">
+                <h3 data-en="Ali Sher" data-de="Ali Sher" data-ur="علی شیر" data-hi="अली शेर" data-sd="علی شیر" data-it="Ali Sher" data-ar="علي شير" data-ru="Али Шер">Ali Sher</h3>
+                <p data-en="Employer" data-de="Arbeitgeber" data-ur="ملازمت دینے والا" data-hi="नियोक्ता" data-sd="ملازمت ڏيندڙ" data-it="Datore di lavoro" data-ar="صاحب العمل" data-ru="Работодатель">Employer</p>
+            </div>
+        </div>
+        <div class="save" onclick="saveJob()">
+            <img src="icon/save-icon.png" alt="Save Icon">
+            <span data-en="Save Job for Later" data-de="Job für später speichern" data-ur="بعد کے لئے نوکری محفوظ کریں" data-hi="बाद के लिए नौकरी सहेजें" data-sd="بعد لاءِ نوڪري محفوظ ڪريو" data-it="Salva il lavoro per dopo" data-ar="احفظ الوظيفة للوقت لاحق" data-ru="Сохранить работу на потом">Save Job for Later</span>
+        </div>
+        <h4 data-en="Plumber Needed for Immediate Repair" data-de="Klempner für sofortige Reparatur benötigt" data-ur="فوری مرمت کے لیے پلمبر کی ضرورت" data-hi="तत्काल मरम्मत के लिए प्लंबर की आवश्यकता है" data-sd="فوري مرمت لاءِ پلمبر جي ضرورت" data-it="Idraulico necessario per riparazione immediata" data-ar="فني سباكة مطلوب للإصلاح الفوري" data-ru="Необходим сантехник для немедленного ремонта">Plumber Needed for Immediate Repair</h4>
+        <div class="details">
+            <p><img src="icon/location-icon.png" alt="Location Icon">&nbsp;
+            <span data-en="Location: Street 1/2 Al-baqi Ground Karachi" data-de="Standort: Straße 1/2 Al-baqi Ground Karachi" data-ur="مقام: اسٹریٹ 1/2 الباقی گراؤنڈ کراچی" data-hi="स्थान: स्ट्रीट 1/2 अल-बाकी ग्राउंड कराची" data-sd="مقام: اسٹریٽ 1/2 الباقي گرائونڊ ڪراچي" data-it="Posizione: Strada 1/2 Al-baqi Ground Karachi" data-ar="الموقع: الشارع 1/2 أرض الباقي كراتشي" data-ru="Местоположение: улица 1/2 Al-baqi Ground Карачи">Location: Street 1/2 Al-baqi Ground Karachi</span></p>
+            <p><img src="icon/salary-icon.png" alt="Salary Icon">&nbsp;
+            <span data-en="Salary: PKR 1,500 per day" data-de="Gehalt: PKR 1.500 pro Tag" data-ur="تنخواہ: 1500 روپے فی دن" data-hi="वेतन: प्रति दिन 1500 रुपये" data-sd="تنخواہ: 1500 روپيا في ڏينهن" data-it="Salario: PKR 1.500 al giorno" data-ar="الراتب: 1500 روبية يومياً" data-ru="Зарплата: 1500 PKR в день">Salary: PKR 1,500 per day</span></p>
+            <p><img src="icon/jobtype-icon.png" alt="Job Type Icon">&nbsp;
+            <span data-en="Job Type: Short-Term" data-de="Job-Typ: Kurzfristig" data-ur="نوکری کی قسم: مختصر مدتی" data-hi="नौकरी का प्रकार: शॉर्ट-टर्म" data-sd="نوڪري جو قسم: مختصر مدت" data-it="Tipo di lavoro: a breve termine" data-ar="نوع الوظيفة: قصيرة المدى" data-ru="Тип работы: краткосрочная">Job Type: Short-Term</span></p>
+        </div>
+        <div class="job-actions">
+            <span data-en="Posted 2 hours ago" data-de="Vor 2 Stunden gepostet" data-ur="2 گھنٹے پہلے پوسٹ کیا گیا" data-hi="2 घंटे पहले पोस्ट किया गया" data-sd="2 گھنٽا اڳ پوسٽ ڪيو ويو" data-it="Pubblicato 2 ore fa" data-ar="منشور منذ ساعتين" data-ru="Опубликовано 2 часа назад">Posted 2 hours ago</span>
+            <a href="login.html" class="contact-link">
+                <button class="contact-button">
+                    <img src="icon/contact-icon-white.png" alt="Contact Icon" data-en="Contact Icon" data-ur="رابطہ آئیکن" data-hi="संपर्क आइकन" data-sd="رابطي آئڪن" data-de="Kontakt Icon" data-it="Icona di contatto" data-ar="أيقونة الاتصال" data-ru="Иконка контакта">
+                    <span style="color: white;" data-en="Contact" data-ur="رابطہ" data-hi="संपर्क" data-sd="رابطي" data-de="Kontakt" data-it="Contatto" data-ar="اتصل" data-ru="Контакт">Contact</span>
+                </button>
+            </a>
+            
+            <style>
+                /* Remove default link styling */
+                .contact-link {
+                    text-decoration: none; /* Removes the underline from the link */
+                }
+            
+                /* Contact Button CSS */
+                .contact-button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 10px 20px;
+                    border: none;
+                    background-color: #007BFF;
+                    color: #fff;
+                    font-size: 16px;
+                    font-family: 'Roboto', sans-serif;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Optional: adds a subtle shadow for a 3D effect */
+                }
+            
+                .contact-button img {
+                    margin-right: 10px;  /* Space between icon and text */
+                    width: 20px;         /* Icon size */
+                    height: 20px;
+                }
+            
+                /* Optional: Add hover effect */
+                .contact-button:hover {
+                    background-color: #0056b3;  /* Darker shade when hovered */
+                }
+            </style>
+                        
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Adjustments for RTL Languages */
+[data-lang="ur"], [data-lang="sd"], [data-lang="ar"] {
+    direction: rtl; /* Right-to-left text direction */
+}
+
+[data-lang="ur"] .job-card,
+[data-lang="sd"] .job-card,
+[data-lang="ar"] .job-card {
+    text-align: right; /* Align text to the right */
+}
+
+[data-lang="ur"] .job-card .header,
+[data-lang="sd"] .job-card .header,
+[data-lang="ar"] .job-card .header {
+    text-align: right; /* Align header elements to the right */
+}
+
+[data-lang="ur"] .job-card .header img,
+[data-lang="sd"] .job-card .header img,
+[data-lang="ar"] .job-card .header img {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+[data-lang="ur"] .job-card .save,
+[data-lang="sd"] .job-card .save,
+[data-lang="ar"] .job-card .save {
+    right: initial;
+    left: 15px;
+    text-align: left;
+}
+
+[data-lang="ur"] .job-card h4,
+[data-lang="sd"] .job-card h4,
+[data-lang="ar"] .job-card h4 {
+    text-align: right;
+}
+
+[data-lang="ur"] .job-card .details p,
+[data-lang="sd"] .job-card .details p,
+[data-lang="ar"] .job-card .details p {
+    text-align: right;
+}
+
+[data-lang="ur"] .job-card .job-actions,
+[data-lang="sd"] .job-card .job-actions,
+[data-lang="ar"] .job-card .job-actions {
+    text-align: right;
+}
+
+[data-lang="ur"] .job-card .job-actions .contact-btn,
+[data-lang="sd"] .job-card .job-actions .contact-btn,
+[data-lang="ar"] .job-card .job-actions .contact-btn {
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+[data-lang="ur"] .job-card .job-actions span,
+[data-lang="sd"] .job-card .job-actions span,
+[data-lang="ar"] .job-card .job-actions span {
+    text-align: right;
+}
+    .job-post-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .job-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        padding: 15px;
+        position: relative;
+    }
+
+    .job-card .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .job-card .header img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .job-card .header .info {
+        margin-left: 10px;
+    }
+
+    .job-card .header .info h3 {
+        font-size: 18px;
+        color: #333;
+    }
+
+    .job-card .header .info p {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .job-card .save {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 14px;
+        color: #007BFF;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .job-card .save img {
+        width: 12px;
+        height: 16px;
+        margin-right: 5px;
+    }
+
+    .job-card .save:hover {
+        text-decoration: underline;
+    }
+
+    .job-card h4 {
+        font-size: 20px;
+        color: #0056B3;
+        margin-bottom: 10px;
+    }
+
+    .job-card .details {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .job-card .details p {
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .job-card .details p img {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+
+    .job-card .job-actions {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .job-card .job-actions span {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .job-card .job-actions .contact-btn {
+        background: #007BFF;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .job-card .job-actions .contact-btn:hover {
+        background: #0056B3;
+    }
+
+    @media screen and (max-width: 600px) {
+        .job-card {
+            max-width: 100%;
+            padding: 10px;
+        }
+
+        .job-card .header .info h3 {
+            font-size: 16px;
+        }
+
+        .job-card .header .info p {
+            font-size: 12px;
+        }
+
+        .job-card h4 {
+            font-size: 18px;
+        }
+
+        .job-card .job-actions .contact-btn {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+    }
+    
+</style>
+
+<script>
+    function saveJob() {
+        window.location.href = 'login.html';
+    }
+</script>
+
+
+<!-- Footer Section -->
+<footer class="footer">
+    <nav class="footer-nav">
+        <a href="#" data-en="About Us" data-ur="ہمارے بارے میں" data-hi="हमारे बारे में" data-sd="اسان بابت" data-de="Über uns" data-it="Chi siamo" data-ar="معلومات عنا" data-fr="À propos de nous">About Us</a>
+        <a href="#" data-en="FAQs" data-ur="عمومی سوالات" data-hi="अक्सर पूछे जाने वाले सवाल" data-sd="عام سوالات" data-de="FAQs" data-it="Domande frequenti" data-ar="الأسئلة الشائعة" data-fr="FAQ">FAQs</a>
+        <a href="#" data-en="Terms of Service" data-ur="سروس کی شرائط" data-hi="सेवा की शर्तें" data-sd="سروس جون شرائط" data-de="Nutzungsbedingungen" data-it="Termini di servizio" data-ar="شروط الخدمة" data-fr="Conditions d'utilisation">Terms of Service</a>
+        <a href="#" data-en="Privacy Policy" data-ur="پرائیویسی پالیسی" data-hi="गोपनीयता नीति" data-sd="رازداري پاليسي" data-de="Datenschutzrichtlinie" data-it="Politica sulla privacy" data-ar="سياسة الخصوصية" data-fr="Politique de confidentialité">Privacy Policy</a>
+    </nav>
+    <p data-en="&copy; 2025 LaborLinko" data-ur="© 2025 LaborLinko" data-hi="© 2025 LaborLinko" data-sd="© 2025 LaborLinko" data-de="© 2025 LaborLinko" data-it="© 2025 LaborLinko" data-ar="© 2025 LaborLinko" data-fr="© 2025 LaborLinko">
+        &copy; 2025 LaborLinko
+    </p>
+</footer>
+
+
+    <script>
+document.getElementById('filterButton').addEventListener('click', function() {
+            const filterDropdown = document.getElementById('filterDropdown');
+            filterDropdown.classList.toggle('show');
+        });
+        
+        document.getElementById('salary-range').addEventListener('input', function() {
+            const salaryValue = this.value;
+            document.getElementById('salary-output').textContent = salaryValue;
+        });
+        
+        document.querySelector('.apply-filter-btn').addEventListener('click', function() {
+            const jobType = document.getElementById('job-type').value;
+            const salaryRange = document.getElementById('salary-range').value;
+            console.log('Filters Applied:', jobType, salaryRange);
+            document.getElementById('filterDropdown').classList.remove('show');  // Hide after applying
+        });
+    </script>
+</body>
+</html>

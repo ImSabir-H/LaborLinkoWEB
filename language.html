@@ -1,0 +1,399 @@
+<style>
+    /* CSS Variables for easy customization */
+    :root {
+        --primary-color: #f8f8f8;
+        --primary-hover: #007BFF;
+        --success-color: #28a745;
+        --success-hover: #218838;
+        --background-overlay: rgba(0, 0, 0, 0.5);
+        --font-family-ltr: 'Roboto', sans-serif;
+        --font-family-rtl: 'Scheherazade New', serif;
+    }
+
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-family-ltr);
+    }
+
+
+/* Language Button - Now Positioned at the Top Right with Icon */
+.language-button {
+background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+backdrop-filter: blur(10px); /* Apply the blur effect */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    padding: 6px 6px;
+    margin: 0px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: fixed;
+    top: 20%;
+    max-height: 60px;
+    right: 0px;
+    z-index: 10000;
+    transition: background-color 0.3s ease-out;
+    align-items: center;
+    opacity: 80%;
+}
+
+.language-icon {
+    margin-right: 10px;  /* Space between icon and text */
+    width: 24px;         /* Icon size */
+    height: 24px;
+}
+
+.language-button:hover {
+    background-color: var(--primary-hover);
+    color: #fff;
+    opacity: 100%;
+}
+
+
+    /* Language Pop-up */
+    .language-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--background-overlay);
+        transition: opacity 0.3s ease;
+        z-index: 9999;
+    }
+
+    .popup-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .popup-content h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .popup-content select {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid var(--primary-color);
+        margin-top: 10px;
+    }
+
+    .popup-content select option {
+        display: flex;
+        align-items: center;
+    }
+
+    .popup-content select option img {
+        width: 20px;
+        height: 14px;
+        margin-right: 8px;
+    }
+
+    .change-btn {
+        background-color: var(--success-color);
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+
+    .change-btn:hover {
+        background-color: var(--success-hover);
+    }
+
+    /* Close Button for Pop-up */
+    .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .language-button {
+            right: 0px;
+            top: 140px;
+        }
+
+        .popup-content {
+            padding: 15px;
+            width: 80%;
+            max-width: 400px;
+            top: 10px;
+        }
+
+        .popup-content h2 {
+            font-size: 16px;
+        }
+
+        .popup-content select {
+            padding: 7px 10px;
+            font-size: 14px;
+        }
+
+        .change-btn {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+    }
+
+    /* RTL Languages Styling */
+    body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+        font-family: var(--font-family-rtl);
+        direction: rtl;
+        text-align: right;
+    }
+
+    body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+        font-family: var(--font-family-ltr);
+        direction: ltr;
+    }
+</style>
+</head>
+<body>
+<button id="languageButton" class="language-button" aria-label="Change language">
+    <img src="icon/language-icon.png" alt="Language Icon" class="language-icon" id="languageIcon">
+</button>
+
+<!-- Language Pop-up -->
+<div id="languagePopup" class="language-popup">
+    <div class="popup-content">
+        <span class="close-btn" id="closePopup" aria-label="Close Popup">&times;</span>
+        <h2 id="popupTitle">Select Language</h2>
+        <select id="languageSelect">
+            <option value="en">&#127468;&#127463; English</option>
+            <option value="de">&#127465;&#127466; German</option>
+            <option value="ur">&#127477;&#127472; Urdu</option> <!-- 🇵🇰 Pakistan -->
+            <option value="hi">&#127470;&#127475; Hindi</option>
+            <option value="sd">&#127477;&#127472; Sindhi</option> <!-- 🇵🇰 Pakistan -->
+            <option value="it">&#127470;&#127481; Italian</option>
+            <option value="ar">&#127462;&#127466; Arabic</option>
+            <option value="ru">&#127479;&#127482; Russian</option>
+        </select>
+        <button id="changeButton" class="change-btn" aria-label="Change language">Change</button>
+    </div>
+</div>
+
+<script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+    const languageButton = document.getElementById('languageButton');
+    const languageIcon = document.getElementById('languageIcon');
+    const languagePopup = document.getElementById("languagePopup");
+    const closePopup = document.getElementById("closePopup");
+    const selectElement = document.getElementById("languageSelect");
+    const changeButton = document.getElementById("changeButton");
+    const popupTitle = document.getElementById("popupTitle");
+
+    // Load language from localStorage or default to 'en'
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    setLanguage(savedLanguage);
+
+    // Change icon on hover
+    languageButton.addEventListener('mouseenter', () => {
+        languageIcon.src = 'icon/language-icon2.png';  // Hover icon
+    });
+
+    languageButton.addEventListener('mouseleave', () => {
+        languageIcon.src = 'icon/language-icon.png';  // Original icon
+    });
+
+    // Show popup
+    languageButton.onclick = () => languagePopup.style.display = "block";
+
+    // Hide popup
+    closePopup.onclick = () => languagePopup.style.display = "none";
+
+    // Hide popup when clicking outside
+    window.onclick = (event) => {
+        if (event.target === languagePopup) languagePopup.style.display = "none";
+    };
+
+    // Change language on button click
+    changeButton.onclick = () => {
+        const selectedLang = selectElement.value;
+        setLanguage(selectedLang);
+        localStorage.setItem("selectedLanguage", selectedLang);
+        languagePopup.style.display = "none";
+    };
+
+    // Function to update the language for the page
+    function setLanguage(language) {
+        document.body.setAttribute("data-lang", language);
+
+        // Update text for all elements with [data-en] attribute
+        document.querySelectorAll("[data-en]").forEach((element) => {
+            element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+        });
+
+        // Update placeholders for input fields
+        document.querySelectorAll("input[placeholder]").forEach((input) => {
+            if (input.hasAttribute("data-en")) {
+                input.setAttribute("placeholder", input.getAttribute(`data-${language}`) || input.getAttribute("data-en"));
+            }
+        });
+
+        // Set popup title and button text based on language
+        const languageText = {
+            en: { title: "Select Language", button: "Change" },
+            de: { title: "Sprache wählen", button: "Ändern" },
+            ur: { title: "زبان منتخب کریں", button: "تبدیل کریں" },
+            hi: { title: "भाषा चुनें", button: "बदले" },
+            sd: { title: "ٻولي چونڊيو", button: "تبديل ڪريو" },
+            it: { title: "Seleziona la lingua", button: "Cambia" },
+            ar: { title: "اختر اللغة", button: "تغيير" },
+            ru: { title: "Выберите язык", button: "Изменить" }
+        };
+
+        // Update popup title and change button text
+        popupTitle.innerText = languageText[language]?.title || languageText["en"].title;
+        changeButton.innerText = languageText[language]?.button || languageText["en"].button;
+
+        // Ensure correct RTL for languages like Sindhi, Urdu, and Arabic
+        if (["ur", "sd", "ar"].includes(language)) {
+            document.body.style.direction = "rtl";
+        } else {
+            document.body.style.direction = "ltr";
+        }
+
+        // Set the dropdown to the current language
+        selectElement.value = language;
+
+        // Reapply file input event listener (for profile pic upload)
+        const fileInput = document.getElementById("profile-pic");
+        if (fileInput) {
+            fileInput.removeEventListener("change", loadImage); // Remove previous listener
+            fileInput.addEventListener("change", loadImage); // Add it back
+        }
+    }
+
+    // Close language popup when ESC key is pressed
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            languagePopup.style.display = 'none';
+        }
+    });
+
+    // Profile picture upload functionality (loadImage function)
+    function loadImage(event) {
+        const uploadStatus = document.getElementById("upload-status");
+        const waterFill = document.getElementById("water-fill");
+        const uploadText = document.getElementById("upload-text");
+        const uploadLabel = document.querySelector(".upload-label");
+        const loadingSpinner = document.getElementById("loading-spinner");
+
+        // Get the current language setting
+        const lang = document.body.getAttribute("data-lang") || "en";
+
+        // Start water animation
+        waterFill.style.height = "100%";
+        uploadText.style.color = "white";
+
+        // Show upload success message
+        uploadStatus.style.display = "block";
+        uploadStatus.innerText = uploadStatus.getAttribute(`data-${lang}`) || "Picture Uploaded Successfully!";
+
+        // Show loading spinner
+        loadingSpinner.style.display = "block";
+
+        // Read file input
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            loadingSpinner.style.display = "none";
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+document.addEventListener("DOMContentLoaded", function() {
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    setLanguage(savedLanguage);
+
+    function setLanguage(language) {
+        // Set the language in the body tag to identify the current language
+        document.body.setAttribute("data-lang", language);
+
+        // Check if the selected language is an RTL language (Urdu, Sindhi, Arabic)
+        const rtlLanguages = ["ur", "sd", "ar"];
+        if (rtlLanguages.includes(language)) {
+            document.body.setAttribute("dir", "rtl");
+        } else {
+            document.body.setAttribute("dir", "ltr");
+        }
+
+        // Update translatable text in the content area (header, description, etc.)
+        document.querySelectorAll("[data-en]").forEach((element) => {
+            element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+        });
+
+        // Update placeholders for form input elements (all types, including email, phone, etc.)
+        document.querySelectorAll("input, textarea").forEach((element) => {
+            // Check if a placeholder translation exists for the selected language
+            const placeholder = element.getAttribute(`data-placeholder-${language}`);
+            if (placeholder) {
+                // If a translated placeholder exists, set it
+                element.setAttribute("placeholder", placeholder);
+            } else if (element.getAttribute("placeholder")) {
+                // If no translation exists, keep the default placeholder
+                const defaultPlaceholder = element.getAttribute("placeholder");
+                element.setAttribute("placeholder", defaultPlaceholder);
+            }
+        });
+
+        // Update labels for input fields
+        document.querySelectorAll("label").forEach((label) => {
+            const labelText = label.getAttribute(`data-${language}`);
+            if (labelText) {
+                label.innerText = labelText;
+            } else {
+                label.innerText = label.getAttribute("data-en") || label.innerText;
+            }
+        });
+
+        // Update text content for input, button, and other elements with translatable text
+        document.querySelectorAll("[data-en-text]").forEach((element) => {
+            element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en-text");
+        });
+
+        // Translate button values (for buttons with type="submit" or type="button")
+        document.querySelectorAll("[data-en-button]").forEach((element) => {
+            const buttonText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en-button");
+            element.value = buttonText;
+        });
+    }
+});
+
+</script>

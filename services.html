@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="language.js" defer></script>
+    <title>LaborLinko Services</title>
+    <style>
+    /* General Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+    font-family: 'montserrat' sans-serif !important;
+}
+
+/* For Hindi, Urdu, Sindhi, and Arabic languages */
+body[data-lang="hi"] {
+    font-family: 'Scheherazade New', serif !important;;
+    
+}
+
+body[data-lang="ur"] {
+    font-family: 'Scheherazade New', serif !important;;
+    top: 0%;
+}
+
+body[data-lang="sd"] {
+    font-family: 'Scheherazade New', serif !important;;
+    top: 0%;
+}
+
+body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif !important;;
+    top: 0%;
+}
+
+/* Language-specific styling for the body */
+body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif !important;
+    direction: rtl;  /* Apply rtl only to the body */
+    text-align: right;
+}
+
+/* For other languages, ensure left-to-right text direction and proper layout */
+body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+    font-family: 'Roboto', sans-serif;
+    direction: ltr;
+}
+
+.top-bar {
+    font-family: 'roboto', sans-serif !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    direction: ltr !important;  /* Prevent any changes from language affecting the top bar */
+}                                                                                                               
+/* Top Bar Item Styling */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 10px;  /* Adds spacing around each item */
+}
+
+.top-bar-item:hover {
+    color: #007BFF;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px; /* Set icon size to 24px */
+    height: 24px; /* Set icon size to 24px */
+    margin-right: 6px;
+    margin-bottom: 0px;
+}
+
+.top-bar-item .top-bar-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: gray;
+}
+
+.top-bar-item:hover .top-bar-label {
+    color: #007BFF;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem; /* Default size */
+    font-weight: 600;
+    color: #007BFF;
+    padding-right: 8px;
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 400;
+    color: #007BFF;
+}
+
+/* Responsive Logo Size */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 6.4vw;  /* Set size relative to the viewport width */
+    }
+}
+
+@media (min-width: 769px) {
+    .logo {
+        font-size: 2rem;  /* Default size for larger screens */
+    }
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #007BFF;
+}
+
+.nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #007BFF;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile-Only Styling (Small Screen) */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 12px 10px;
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none;  /* Hide text labels on small screens */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 5vw;  /* Icon width relative to viewport width */
+        height: 5vw; /* Icon height relative to viewport width */
+        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
+        max-height: 28px; /* Maintain a max size */
+        min-width: 20px; /* Ensure icons do not shrink too small */
+        min-height: 20px; /* Minimum size for better usability */
+    }
+
+    .top-bar-item {
+        padding: 0px;
+    }
+
+    .nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 24px;  /* Static size on desktop */
+        height: 24px; /* Static size on desktop */
+    }
+}
+
+
+/* Desktop-Only Styling (Larger Screen) */
+@media (min-width: 769px) {
+    /* Show only text on desktop */
+    .top-bar-item .top-bar-label {
+        display: inline-block; /* Show text labels */
+    }
+
+    .top-bar-item .top-bar-icon {
+        width: 22px;
+        height: 22px;
+        display: none; /* Hide icons */
+    }
+}
+/* Login Button Container (for alignment) */
+.login-btn-container {
+    margin-left: 20px; /* Spacing from other top bar items */
+    display: flex;
+    align-items: center;
+}
+
+/* Login Button Styling */
+/* Adjusted Login Button */
+
+.login-btn {
+    background-color: rgba(0, 123, 255, 0.1); /* Subtle blue background */
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    font-size: 16px; /* Adjusted font size for consistency */
+    border-radius: 4px;
+    color: #007BFF; /* Brand blue color */
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif !important; /* Brand font */
+    font-weight: 500 !important; /* Medium weight for balance */
+    text-transform: uppercase;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transitions */
+}
+
+/* Hover Effect for Login Button */
+.login-btn:hover {
+    background-color: #007BFF; /* Solid blue background */
+    color: #FFFFFF; /* White text */
+    border: 1px solid #007BFF; /* Blue border */
+}
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* For the entire page to have a flex layout to push the footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+.hero {
+    text-align: center;
+    background: #007bff;
+    color: #fff;
+    padding: 50px 20px;
+}
+
+.hero {
+            background-color: #007BFF;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+.cta-btn {
+    padding: 12px 30px;
+    background: #0056b3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+    background: #003f8a;
+}
+
+/* Language-specific styling for the body */
+body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;
+    direction: rtl;  /* Apply rtl only to the body */
+    text-align: right;
+}
+
+/* For other languages, ensure left-to-right text direction and proper layout */
+body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+    font-family: 'Roboto', sans-serif;
+    direction: ltr;
+}
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+body {
+  line-height: 1.6;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Hero Section */
+.hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-content h3 {
+                font-size: 1.8rem;
+            }
+
+            .about-content p {
+                font-size: 0.95rem;
+            }
+
+.hero .cta-btn {
+  padding: 12px 30px;
+  
+  color: #fff;
+  border: none;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: none;
+  transition: background-color 0.2s ease;
+}
+
+.cta-btn:hover {
+    color: #007BFF;
+    border: 1px solid #fff;
+    background: #fff;
+}
+
+
+/* Services Section */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 40px 20px;
+  background: #fff;
+}
+
+.service-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-card img {
+  max-width: 80px;
+  margin-bottom: 15px;
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.service-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.service-card button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.service-card button:hover {
+  background: #0056b3;
+}
+
+/* Contact Section */
+.contact {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f5f5f5;
+}
+
+.contact h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.contact p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.contact-form textarea {
+  resize: none;
+  height: 100px;
+}
+
+.contact-form button {
+  padding: 12px 30px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+  .contact-form input,
+  .contact-form textarea {
+    max-width: 90%;
+  }
+}
+
+        /* CSS Variables for easy customization */
+        :root {
+            --primary-color: #f8f8f8;
+            --primary-hover: #007BFF;
+            --success-color: #28a745;
+            --success-hover: #218838;
+            --background-overlay: rgba(0, 0, 0, 0.5);
+            --font-family-ltr: 'Roboto', sans-serif;
+            --font-family-rtl: 'Scheherazade New', serif;
+        }
+
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-ltr);
+        }
+
+
+    /* Language Button - Now Positioned at the Top Right with Icon */
+    .language-button {
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+        padding: 6px 6px;
+        margin: 0px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        position: fixed;
+        top: 20%;
+        max-height: 60px;
+        right: 0px;
+        z-index: 10000;
+        transition: background-color 0.3s ease-out;
+        align-items: center;
+        opacity: 80%;
+    }
+
+    .language-icon {
+        margin-right: 10px;  /* Space between icon and text */
+        width: 24px;         /* Icon size */
+        height: 24px;
+    }
+
+    .language-button:hover {
+        background-color: var(--primary-hover);
+        color: #fff;
+        opacity: 100%;
+    }
+
+
+        /* Language Pop-up */
+        .language-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-overlay);
+            transition: opacity 0.3s ease;
+            z-index: 9999;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup-content h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .popup-content select {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            margin-top: 10px;
+        }
+
+        .popup-content select option {
+            display: flex;
+            align-items: center;
+        }
+
+        .popup-content select option img {
+            width: 20px;
+            height: 14px;
+            margin-right: 8px;
+        }
+
+        .change-btn {
+            background-color: var(--success-color);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .change-btn:hover {
+            background-color: var(--success-hover);
+        }
+
+        /* Close Button for Pop-up */
+        .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .language-button {
+                right: 0px;
+                top: 140px;
+            }
+
+            .popup-content {
+                padding: 15px;
+                width: 80%;
+                max-width: 400px;
+                top: 10px;
+            }
+
+            .popup-content h2 {
+                font-size: 16px;
+            }
+
+            .popup-content select {
+                padding: 7px 10px;
+                font-size: 14px;
+            }
+
+            .change-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        /* RTL Languages Styling */
+        body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+            font-family: var(--font-family-rtl);
+            direction: rtl;
+            text-align: right;
+        }
+
+        body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+            font-family: var(--font-family-ltr);
+            direction: ltr;
+        }
+    </style>
+</head>
+<body>
+    <button id="languageButton" class="language-button" aria-label="Change language">
+        <img src="icon/language-icon.png" alt="Language Icon" class="language-icon" id="languageIcon">
+    </button>
+    
+    <!-- Language Pop-up -->
+    <div id="languagePopup" class="language-popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup" aria-label="Close Popup">&times;</span>
+            <h2 id="popupTitle">Select Language</h2>
+            <select id="languageSelect">
+                <option value="en">&#127468;&#127463; English</option>
+                <option value="de">&#127465;&#127466; German</option>
+                <option value="ur">&#127477;&#127472; Urdu</option> <!-- 🇵🇰 Pakistan -->
+                <option value="hi">&#127470;&#127475; Hindi</option>
+                <option value="sd">&#127477;&#127472; Sindhi</option> <!-- 🇵🇰 Pakistan -->
+                <option value="it">&#127470;&#127481; Italian</option>
+                <option value="ar">&#127462;&#127466; Arabic</option>
+                <option value="ru">&#127479;&#127482; Russian</option>
+            </select>
+            <button id="changeButton" class="change-btn" aria-label="Change language">Change</button>
+        </div>
+    </div>
+
+    <script>
+        
+        const languageButton = document.getElementById('languageButton');
+            const languageIcon = document.getElementById('languageIcon');
+    
+            // Change icon on hover
+            languageButton.addEventListener('mouseenter', () => {
+                languageIcon.src = 'icon/language-icon2.png';  // Hover icon
+            });
+    
+            // Change icon back when hover ends
+            languageButton.addEventListener('mouseleave', () => {
+                languageIcon.src = 'icon/language-icon.png';  // Original icon
+            });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const languageButton = document.getElementById("languageButton");
+            const languagePopup = document.getElementById("languagePopup");
+            const closePopup = document.getElementById("closePopup");
+            const selectElement = document.getElementById("languageSelect");
+            const changeButton = document.getElementById("changeButton");
+            const popupTitle = document.getElementById("popupTitle");
+    
+            // Load language from localStorage
+            const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+            setLanguage(savedLanguage);
+    
+            // Show popup
+            languageButton.onclick = () => languagePopup.style.display = "block";
+    
+            // Hide popup
+            closePopup.onclick = () => languagePopup.style.display = "none";
+    
+            // Hide popup when clicking outside
+            window.onclick = (event) => {
+                if (event.target === languagePopup) languagePopup.style.display = "none";
+            };
+    
+            // Change language
+            changeButton.onclick = () => {
+                const selectedLang = selectElement.value;
+                setLanguage(selectedLang);
+                localStorage.setItem("selectedLanguage", selectedLang);
+                languagePopup.style.display = "none";
+            };
+    
+            // Function to set language
+            function setLanguage(language) {
+                document.body.setAttribute("data-lang", language);
+    
+                // Update translatable text
+                document.querySelectorAll("[data-en]").forEach((element) => {
+                    element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+                });
+    
+                // Set popup title and button text based on language
+                const languageText = {
+                    en: { title: "Select Language", button: "Change" },
+                    de: { title: "Sprache wählen", button: "Ändern" },
+                    ur: { title: "زبان منتخب کریں", button: "تبدیل کریں" },
+                    hi: { title: "भाषा चुनें", button: "बदले" },
+                    sd: { title: "ٻولي چونڊيو", button: "تبديل ڪريو" },
+                    it: { title: "Seleziona la lingua", button: "Cambia" },
+                    ar: { title: "اختر اللغة", button: "تغيير" },
+                    ru: { title: "Выберите язык", button: "Изменить" }
+                };
+    
+                popupTitle.innerText = languageText[language]?.title || languageText["en"].title;
+                changeButton.innerText = languageText[language]?.button || languageText["en"].button;
+    
+                // Ensure correct RTL for languages like Sindhi, Urdu, and Arabic
+                if (["ur", "sd", "ar"].includes(language)) {
+                    document.body.style.direction = "rtl";
+                } else {
+                    document.body.style.direction = "ltr";
+                }
+    
+                // Set the dropdown to the current language
+                selectElement.value = language;
+    
+                // Reapply file input event listener to ensure the profile pic uploader works after language change
+                const fileInput = document.getElementById("profile-pic");
+                if (fileInput) {
+                    fileInput.removeEventListener("change", loadImage); // Remove previous listener
+                    fileInput.addEventListener("change", loadImage); // Add it back
+                }
+            }
+    
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    languagePopup.style.display = 'none';
+                }
+            });
+        });
+    
+        // Profile picture upload functionality (loadImage function)
+        function loadImage(event) {
+            const uploadStatus = document.getElementById("upload-status");
+            const waterFill = document.getElementById("water-fill");
+            const uploadText = document.getElementById("upload-text");
+            const uploadLabel = document.querySelector(".upload-label");
+            const loadingSpinner = document.getElementById("loading-spinner");
+    
+            // Ensure the language update is applied correctly
+            const lang = document.body.getAttribute("data-lang") || "en";
+    
+            // Start water animation
+            waterFill.style.height = "100%";
+            uploadText.style.color = "white";
+    
+            // Show upload success message
+            uploadStatus.style.display = "block";
+            uploadStatus.innerText = uploadStatus.getAttribute(`data-${lang}`) || "Picture Uploaded Successfully!";
+    
+            // Show loading spinner
+            loadingSpinner.style.display = "block";
+    
+            // Read file input
+            const file = event.target.files[0];
+            const reader = new FileReader();
+    
+            reader.onload = function () {
+                loadingSpinner.style.display = "none";
+            };
+    
+            reader.readAsDataURL(file);
+        }
+    </script>
+
+    <div class="top-bar">
+        <div class="logo">
+            <span class="labor">Labor</span><span class="linko">Linko</span>
+        </div>
+        <div class="nav">
+            <a href="home.html">
+                <div class="top-bar-item">
+                    <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
+                    <span class="top-bar-label">Home</span>
+                </div>
+            </a>
+            <a href="services.html">
+                <div class="top-bar-item">
+                    <img src="icon/services-icon2.png" alt="Services" class="top-bar-icon">
+                    <span class="top-bar-label">Services</span>
+                </div>
+            </a>
+            <a href="about.html">
+                <div class="top-bar-item">
+                    <img src="icon/about-icon.png" alt="About" class="top-bar-icon">
+                    <span class="top-bar-label">About</span>
+                </div>
+            </a>
+        </div>
+                <div class="login-section">
+                    <a href="login.html" class="login-btn">Login</a>
+                </div>
+            </div>
+    </div>
+    <style>
+            /* Top Bar (Unchanged) */
+            #topBar {
+                background-color: #333;
+                color: white;
+                padding: 10px 15px;
+                text-align: center;
+                direction: ltr;  /* Ensure the top bar stays left-to-right */
+            }
+    
+            /* Body and Footer Styling */
+            body {
+                font-family: 'Roboto', sans-serif;
+            }
+    
+            body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+                font-family: 'Scheherazade New', serif;
+                direction: rtl; /* Apply rtl only to the body */
+                text-align: right;
+            }
+            body[data-lang="sd"] {
+                font-family: 'Scheherazade New', serif;
+    
+    }
+    
+    
+            footer {
+                background-color: #f8f9fa;
+                padding: 20px;
+                text-align: center;
+            }
+    
+            footer[data-lang="ar"], footer[data-lang="ur"], footer[data-lang="sd"] {
+                direction: rtl; /* Apply rtl only to footer */
+            }
+        </style>
+    </head>
+    <body>
+       
+    <!-- Hero Section -->
+<div class="hero">
+    <h1
+        data-en="Our Services"
+        data-de="Unsere Dienstleistungen"
+        data-it="I nostri servizi"
+        data-ur="ہماری خدمات"
+        data-hi="हमारी सेवाएं"
+        data-sd="اسان جون خدمتون"
+        data-fr="Nos Services"
+        data-ar="خدماتنا"
+    >
+        Our Services
+    </h1>
+    <p
+    data-en="At LaborLinko, we connect skilled workers, employers, contractors, and organizations on one platform. Whether you’re looking to hire short-term labor, find local job opportunities, or manage contracts efficiently, we make it simple and hassle-free. Our platform is designed to match the right talent with the right opportunities, ensuring quick and reliable solutions for your labor needs. Join us today and experience a seamless way to work and hire locally."
+    data-de="Bei LaborLinko bringen wir Fachkräfte, Arbeitgeber, Auftragnehmer und Organisationen auf einer Plattform zusammen. Egal, ob Sie kurzfristige Arbeitskräfte einstellen, lokale Jobmöglichkeiten finden oder Verträge effizient verwalten möchten – wir machen es einfach und unkompliziert. Unsere Plattform ist darauf ausgelegt, die richtigen Talente mit den richtigen Möglichkeiten zu verbinden und schnelle, zuverlässige Lösungen für Ihre Arbeitskräftebedarfe zu bieten. Treten Sie uns bei und erleben Sie eine nahtlose Möglichkeit, lokal zu arbeiten und einzustellen."
+    data-it="Su LaborLinko colleghiamo lavoratori qualificati, datori di lavoro, appaltatori e organizzazioni su un'unica piattaforma. Che tu stia cercando di assumere lavoratori a breve termine, trovare opportunità di lavoro locali o gestire contratti in modo efficiente, rendiamo tutto semplice e senza problemi. La nostra piattaforma è progettata per abbinare i giusti talenti alle giuste opportunità, garantendo soluzioni rapide e affidabili per le tue esigenze di lavoro. Unisciti a noi oggi e scopri un modo semplice per lavorare e assumere localmente."
+    data-ur="لیبر لنکو پر، ہم ہنر مند کارکنوں، آجروں، ٹھیکیداروں اور تنظیموں کو ایک پلیٹ فارم پر جوڑتے ہیں۔ چاہے آپ قلیل مدتی محنت کشوں کی خدمات حاصل کرنا چاہتے ہوں، مقامی ملازمت کے مواقع تلاش کر رہے ہوں، یا معاہدوں کا مؤثر طریقے سے انتظام کرنا چاہتے ہوں، ہم اسے آسان اور پریشانی سے پاک بناتے ہیں۔ ہمارا پلیٹ فارم درست ٹیلنٹ کو صحیح مواقع سے ملانے کے لیے ڈیزائن کیا گیا ہے، تاکہ آپ کی محنت کی ضروریات کے لیے تیز اور قابل اعتماد حل فراہم کیا جا سکے۔ آج ہی ہم سے جڑیں اور مقامی طور پر کام کرنے اور خدمات حاصل کرنے کا آسان طریقہ آزمائیں۔"
+    data-hi="लेबरलिंको में, हम कुशल श्रमिकों, नियोक्ताओं, ठेकेदारों और संगठनों को एक ही प्लेटफ़ॉर्म पर जोड़ते हैं। चाहे आप अल्पकालिक श्रमिकों को काम पर रखना चाहें, स्थानीय नौकरी के अवसरों को खोजना चाहें, या अनुबंधों को प्रभावी ढंग से प्रबंधित करना चाहें, हम इसे सरल और परेशानी-मुक्त बनाते हैं। हमारा प्लेटफ़ॉर्म सही प्रतिभा को सही अवसरों से जोड़ने के लिए डिज़ाइन किया गया है, जिससे आपकी श्रम आवश्यकताओं के लिए तेज़ और भरोसेमंद समाधान सुनिश्चित हो सके। आज ही हमसे जुड़ें और स्थानीय स्तर पर काम करने और हायरिंग का एक सहज तरीका अनुभव करें।"
+    data-sd="ليبرلنڪو تي، اسان ماهر مزدورن، مالڪن، ٺيڪيدارن ۽ تنظيمون کي هڪ ئي پليٽ فارم تي ڳنڍيون ٿا. ڇا توهان مختصر مدت جي مزدور ڀرتي ڪرڻ چاهيو ٿا، مقامي نوڪري جا موقعا ڳولهڻ يا معاهدن جو موثر طريقي سان انتظام ڪرڻ، اسان ان کي آسان ۽ پريشاني کان آزاد بڻايون ٿا. اسان جو پليٽ فارم صحيح ٽيلنٽ کي صحيح موقعن سان ملائڻ لاءِ ڊزائين ڪيو ويو آهي، جيئن توهان جي مزدور جي ضرورتن لاءِ تيز ۽ قابل اعتماد حل فراهم ڪري سگهجي. اڄ ئي اسان سان ڳنڍيو ۽ مقامي سطح تي ڪم ۽ ڀرتي جو هڪ آسان طريقو آزمائي ڏسو."
+    data-fr="Chez LaborLinko, nous connectons des travailleurs qualifiés, des employeurs, des entrepreneurs et des organisations sur une seule plateforme. Que vous recherchiez à embaucher des travailleurs à court terme, à trouver des opportunités d'emploi locales ou à gérer des contrats efficacement, nous rendons cela simple et sans tracas. Notre plateforme est conçue pour faire correspondre les bons talents aux bonnes opportunités, assurant des solutions rapides et fiables pour vos besoins en main-d'œuvre. Rejoignez-nous dès aujourd'hui et découvrez un moyen fluide de travailler et d'embaucher localement."
+    data-ar="في ليبرلينكو، نربط العمال المهرة وأصحاب العمل والمقاولين والمنظمات على منصة واحدة. سواء كنت تبحث عن توظيف عمالة قصيرة الأجل، أو العثور على فرص عمل محلية، أو إدارة العقود بكفاءة، فإننا نجعل الأمر بسيطًا وخاليًا من المتاعب. تم تصميم منصتنا لمطابقة المواهب المناسبة مع الفرص المناسبة، مما يضمن حلولاً سريعة وموثوقة لاحتياجاتك العمالية. انضم إلينا اليوم واختبر طريقة سلسة للعمل والتوظيف محليًا."
+>
+    At LaborLinko, we connect skilled workers, employers, contractors, and organizations on one platform. Whether you’re looking to hire short-term labor, find local job opportunities, or manage contracts efficiently, we make it simple and hassle-free. Our platform is designed to match the right talent with the right opportunities, ensuring quick and reliable solutions for your labor needs. Join us today and experience a seamless way to work and hire locally.
+</p>
+<br>
+    <a href="login.html">
+        <button class="cta-btn"
+            data-en="Get Started"
+            data-de="Los geht's"
+            data-it="Inizia"
+            data-ur="شروع کریں"
+            data-hi="शुरू करें"
+            data-sd="شروع ڪريو"
+            data-fr="Commencer"
+            data-ar="ابدأ"
+        >
+            Get Started
+        </button>
+    </a>
+</div>
+    
+    <!-- Services Section -->
+    <div class="services">
+        <div class="service-card">
+            <img src="icon/worker-icon.png" alt="Laborer Icon">
+            <h3 data-en="For Laborers" data-de="Für Arbeiter" data-ur="مزدوروں کے لیے" data-hi="श्रमिकों के लिए" data-sd="مزدورن لاءِ" data-it="Per i lavoratori" data-ar="للعمال" data-ru="Для рабочих">For Laborers</h3>
+            <p data-en="Find flexible, short-term jobs that match your skills. From temporary tasks to project-based work, we've got you covered."
+                data-de="Finden Sie flexible, kurzfristige Jobs, die zu Ihren Fähigkeiten passen. Vom temporären Einsatz bis zur projektbasierten Arbeit haben wir alles."
+                data-ur="آپ کی مہارت سے ہم آہنگ لچکدار، عارضی نوکریاں تلاش کریں۔ عارضی کاموں سے لے کر پروجیکٹ پر مبنی کام تک، ہم نے آپ کا احتمام کیا ہے۔"
+                data-hi="आपकी क्षमताओं से मेल खाने वाले लचीले, शॉर्ट-टर्म जॉब्स खोजें। अस्थायी कार्यों से लेकर प्रोजेक्ट-आधारित काम तक, हम आपकी मदद करेंगे।"
+                data-sd="پنھنجي صلاحيتن سان ملندڙ لچڪدار، عارضي نوڪريون ڳوليو. عارضي ڪم کان وٺي پروجيڪٽ تي ٻڌل ڪم تائين، اسان توهان جو ساٿ ڏئي رهيا آهيون."
+                data-it="Trova lavori flessibili e a breve termine che corrispondono alle tue competenze. Dalle mansioni temporanee ai lavori basati su progetti, siamo qui per aiutarti."
+                data-ar="ابحث عن وظائف مرنة وقصيرة الأجل تتناسب مع مهاراتك. من المهام المؤقتة إلى الأعمال المعتمدة على المشاريع، نحن هنا لدعمك."
+                data-ru="Найдите гибкие, краткосрочные работы, которые соответствуют вашим навыкам. От временных заданий до проектной работы — мы готовы помочь.">
+                Find flexible, short-term jobs that match your skills. From temporary tasks to project-based work, we've got you covered.
+            </p>
+            <a href="login.html"><button data-en="Find Work" data-de="Arbeit finden" data-ur="کام تلاش کریں" data-hi="काम ढूंढें" data-sd="ڪم ڳوليو" data-it="Trova lavoro" data-ar="ابحث عن عمل" data-ru="Найти работу">Find Work</button></a>
+        </div>
+        
+        <div class="service-card">
+            <img src="icon/employer-icon.png" alt="Employer Icon">
+            <h3 data-en="For Employers" data-de="Für Arbeitgeber" data-ur="آجر کے لیے" data-hi="नियोक्ताओं के लिए" data-sd="مالڪن لاءِ" data-it="Per i datori di lavoro" data-ar="لأصحاب العمل" data-ru="Для работодателей">For Employers</h3>
+            <p data-en="Post job opportunities, find qualified workers, and manage projects with ease. Discover local talent for your business."
+                data-de="Schalten Sie Stellenangebote, finden Sie qualifizierte Arbeitskräfte und verwalten Sie Projekte mit Leichtigkeit. Entdecken Sie lokale Talente für Ihr Unternehmen."
+                data-ur="ملازمت کے مواقع پوسٹ کریں، اہل کارکن تلاش کریں اور منصوبوں کو آسانی سے منظم کریں۔ اپنے کاروبار کے لیے مقامی ٹیلنٹ دریافت کریں۔"
+                data-hi="नौकरी के अवसर पोस्ट करें, योग्य श्रमिकों को ढूंढें और प्रोजेक्ट्स को आसानी से प्रबंधित करें। अपने व्यवसाय के लिए स्थानीय प्रतिभा की खोज करें।"
+                data-sd="نوڪري جا موقعا پوسٽ ڪريو، اهل مزدورن کي ڳوليو ۽ منصوبن کي آساني سان منظم ڪريو. پنهنجي ڪاروبار لاءِ مقامي صلاحيت ڳولهيو."
+                data-it="Pubblica opportunità di lavoro, trova lavoratori qualificati e gestisci i progetti con facilità. Scopri talenti locali per la tua attività."
+                data-ar="انشر فرص العمل، وابحث عن العمال المؤهلين، وادير المشاريع بسهولة. اكتشف المواهب المحلية لأعمالك."
+                data-ru="Размещайте вакансии, находите квалифицированных работников и легко управляйте проектами. Откройте для себя местные таланты для вашего бизнеса.">
+                Post job opportunities, find qualified workers, and manage projects with ease. Discover local talent for your business.
+            </p>
+            <a href="login.html"><button data-en="Post Jobs" data-de="Stellenangebote posten" data-ur="نوکریاں پوسٹ کریں" data-hi="नौकरियां पोस्ट करें" data-sd="نوڪريون پوسٽ ڪريو" data-it="Pubblica lavori" data-ar="نشر وظائف" data-ru="Разместить вакансии">Post Jobs</button></a>
+        </div>
+    
+        <div class="service-card">
+            <img src="icon/organization-icon.png" alt="Organization Icon">
+            <h3 data-en="For Organizations" data-de="Für Organisationen" data-ur="تنظیموں کے لیے" data-hi="संगठनों के लिए" data-sd="تنظيمن لاءِ" data-it="Per le organizzazioni" data-ar="للمهام" data-ru="Для организаций">For Organizations</h3>
+            <p data-en="Access scalable workforce solutions for large projects. Hire multiple workers and efficiently manage tasks with our platform."
+                data-de="Greifen Sie auf skalierbare Arbeitskräfte-Lösungen für große Projekte zu. Stellen Sie mehrere Arbeiter ein und verwalten Sie Aufgaben effizient mit unserer Plattform."
+                data-ur="بڑی منصوبوں کے لیے اسکیل ایبل ورک فورس حل تک رسائی حاصل کریں۔ متعدد کارکنوں کو بھرتی کریں اور ہماری پلیٹ فارم کے ذریعے کاموں کو مؤثر طریقے سے منظم کریں۔"
+                data-hi="बड़े परियोजनाओं के लिए स्केलेबल कार्यबल समाधान तक पहुँचें। कई श्रमिकों को किराए पर लें और हमारे प्लेटफ़ॉर्म के साथ कार्यों का प्रबंधन करें।"
+                data-sd="ڊگھي پروجيڪٽس لاءِ اسڪيليبل ورڪ فورس حل تائين رسائي حاصل ڪريو. ڪيترن ئي مزدورن کي ڀرتي ڪريو ۽ اسان جي پليٽ فارم سان ڪم کي مؤثر طريقي سان منظم ڪريو."
+                data-it="Accedi a soluzioni scalabili di forza lavoro per progetti di grandi dimensioni. Assumi più lavoratori e gestisci le attività in modo efficiente con la nostra piattaforma."
+                data-ar="احصل على حلول العمل القابلة للتوسع للمشاريع الكبيرة. قم بتوظيف العديد من العمال وادارة المهام بفعالية عبر منصتنا."
+                data-ru="Получите доступ к масштабируемым решениям для крупных проектов. Нанимайте несколько работников и эффективно управляйте задачами с нашей платформой.">
+                Access scalable workforce solutions for large projects. Hire multiple workers and efficiently manage tasks with our platform.
+            </p>
+            <a href="login.html"><button data-en="Hire Workforce" data-de="Arbeiter einstellen" data-ur="ورکر بھرتی کریں" data-hi="कार्यबल किराए पर लें" data-sd="ورڪ فورس ڀرتي ڪريو" data-it="Assumi forza lavoro" data-ar="توظيف العمال" data-ru="Нанять работников">Hire Workforce</button></a>
+        </div>
+    
+        <div class="service-card">
+            <img src="icon/contractor-icon.png" alt="Contractor Icon">
+            <h3 data-en="For Contractors" data-de="Für Auftragnehmer" data-ur="ٹھیکیداروں کے لیے" data-hi="ठेकेदारों के लिए" data-sd="ٹھيڪيدارن لاءِ" data-it="Per i contraenti" data-ar="للمقاولين" data-ru="Для подрядчиков">For Contractors</h3>
+            <p data-en="Post long-term or project-based jobs and assemble the right teams to get the job done efficiently and on time."
+                data-de="Veröffentlichen Sie langfristige oder projektbasierte Jobs und stellen Sie die richtigen Teams zusammen, um die Arbeit effizient und pünktlich zu erledigen."
+                data-ur="طویل مدتی یا پروجیکٹ پر مبنی نوکریاں پوسٹ کریں اور درست ٹیمیں ترتیب دیں تاکہ کام کو مؤثر طریقے سے اور وقت پر مکمل کیا جا سکے۔"
+                data-hi="दीर्घकालिक या परियोजना-आधारित नौकरियां पोस्ट करें और सही टीमों का निर्माण करें ताकि काम को कुशलतापूर्वक और समय पर पूरा किया जा सके।"
+                data-sd=" ڊگھي عرصي وارا يا پروجيڪٽ تي ٻڌل نوڪريون پوسٽ ڪريو ۽ صحيح ٽيمون ٺاھيو ته جيئن ڪم مؤثر طريقي سان ۽ وقت تي مڪمل ٿي سگهي."
+                data-it="Pubblica lavori a lungo termine o basati su progetti e forma i team giusti per completare il lavoro in modo efficiente e puntuale."
+                data-ar="انشر وظائف طويلة الأجل أو قائمة على المشاريع وكون فرقًا مناسبة لإنجاز العمل بكفاءة وفي الوقت المحدد."
+                data-ru="Размещайте долгосрочные или проектные вакансии и собирайте подходящие команды для эффективного выполнения работы в срок.">
+                Post long-term or project-based jobs and assemble the right teams to get the job done efficiently and on time.
+            </p>
+            <a href="login.html"><button data-en="Start Hiring" data-de="Stellen Sie ein" data-ur="بھرتی شروع کریں" data-hi="भर्ती शुरू करें" data-sd="ڀرتي شروع ڪريو" data-it="Inizia a assumere" data-ar="ابدأ التوظيف" data-ru="Начать наем">Start Hiring</button></a>
+        </div>
+    </div>
+    
+
+
+
+<!-- Footer Section -->
+<footer class="footer">
+    <nav class="footer-nav">
+        <a href="#" data-en="About Us" data-ur="ہمارے بارے میں" data-hi="हमारे बारे में" data-sd="اسان بابت" data-de="Über uns" data-it="Chi siamo" data-ar="معلومات عنا" data-fr="À propos de nous">About Us</a>
+        <a href="#" data-en="FAQs" data-ur="عمومی سوالات" data-hi="अक्सर पूछे जाने वाले सवाल" data-sd="عام سوالات" data-de="FAQs" data-it="Domande frequenti" data-ar="الأسئلة الشائعة" data-fr="FAQ">FAQs</a>
+        <a href="#" data-en="Terms of Service" data-ur="سروس کی شرائط" data-hi="सेवा की शर्तें" data-sd="سروس جون شرائط" data-de="Nutzungsbedingungen" data-it="Termini di servizio" data-ar="شروط الخدمة" data-fr="Conditions d'utilisation">Terms of Service</a>
+        <a href="#" data-en="Privacy Policy" data-ur="پرائیویسی پالیسی" data-hi="गोपनीयता नीति" data-sd="رازداري پاليسي" data-de="Datenschutzrichtlinie" data-it="Politica sulla privacy" data-ar="سياسة الخصوصية" data-fr="Politique de confidentialité">Privacy Policy</a>
+    </nav>
+    <p data-en="&copy; 2025 LaborLinko" data-ur="© 2025 LaborLinko" data-hi="© 2025 LaborLinko" data-sd="© 2025 LaborLinko" data-de="© 2025 LaborLinko" data-it="© 2025 LaborLinko" data-ar="© 2025 LaborLinko" data-fr="© 2025 LaborLinko">
+        &copy; 2025 LaborLinko
+    </p>
+</footer>
+
+<!--Drag PAGE Js-->
+<script>
+ let touchstartX = 0;
+let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
+
+const swipeThreshold = 50; // Minimum horizontal distance (in pixels) to trigger the swipe
+
+function checkSwipe() {
+    // Calculate horizontal and vertical swipe distances
+    const horizontalDistance = touchendX - touchstartX;
+    const verticalDistance = touchendY - touchstartY;
+
+    // Only trigger horizontal swipe if horizontal distance is greater than vertical distance and exceeds the threshold
+    if (Math.abs(horizontalDistance) > Math.abs(verticalDistance) && Math.abs(horizontalDistance) > swipeThreshold) {
+        if (horizontalDistance < 0) {
+            // Swiped left (go to the next page)
+            navigateToNextPage();
+        } else if (horizontalDistance > 0) {
+            // Swiped right (go to the previous page)
+            navigateToPreviousPage();
+        }
+    }
+}
+
+function navigateToNextPage() {
+    let currentPage = window.location.pathname;
+    if (currentPage.includes('home.html')) {
+        window.location.href = 'services.html';
+    } else if (currentPage.includes('services.html')) {
+        window.location.href = 'about.html';
+    } else if (currentPage.includes('about.html')) {
+        window.location.href = 'home.html';
+    }
+}
+
+function navigateToPreviousPage() {
+    let currentPage = window.location.pathname;
+    if (currentPage.includes('home.html')) {
+        window.location.href = 'about.html';
+    } else if (currentPage.includes('services.html')) {
+        window.location.href = 'home.html';
+    } else if (currentPage.includes('about.html')) {
+        window.location.href = 'services.html';
+    }
+}
+
+document.addEventListener('touchstart', (e) => {
+    touchstartX = e.changedTouches[0].screenX;
+    touchstartY = e.changedTouches[0].screenY;
+}, false);
+
+document.addEventListener('touchend', (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    touchendY = e.changedTouches[0].screenY;
+    checkSwipe();
+}, false);
+
+</script>
+
+
+</body>
+</html>

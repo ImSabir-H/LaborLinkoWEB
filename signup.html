@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="language.js"></script>
+    <title>LaborLinko - Create New Account</title>
+    <style>
+       body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom right, #f0f4f8, #eaeaea);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    padding: 0 10px;
+}
+
+.close-icon {
+    position: absolute;
+    top: 20px;
+    right: 30%;
+    font-size: 28px; /* Increased font size for visibility */
+    color: #007BFF;
+    cursor: pointer;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.close-icon:hover {
+    color: #0056b3;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px; /* Adjusted for better readability */
+    color: #333;
+    font-weight: 500;
+}
+
+.logo .labor {
+    font-weight: 600; /* Bold for Labor */
+}
+
+.logo .linko {
+    font-weight: 400; /* Regular for Linko */
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    min-height: 300px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 70px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.header {
+    font-size: 28px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+    background-color: #ddd;
+}
+
+.social-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.or-separator {
+    font-size: 16px;
+    font-weight: 500;
+    color: #999;
+    margin: 20px 0;
+    position: relative;
+}
+
+.or-separator::before,
+.or-separator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #ccc;
+}
+
+.or-separator::before {
+    left: 0;
+}
+
+.or-separator::after {
+    right: 0;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.account-types {
+    margin: 30px 0;
+}
+
+.account-type {
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.account-type h4 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.account-type p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+.account-type.selected {
+    border-color: #007BFF;
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.account-type:hover {
+    border-color: #007BFF;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+.extra-links {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.extra-links a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.extra-links a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 28px;
+    }
+}
+    .container {
+        padding: 30px;
+    }
+
+    .close-icon {
+    right: 8%;
+    
+    .header {
+        font-size: 24px;
+    }
+
+    .social-login {
+        gap: 15px;
+    }
+
+    .social-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"] {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .account-type {
+        padding: 10px;
+    }
+
+    .account-type h4 {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo {
+        font-size: 24px;
+        top: 46px;
+    }
+
+    .container {
+        padding: 80px 20px;
+    }
+
+    .header {
+        font-size: 20px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"] {
+        padding: 12px;
+        font-size: 16px;
+        margin: 10px -12px;
+        
+    }
+
+    .account-types {
+        margin-top: 20px;
+        padding: 12px;
+    }
+
+    .account-type h4 {
+        font-size: 14px;
+    }
+
+    .extra-links {
+        font-size: 13px;
+    }
+
+    .social-login {
+        gap: 22px;
+    }
+
+    .social-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Close Icon (Redirects to Dashboard) -->
+    <a href="home.html" class="close-icon">&#x2716;</a> <!-- Unicode 'X' symbol -->
+
+    <!-- Logo -->
+    <div class="logo">
+        <span class="labor">Labor</span><span class="linko">Linko</span>
+    </div>
+
+    <div class="container">
+        <div class="header" style="text-align: center" 
+     data-en="Create New Account" 
+     data-de="Neues Konto erstellen" 
+     data-ur="نیا اکاؤنٹ بنائیں" 
+     data-hi="नया खाता बनाएं" 
+     data-sd="نئون اڪائونٽ ٺاهيو" 
+     data-it="Crea un nuovo account" 
+     data-fr="Créer un nouveau compte" 
+     data-ar="أنشئ حسابًا جديدًا">
+    Create New Account
+</div>
+<p style="text-align: center;" 
+        data-en="You can also sign in using your social media accounts." 
+        data-de="Sie können sich auch mit Ihren sozialen Medien-Konten anmelden." 
+        data-ur="آپ اپنے سوشل میڈیا اکاؤنٹس کے ذریعے بھی لاگ ان کر سکتے ہیں۔" 
+        data-hi="आप अपने सोशल मीडिया खातों से भी साइन इन कर सकते हैं।" 
+        data-sd="توهان پڻ پنهنجن سوشل ميڊيا اڪائونٽن سان سائن ان ڪري سگهو ٿا." 
+        data-it="Puoi anche accedere con i tuoi account social." 
+        data-fr="Vous pouvez également vous connecter avec vos comptes de réseaux sociaux." 
+        data-ar="يمكنك أيضًا تسجيل الدخول باستخدام حساباتك على وسائل التواصل الاجتماعي.">
+        You can also sign in using your social media accounts.
+    </p> <br>
+        <div class="social-login">
+            <div class="social-icon">
+                <img src="icon/fb-icon.png" alt="Facebook">
+            </div>
+            <div class="social-icon">
+                <img src="icon/google-icon.png" alt="Google">
+            </div>
+            <div class="social-icon">
+                <img src="icon/x-icon.png" alt="Twitter">
+            </div>
+        </div>
+        <div class="or-separator"><p style="text-align: center;" 
+            data-en="OR" 
+            data-de="ODER" 
+            data-ur="یا" 
+            data-hi="या" 
+            data-sd="يا" 
+            data-it="O" 
+            data-fr="OU" 
+            data-ar="أو">
+            OR
+        </p>
+    </div>
+    <form action="/signup" method="POST">
+    <input type="hidden" id="user-type" name="user_type" value="" required>
+
+    <input type="email" id="email" name="email" 
+        placeholder="Enter your email address" 
+        data-en="Enter your email address" 
+        data-de="Geben Sie Ihre E-Mail-Adresse ein" 
+        data-ur="اپنی ای میل ایڈریس درج کریں" 
+        data-hi="अपना ईमेल पता दर्ज करें" 
+        data-sd="پنھنجي اي ميل ايڊريس داخل ڪريو" 
+        data-it="Inserisci il tuo indirizzo email" 
+        data-fr="Entrez votre adresse e-mail" 
+        data-ar="أدخل عنوان بريدك الإلكتروني" 
+        required>
+
+    <input type="password" id="password" name="password" 
+        placeholder="Enter your password" 
+        data-en="Enter your password" 
+        data-de="Geben Sie Ihr Passwort ein" 
+        data-ur="اپنا پاسورڈ درج کریں" 
+        data-hi="अपना पासवर्ड दर्ज करें" 
+        data-sd="پنھنجو پاسورڊ داخل ڪريو" 
+        data-it="Inserisci la tua password" 
+        data-fr="Entrez votre mot de passe" 
+        data-ar="أدخل كلمة المرور" 
+        required>
+
+    <input type="password" id="confirm-password" name="confirm_password" 
+        placeholder="Confirm your password" 
+        data-en="Confirm your password" 
+        data-de="Bestätigen Sie Ihr Passwort" 
+        data-ur="اپنے پاسورڈ کی تصدیق کریں" 
+        data-hi="अपना पासवर्ड पुष्टि करें" 
+        data-sd="پنھنجو پاسورڊ تصديق ڪريو" 
+        data-it="Conferma la tua password" 
+        data-fr="Confirmer votre mot de passe" 
+        data-ar="تأكيد كلمة المرور" 
+        required>
+</form>
+    
+    <div class="account-types" style="text-align: center">
+        <div class="account-type" data-type="worker">
+            <h4 data-en="Labor/Worker" data-de="Arbeiter" data-ur="مزدور/ورکر" data-hi="कर्मचारी/कामकाजी" data-sd="مزدور/ورڪر" data-it="Lavoratore" data-fr="Travailleur" data-ar="عامل">
+                Labor/Worker
+            </h4>
+            <p data-en="Join as a worker to find local jobs and contracts suitable for your skills." 
+               data-de="Tritt als Arbeiter bei, um lokale Jobs und Verträge zu finden, die zu deinen Fähigkeiten passen." 
+               data-ur="مزدور کے طور پر شامل ہوں اور اپنی مہارت کے مطابق مقامی ملازمتیں اور معاہدے تلاش کریں۔" 
+               data-hi="कर्मचारी के रूप में जुड़ें और अपनी क्षमताओं के अनुसार स्थानीय नौकरियों और अनुबंधों को खोजें।" 
+               data-sd="مزدور جي طور تي شامل ٿيو ۽ پنهنجي صلاحيتن لاءِ مقامي نوڪريون ۽ معاهدي ڳوليو." 
+               data-it="Unisciti come lavoratore per trovare lavori locali e contratti adatti alle tue competenze." 
+               data-fr="Rejoignez en tant que travailleur pour trouver des emplois locaux et des contrats adaptés à vos compétences." 
+               data-ar="ان کے طور پر شامل ہوں تاکہ آپ کی مہارت کے مطابق مقامی کام اور معاہدے تلاش کر سکیں۔">
+                Join as a worker to find local jobs and contracts suitable for your skills.
+            </p>
+        </div>
+    
+        <div class="account-type" data-type="employer">
+            <h4 data-en="Employer" data-de="Arbeitgeber" data-ur="ملازمت دینے والا" data-hi="नियोक्ता" data-sd="ملازمت ڏيندڙ" data-it="Datore di lavoro" data-fr="Employeur" data-ar="صاحب العمل">
+                Employer
+            </h4>
+            <p data-en="Post job opportunities and connect with skilled workers effortlessly." 
+               data-de="Veröffentliche Stellenangebote und verbinde dich mühelos mit qualifizierten Arbeitern." 
+               data-ur="ملازمت کے مواقع پوسٹ کریں اور ماہر کارکنوں سے آسانی سے جڑیں۔" 
+               data-hi="नौकरी के अवसर पोस्ट करें और कुशल कर्मचारियों से आसानी से जुड़ें।" 
+               data-sd="نوڪري جا موقعا پوسٽ ڪريو ۽ ماهر ڪارڪنن سان آساني سان ڳنڍيو." 
+               data-it="Pubblica opportunità di lavoro e connettiti facilmente con lavoratori qualificati." 
+               data-fr="Publiez des offres d'emploi et connectez-vous facilement avec des travailleurs qualifiés." 
+               data-ar="نشر الفرص الوظيفية واتصل بالعمال المهرة بكل سهولة.">
+                Post job opportunities and connect with skilled workers effortlessly.
+            </p>
+        </div>
+    
+        <div class="account-type" data-type="organization">
+            <h4 data-en="Organization" data-de="Organisation" data-ur="ادارہ" data-hi="संगठन" data-sd="ادارو" data-it="Organizzazione" data-fr="Organisation" data-ar="منظمة">
+                Organization
+            </h4>
+            <p data-en="Create an organization profile to manage bulk job postings." 
+               data-de="Erstelle ein Organisationsprofil, um Massenjobangebote zu verwalten." 
+               data-ur="ایک تنظیم کا پروفائل بنائیں تاکہ بڑے پیمانے پر ملازمت کی پوسٹنگز کو منظم کیا جا سکے۔" 
+               data-hi="एक संगठन प्रोफ़ाइल बनाएँ ताकि बड़े पैमाने पर नौकरी पोस्टिंग को प्रबंधित किया जा सके।" 
+               data-sd="هڪ تنظيم جو پروفائل ٺاهيو ته جيئن وڏي پئماني تي نوڪريون پوسٽنگز منظم ڪري سگھجن." 
+               data-it="Crea un profilo organizzativo per gestire le offerte di lavoro in grande quantità." 
+               data-fr="Créez un profil d'organisation pour gérer les publications de travail en gros." 
+               data-ar="أنشئ ملف تعريف للمنظمة لإدارة إعلانات الوظائف بالجملة.">
+                Create an organization profile to manage bulk job postings.
+            </p>
+        </div>
+    
+        <div class="account-type" data-type="contractor">
+            <h4 data-en="Contractor" data-de="Auftragnehmer" data-ur="ٹھیکیدار" data-hi="ठेकेदार" data-sd="ڪنٽريڪٽر" data-it="Contraente" data-fr="Contractant" data-ar="مقاول">
+                Contractor
+            </h4>
+            <p data-en="Work on large projects by hiring or collaborating with multiple workers." 
+               data-de="Arbeite an großen Projekten, indem du mehrere Arbeiter einstellst oder mit ihnen zusammenarbeitest." 
+               data-ur="بڑی منصوبوں پر کام کریں اور متعدد مزدوروں کو ملازمت دے کر یا ان کے ساتھ تعاون کرکے۔" 
+               data-hi="बड़े प्रोजेक्ट्स पर काम करें और कई कर्मचारियों को नियुक्त करके या उनके साथ सहयोग करके।" 
+               data-sd="وڏي منصوبن تي ڪم ڪريو ۽ ڪيترن ئي مزدورن کي ڀرتي ڪري يا انهن سان گڏ ڪم ڪري." 
+               data-it="Lavora su grandi progetti assumendo o collaborando con più lavoratori." 
+               data-fr="Travaillez sur de grands projets en embauchant ou en collaborant avec plusieurs travailleurs." 
+               data-ar="اعمل في المشاريع الكبيرة عن طريق توظيف أو التعاون مع العديد من العمال.">
+                Work on large projects by hiring or collaborating with multiple workers.
+            </p>
+        </div>
+    </div>
+    
+
+            <button type="submit" 
+            data-en="Sign Up" 
+            data-de="Registrieren" 
+            data-ur="سائن اپ کریں" 
+            data-hi="साइन अप करें" 
+            data-sd="سائن اپ ڪريو" 
+            data-it="Iscriviti" 
+            data-fr="S'inscrire" 
+            data-ar="اشتراك">
+            Sign Up
+        </button>
+        </form>
+        <div class="extra-links" style="text-align: center;">
+            <p data-en="Already have an account?" 
+               data-de="Haben Sie bereits ein Konto?" 
+               data-ur="کیا آپ کا پہلے سے اکاؤنٹ ہے؟" 
+               data-hi="क्या आपका पहले से खाता है?" 
+               data-sd="ڇا اوهان وٽ اڳ ۾ ئي اڪائونٽ آهي؟" 
+               data-it="Hai già un account?" 
+               data-fr="Vous avez déjà un compte ?" 
+               data-ar="هل لديك حساب بالفعل؟">
+                Already have an account? 
+            </p>
+            <a href="login.html" data-en="Sign In" 
+               data-de="Einloggen" 
+               data-ur="لاگ ان کریں" 
+               data-hi="साइन इन करें" 
+               data-sd="لاگ ان ڪريو" 
+               data-it="Accedi" 
+               data-fr="Se connecter" 
+               data-ar="تسجيل الدخول">
+                Sign In
+            </a>
+        </div>
+        
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const accountTypes = document.querySelectorAll('.account-type');
+
+            accountTypes.forEach(type => {
+                type.addEventListener('click', () => {
+                    accountTypes.forEach(t => t.classList.remove('selected'));
+                    type.classList.add('selected');
+                    document.getElementById('user-type').value = type.dataset.type;
+                });
+            });
+        });
+    </script>
+    <script>
+        // Language Script to Update Translations
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+            setLanguage(savedLanguage);
+
+            function setLanguage(language) {
+                // Set the language in the body tag to identify current language
+                document.body.setAttribute("data-lang", language);
+
+                // Update translatable text in the content area (header and description)
+                document.querySelectorAll("[data-en]").forEach((element) => {
+                    element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+                });
+            }
+        });
+    </script>
+</body>
+</html>
