@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account - LaborLinko</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0056B3;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Delete Section */
+.delete-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.delete-section button {
+    background-color: #D9534F;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-section button:hover {
+    background-color: #C9302C;
+}
+
+.warning-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Password Section */
+.password-section {
+    margin-top: 20px;
+    display: none;
+}
+
+.password-section label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.password-section input {
+    align-items: center;
+    width: 90%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.password-section input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    display: none;
+    margin-top: 10px;
+}
+
+/* Confirmation Box */
+.confirmation-box {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.confirmation-box p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.confirmation-box button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.confirmation-box button:first-child {
+    background-color: #D9534F;
+    color: white;
+}
+
+.confirmation-box button:first-child:hover {
+    background-color: #C9302C;
+}
+
+.confirmation-box button:last-child {
+    background-color: #808080;
+    color: white;
+}
+
+.confirmation-box button:last-child:hover {
+    background-color: #616161;
+}
+
+/* Add z-index to the back icon for better stacking order */
+.back-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.back-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.back-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+        
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .delete-section button {
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+
+    .password-section input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .confirmation-box p {
+        font-size: 15px;
+    }
+
+    .confirmation-box button {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 86%;
+        padding: 14px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    .delete-section button {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+
+    .password-section input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .confirmation-box button {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+}
+
+    </style>
+</head>
+<body>
+<a href="userprofile.html" class="back-icon">
+    <img src="icon/back-icon.png" alt="Back">
+</a>
+    <main>
+        <div class="container">
+            <h1>Delete Your Account</h1>
+            <p>We are sorry to see you go. Deleting your account is permanent and cannot be undone. Please confirm your decision by entering your password below.</p>
+
+            <!-- Delete Section -->
+            <div class="delete-section">
+                <button id="delete-btn">Delete Account</button>
+                <div class="warning-message" id="warning-message">
+                    Warning: This action is permanent and cannot be undone.
+                </div>
+            </div>
+
+            <!-- Password Section -->
+            <div class="password-section" id="password-section" style="display:none;">
+                <label for="password">Enter your password to confirm:</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error-message" id="password-error">Incorrect password. Please try again.</div>
+            </div>
+
+            <!-- Confirmation Box -->
+            <div class="confirmation-box" id="confirmation-box">
+                <p>Are you sure you want to delete your account? This action is permanent.</p>
+                <button id="confirm-delete">Yes, Delete Account</button>
+                <button id="cancel-delete">Cancel</button>
+            </div>
+
+            <!-- Success Message -->
+            <div id="confirmation-msg" style="display:none; color: green; font-weight: bold; margin-top: 20px;">
+                Your account has been deleted successfully.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const deleteBtn = document.getElementById('delete-btn');
+        const passwordSection = document.getElementById('password-section');
+        const passwordField = document.getElementById('password');
+        const passwordError = document.getElementById('password-error');
+        const confirmationBox = document.getElementById('confirmation-box');
+        const warningMessage = document.getElementById('warning-message');
+        const confirmDelete = document.getElementById('confirm-delete');
+        const cancelDelete = document.getElementById('cancel-delete');
+        const confirmationMsg = document.getElementById('confirmation-msg');
+
+        const correctPassword = "sabir123"; // Predefined password for confirmation
+
+        // Show password field when "Delete Account" is clicked
+        deleteBtn.addEventListener('click', function() {
+            warningMessage.style.display = 'none';
+            passwordSection.style.display = 'block'; // Show password entry
+        });
+
+        // Validate password and show confirmation box if correct
+        passwordField.addEventListener('input', function() {
+            const enteredPassword = passwordField.value;
+            if (enteredPassword === correctPassword) {
+                passwordError.style.display = 'none';
+                confirmationBox.style.display = 'block'; // Show the confirmation box
+            } else {
+                passwordError.style.display = 'block'; // Show error if password is incorrect
+                confirmationBox.style.display = 'none'; // Hide confirmation box
+            }
+        });
+
+        // Handle confirmation of deletion
+        confirmDelete.addEventListener('click', function() {
+            confirmationMsg.style.display = 'block'; // Show confirmation message
+            setTimeout(function() {
+                confirmationMsg.style.display = 'none'; // Hide it after 3 seconds
+                window.location.href = 'dashboard.html'; // Redirect to dashboard (or a specific page)
+            }, 3000);
+        });
+
+        // Handle cancelation of deletion
+        cancelDelete.addEventListener('click', function() {
+            confirmationBox.style.display = 'none';
+            passwordSection.style.display = 'none';
+            warningMessage.style.display = 'block'; // Show warning message again
+        });
+    </script>
+
+</body>
+</html>

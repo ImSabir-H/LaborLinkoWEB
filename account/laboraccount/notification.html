@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - LaborLinko</title>
+    <style>
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* Top Bar Item Styling */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 10px;  /* Adds spacing around each item */
+}
+
+.top-bar-item:hover {
+    color: #007BFF;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px; /* Set icon size to 24px */
+    height: 24px; /* Set icon size to 24px */
+    margin-right: 8px;
+}
+
+.top-bar-item .top-bar-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: gray;
+}
+
+.top-bar-item:hover .top-bar-label {
+    color: #007BFF;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem; /* Default size */
+    font-weight: 600;
+    color: #007BFF;
+    padding-right: 8px;
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 400;
+    color: #007BFF;
+}
+
+/* Responsive Logo Size */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 7vw;  /* Set size relative to the viewport width */
+        max-font-size: 2rem;  /* Maximum size, keeping it from getting too big */
+        min-font-size: 1.5rem; /* Minimum size, keeping it readable */
+    }
+}
+
+@media (min-width: 769px) {
+    .logo {
+        font-size: 2rem;  /* Default size for larger screens */
+    }
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #007BFF;
+}
+
+.nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #007BFF;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile-Only Styling (Small Screen) */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 12px 15px;
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none;  /* Hide text labels on small screens */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 6vw;  /* Icon width relative to viewport width */
+        height: 6vw; /* Icon height relative to viewport width */
+        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
+        max-height: 28px; /* Maintain a max size */
+        min-width: 20px; /* Ensure icons do not shrink too small */
+        min-height: 20px; /* Minimum size for better usability */
+    }
+
+    .top-bar-item {
+        padding: 1px;
+        cursor: pointer;
+    }
+
+    .nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    /* Profile Icon size adjustments for mobile responsiveness */
+    .profile-icon {
+        width: 12vw;  /* Profile icon width relative to viewport width */
+        height: 12vw; /* Profile icon height relative to viewport width */
+        max-width: 50px;  /* Ensure profile icon does not get too large */
+        max-height: 50px; /* Max profile icon size */
+        min-width: 40px; /* Minimum profile icon size */
+        min-height: 40px; /* Keep profile icon size practical */
+        border-radius: 50%; /* Ensure it's circular */
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 24px;  /* Static size on desktop */
+        height: 24px; /* Static size on desktop */
+    }
+
+    .profile-icon {
+        width: 40px;  /* Fixed size on desktop */
+        height: 40px; /* Fixed size on desktop */
+    }
+}
+
+
+/* Desktop-Only Styling (Larger Screen) */
+@media (min-width: 769px) {
+    /* Show only text on desktop */
+    .top-bar-item .top-bar-label {
+        display: inline-block; /* Show text labels */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: none; /* Hide icons */
+    }
+}
+
+/* Profile Section Styles */
+.profile-section {
+    position: relative;
+    display: inline-block;
+}
+
+/* Profile Icon */
+.profile-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Dropdown Menu */
+.profile-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    width: 260px;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+.profile-dropdown.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Profile Header */
+.profile-header {
+    background-color: #f5f5f5;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px 10px 0 0;
+}
+
+.profile-header .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-header .user-role {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Dropdown List Items */
+.profile-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-dropdown li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.profile-dropdown li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.profile-dropdown li a:hover {
+    color: #007BFF; /* Highlight color on hover */
+}
+
+/* Logout Section */
+.logout-section {
+    padding: 10px 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.logout-btn {
+    color: #FF3B3B;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: #D32F2F;
+}
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* For the entire page to have a flex layout to push the footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+.container {
+    max-width: 1400px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.notification-header h2 {
+    font-size: 24px;
+    color: #007BFF;
+    margin: 0;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-options button {
+    padding: 8px 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-options button:hover {
+    background-color: #0056b3;
+}
+
+/* Notification List */
+.notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background-color: #f1f5ff;
+}
+
+.notification-item.unread {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+.notification-item.read {
+    font-weight: normal;
+    background-color: #ffffff;
+}
+
+.notification-content {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.notification-content h4 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.notification-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Mark All Section */
+.mark-all {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.mark-all button {
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mark-all button:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .notification-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .notification-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .notification-content {
+        margin-left: 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+    
+    <div class="top-bar">
+        <div class="logo">
+            <span class="labor">Labor</span><span class="linko">Linko</span>
+        </div>
+        <div class="nav">
+            <a href="laborhome.html">
+                <div class="top-bar-item">
+                    <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
+                    <span class="top-bar-label">Home</span>
+                </div>
+            </a>
+            <a href="message.html">
+                <div class="top-bar-item">
+                    <img src="icon/message-icon.png" alt="Message" class="top-bar-icon">
+                    <span class="top-bar-label">Message</span>
+                </div>
+            </a>
+            <a href="notification.html">
+                <div class="top-bar-item">
+                    <img src="icon/notification-icon.png" alt="Notification" class="top-bar-icon">
+                    <span class="top-bar-label">Notification</span>
+                </div>
+            </a>
+        </div>
+        <div class="profile-section">
+            <div class="profile-icon">
+                <img src="image/profile-picture.jpg" alt="Profile">
+            </div>
+            <div class="profile-dropdown">
+                <div class="profile-header">
+                    <span class="user-name">Imran Shah</span>
+                    <small class="user-role">Labor Worker</small>
+                </div>
+                <ul>
+                    <li><a href="userprofile.html">My Profile</a></li>
+                    <li><a href="savedjob.html">Saved Job</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                    <li><a href="support.html">Help & Support</a></li>
+                </ul>
+                <div class="logout-section">
+                    <a href="../home.html" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Notification Header -->
+        <div class="notification-header">
+            <h2>Notifications</h2>
+            <div class="filter-options">
+                <button id="all">All</button>
+                <button id="unread">Unread</button>
+                <button id="read">Read</button>
+            </div>
+        </div>
+
+        <!-- Notification List -->
+        <ul class="notification-list">
+            <li class="notification-item unread">
+                <div class="notification-content">
+                    <h4>Job Application Approved</h4>
+                    <p>Your application for "Electrician Work" has been approved!</p>
+                </div>
+                <span class="notification-time">2 hours ago</span>
+            </li>
+            <li class="notification-item read">
+                <div class="notification-content">
+                    <h4>New Job Posted</h4>
+                    <p>A new job "Plumbing Work" is available in your area.</p>
+                </div>
+                <span class="notification-time">Yesterday</span>
+            </li>
+            <li class="notification-item unread">
+                <div class="notification-content">
+                    <h4>Payment Received</h4>
+                    <p>Your payment of $200 for "Painting Work" has been received.</p>
+                </div>
+                <span class="notification-time">3 days ago</span>
+            </li>
+            <li class="notification-item read">
+                <div class="notification-content">
+                    <h4>Job Application Rejected</h4>
+                    <p>Your application for "Carpentry Work" has been rejected.</p>
+                </div>
+                <span class="notification-time">Last week</span>
+            </li>
+        </ul>
+
+        <!-- Mark All As Read Section -->
+        <div class="mark-all">
+            <button id="markAll">Mark All as Read</button>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality for filters
+        const allButton = document.getElementById('all');
+        const unreadButton = document.getElementById('unread');
+        const readButton = document.getElementById('read');
+        const markAllButton = document.getElementById('markAll');
+        const notificationItems = document.querySelectorAll('.notification-item');
+
+        allButton.addEventListener('click', () => {
+            notificationItems.forEach(item => item.style.display = 'flex');
+        });
+
+        unreadButton.addEventListener('click', () => {
+            notificationItems.forEach(item => {
+                item.style.display = item.classList.contains('unread') ? 'flex' : 'none';
+            });
+        });
+
+        readButton.addEventListener('click', () => {
+            notificationItems.forEach(item => {
+                item.style.display = item.classList.contains('read') ? 'flex' : 'none';
+            });
+        });
+
+        markAllButton.addEventListener('click', () => {
+            notificationItems.forEach(item => {
+                item.classList.remove('unread');
+                item.classList.add('read');
+            });
+        });
+        
+document.addEventListener("DOMContentLoaded", () => {
+    const profileIcon = document.querySelector(".profile-icon");
+    const profileDropdown = document.querySelector(".profile-dropdown");
+
+    // Toggle dropdown visibility on profile icon click
+    profileIcon.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent click from propagating to document
+        profileDropdown.classList.toggle("visible");
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", () => {
+        if (profileDropdown.classList.contains("visible")) {
+            profileDropdown.classList.remove("visible");
+        }
+    });
+
+    // Prevent dropdown from closing when clicking inside
+    profileDropdown.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+});
+
+    </script>
+</body>
+</html>

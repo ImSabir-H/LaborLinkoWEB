@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborLinko Top Bar</title>
+    <style>
+    /* General Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* Top Bar Item Styling */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 10px;  /* Adds spacing around each item */
+}
+
+.top-bar-item:hover {
+    color: #007BFF;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px; /* Set icon size to 24px */
+    height: 24px; /* Set icon size to 24px */
+    margin-right: 8px;
+}
+
+.top-bar-item .top-bar-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: gray;
+}
+
+.top-bar-item:hover .top-bar-label {
+    color: #007BFF;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem; /* Default size */
+    font-weight: 600;
+    color: #007BFF;
+    padding-right: 8px;
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 400;
+    color: #007BFF;
+}
+
+/* Responsive Logo Size */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 7vw;  /* Set size relative to the viewport width */
+        max-font-size: 2rem;  /* Maximum size, keeping it from getting too big */
+        min-font-size: 1.5rem; /* Minimum size, keeping it readable */
+    }
+}
+
+@media (min-width: 769px) {
+    .logo {
+        font-size: 2rem;  /* Default size for larger screens */
+    }
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #007BFF;
+}
+
+.nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #007BFF;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile-Only Styling (Small Screen) */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 12px 15px;
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none;  /* Hide text labels on small screens */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 6vw;  /* Icon width relative to viewport width */
+        height: 6vw; /* Icon height relative to viewport width */
+        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
+        max-height: 28px; /* Maintain a max size */
+        min-width: 20px; /* Ensure icons do not shrink too small */
+        min-height: 20px; /* Minimum size for better usability */
+    }
+
+    .top-bar-item {
+        padding: 1px;
+        cursor: pointer;
+    }
+
+    .nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    /* Profile Icon size adjustments for mobile responsiveness */
+    .profile-icon {
+        width: 12vw;  /* Profile icon width relative to viewport width */
+        height: 12vw; /* Profile icon height relative to viewport width */
+        max-width: 50px;  /* Ensure profile icon does not get too large */
+        max-height: 50px; /* Max profile icon size */
+        min-width: 40px; /* Minimum profile icon size */
+        min-height: 40px; /* Keep profile icon size practical */
+        border-radius: 50%; /* Ensure it's circular */
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 24px;  /* Static size on desktop */
+        height: 24px; /* Static size on desktop */
+    }
+
+    .profile-icon {
+        width: 40px;  /* Fixed size on desktop */
+        height: 40px; /* Fixed size on desktop */
+    }
+}
+
+
+/* Desktop-Only Styling (Larger Screen) */
+@media (min-width: 769px) {
+    /* Show only text on desktop */
+    .top-bar-item .top-bar-label {
+        display: inline-block; /* Show text labels */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: none; /* Hide icons */
+    }
+}
+
+/* Profile Section Styles */
+.profile-section {
+    position: relative;
+    display: inline-block;
+}
+
+/* Profile Icon */
+.profile-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Dropdown Menu */
+.profile-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    width: 260px;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+.profile-dropdown.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Profile Header */
+.profile-header {
+    background-color: #f5f5f5;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px 10px 0 0;
+}
+
+.profile-header .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-header .user-role {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Dropdown List Items */
+.profile-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-dropdown li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.profile-dropdown li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.profile-dropdown li a:hover {
+    color: #007BFF; /* Highlight color on hover */
+}
+
+/* Logout Section */
+.logout-section {
+    padding: 10px 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.logout-btn {
+    color: #FF3B3B;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: #D32F2F;
+}
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* For the entire page to have a flex layout to push the footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+/* Search Bar Container */
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    gap: 12px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+/* Search Input Styles */
+.search-box, .location-box {
+    flex: 1;
+    position: relative;
+    min-width: 200px; /* Ensures a minimum width for smaller screens */
+}
+
+.search-box .search-input, 
+.location-box .location-input {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.search-box .search-input:focus, 
+.location-box .location-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Icon Styling */
+.search-box .search-input {
+    background: url('icon/search-icon.png') no-repeat 12px center;
+    background-size: 18px;
+}
+
+.location-box .location-input {
+    background: url('icon/location-icon.png') no-repeat 12px center;
+    background-size: 18px;
+}
+
+/* Button Styling */
+.btn-search, .filter-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-search:hover, .filter-button:hover {
+    background-color: #0056b3;
+}
+
+/* Filter Dropdown */
+.filter-dropdown {
+    display: none;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 0px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.filter-dropdown.show {
+    display: block;
+    opacity: 2;
+    transform: translateY(0);
+}
+
+/* Filter Item */
+.filter-item {
+    margin-bottom: 16px; /* Adjusted for better spacing on mobile */
+}
+
+.filter-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Filter Input Field */
+.filter-input {
+    width: 100%;
+    padding: 14px 26px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Apply Filter Button */
+.apply-filter-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.apply-filter-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Responsive Design for Filter Section */
+@media (max-width: 768px) {
+    .filter-dropdown {
+        padding: 14px; /* Reduced padding for mobile */
+        border-radius: 12px;
+    }
+
+    .filter-item {
+        margin-bottom: 14px; /* Reduced spacing for smaller screens */
+    }
+
+    .filter-input {
+        font-size: 14px; /* Adjusted font size for better readability */
+        padding: 12px 14px;
+    }
+
+    .apply-filter-btn {
+        font-size: 15px;
+        padding: 12px; /* Adjusted padding to fit smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-dropdown {
+        padding: 12px; /* Compact layout for small screens */
+        margin-top: 8px;
+    }
+
+    .filter-item {
+        margin-bottom: 12px;
+    }
+
+    .filter-input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .apply-filter-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+
+
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* For the entire page to have a flex layout to push the footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+    <div class="logo">
+        <span class="labor">Labor</span><span class="linko">Linko</span>
+    </div>
+    <div class="nav">
+        <a href="laborhome.html">
+            <div class="top-bar-item">
+                <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
+                <span class="top-bar-label">Home</span>
+            </div>
+        </a>
+        <a href="message.html">
+            <div class="top-bar-item">
+                <img src="icon/message-icon.png" alt="Message" class="top-bar-icon">
+                <span class="top-bar-label">Message</span>
+            </div>
+        </a>
+        <a href="notification.html">
+            <div class="top-bar-item">
+                <img src="icon/notification-icon.png" alt="Notification" class="top-bar-icon">
+                <span class="top-bar-label">Notification</span>
+            </div>
+        </a>
+    </div>
+    <div class="profile-section">
+        <div class="profile-icon">
+            <img src="image/profile-picture.jpg" alt="Profile">
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header">
+                <span class="user-name">Imran Shah</span>
+                <small class="user-role">Labor Worker</small>
+            </div>
+            <ul>
+                <li><a href="userprofile.html">My Profile</a></li>
+                <li><a href="savedjob.html">Saved Job</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="support.html">Help & Support</a></li>
+            </ul>
+            <div class="logout-section">
+                <a href="../../home.html" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <!-- Hero Section -->
+   <section class="search-bar">
+    <div class="search-box">
+        <i class="search-icon fas fa-search"></i>
+        <input type="text" placeholder="Search Job" class="search-input">
+    </div>
+    <div class="location-box">
+        <i class="location-icon fas fa-map-marker-alt"></i>
+        <input type="text" placeholder="Enter Location" class="location-input">
+    </div>
+    <div class="action-buttons">
+        <button class="btn-search">Search</button>
+    </div>
+<button class="filter-button" id="filterButton">Filter</button>
+</section>
+    <!-- Filter Dropdown Section (Now inside the same container) -->
+    <div class="filter-dropdown" id="filterDropdown">
+        <div class="filter-item">
+            <label for="job-type">Job Type:</label>
+            <select id="job-type" class="filter-input">
+                <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
+                <option value="freelance">Freelance</option>
+            </select>
+        </div>
+        <div class="filter-item">
+            <label for="salary-range">Salary Range:</label>
+            <input type="range" id="salary-range" class="filter-input" min="10000" max="100000" value="50000">
+            <span id="salary-output" class="range-value">50,000</span>
+        </div>
+        <div class="filter-item">
+            <button class="apply-filter-btn">Apply Filters</button>
+        </div>
+    </div>
+    <!--JOB CARD-->
+<section class="job-post-section">
+    <div class="job-card">
+        <div class="header">
+            <img src="image/job-profile-pic.jpg" alt="Profile Picture">&nbsp;&nbsp;
+            <div class="info">
+                <h3 data-en="Ali Sher" data-de="Ali Sher" data-ur="علی شیر" data-hi="अली शेर" data-sd="علی شیر" data-it="Ali Sher" data-ar="علي شير" data-ru="Али Шер">Ali Sher</h3>
+                <p data-en="Employer" data-de="Arbeitgeber" data-ur="ملازمت دینے والا" data-hi="नियोक्ता" data-sd="ملازمت ڏيندڙ" data-it="Datore di lavoro" data-ar="صاحب العمل" data-ru="Работодатель">Employer</p>
+            </div>
+        </div>
+        <div class="save" onclick="saveJob()">
+            <img src="icon/savejob-icon.png" alt="Save Icon">
+            <span data-en="Save Job for Later" data-de="Job für später speichern" data-ur="بعد کے لئے نوکری محفوظ کریں" data-hi="बाद के लिए नौकरी सहेजें" data-sd="بعد لاءِ نوڪري محفوظ ڪريو" data-it="Salva il lavoro per dopo" data-ar="احفظ الوظيفة للوقت لاحق" data-ru="Сохранить работу на потом">Save Job for Later</span>
+        </div>
+        <h4 data-en="Plumber Needed for Immediate Repair" data-de="Klempner für sofortige Reparatur benötigt" data-ur="فوری مرمت کے لیے پلمبر کی ضرورت" data-hi="तत्काल मरम्मत के लिए प्लंबर की आवश्यकता है" data-sd="فوري مرمت لاءِ پلمبر جي ضرورت" data-it="Idraulico necessario per riparazione immediata" data-ar="فني سباكة مطلوب للإصلاح الفوري" data-ru="Необходим сантехник для немедленного ремонта">Plumber Needed for Immediate Repair</h4>
+        <div class="details">
+            <p><img src="icon/location-icon.png" alt="Location Icon">&nbsp;
+            <span data-en="Location: Street 1/2 Al-baqi Ground Karachi" data-de="Standort: Straße 1/2 Al-baqi Ground Karachi" data-ur="مقام: اسٹریٹ 1/2 الباقی گراؤنڈ کراچی" data-hi="स्थान: स्ट्रीट 1/2 अल-बाकी ग्राउंड कराची" data-sd="مقام: اسٹریٽ 1/2 الباقي گرائونڊ ڪراچي" data-it="Posizione: Strada 1/2 Al-baqi Ground Karachi" data-ar="الموقع: الشارع 1/2 أرض الباقي كراتشي" data-ru="Местоположение: улица 1/2 Al-baqi Ground Карачи">Location: Street 1/2 Al-baqi Ground Karachi</span></p>
+            <p><img src="icon/salary-icon.png" alt="Salary Icon">&nbsp;
+            <span data-en="Salary: PKR 1,500 per day" data-de="Gehalt: PKR 1.500 pro Tag" data-ur="تنخواہ: 1500 روپے فی دن" data-hi="वेतन: प्रति दिन 1500 रुपये" data-sd="تنخواہ: 1500 روپيا في ڏينهن" data-it="Salario: PKR 1.500 al giorno" data-ar="الراتب: 1500 روبية يومياً" data-ru="Зарплата: 1500 PKR в день">Salary: PKR 1,500 per day</span></p>
+            <p><img src="icon/jobtype-icon.png" alt="Job Type Icon">&nbsp;
+            <span data-en="Job Type: Short-Term" data-de="Job-Typ: Kurzfristig" data-ur="نوکری کی قسم: مختصر مدتی" data-hi="नौकरी का प्रकार: शॉर्ट-टर्म" data-sd="نوڪري جو قسم: مختصر مدت" data-it="Tipo di lavoro: a breve termine" data-ar="نوع الوظيفة: قصيرة المدى" data-ru="Тип работы: краткосрочная">Job Type: Short-Term</span></p>
+        </div>
+        <div class="job-actions">
+            <span data-en="Posted 2 hours ago" data-de="Vor 2 Stunden gepostet" data-ur="2 گھنٹے پہلے پوسٹ کیا گیا" data-hi="2 घंटे पहले पोस्ट किया गया" data-sd="2 گھنٽا اڳ پوسٽ ڪيو ويو" data-it="Pubblicato 2 ore fa" data-ar="منشور منذ ساعتين" data-ru="Опубликовано 2 часа назад">Posted 2 hours ago</span>
+            <a href="contactjob.html" class="contact-link">
+                <button class="contact-button">
+                    <img src="icon/contact-icon-white.png" alt="Contact Icon" data-en="Contact Icon" data-ur="رابطہ آئیکن" data-hi="संपर्क आइकन" data-sd="رابطي آئڪن" data-de="Kontakt Icon" data-it="Icona di contatto" data-ar="أيقونة الاتصال" data-ru="Иконка контакта">
+                    <span style="color: white;" data-en="Contact" data-ur="رابطہ" data-hi="संपर्क" data-sd="رابطي" data-de="Kontakt" data-it="Contatto" data-ar="اتصل" data-ru="Контакт">Contact</span>
+                </button>
+            </a>
+            
+            <style>
+                /* Remove default link styling */
+                .contact-link {
+                    text-decoration: none; /* Removes the underline from the link */
+                }
+            
+                /* Contact Button CSS */
+                .contact-button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 10px 20px;
+                    border: none;
+                    background-color: #007BFF;
+                    color: #fff;
+                    font-size: 16px;
+                    font-family: 'Roboto', sans-serif;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Optional: adds a subtle shadow for a 3D effect */
+                }
+            
+                .contact-button img {
+                    margin-right: 10px;  /* Space between icon and text */
+                    width: 20px;         /* Icon size */
+                    height: 20px;
+                }
+            
+                /* Optional: Add hover effect */
+                .contact-button:hover {
+                    background-color: #0056b3;  /* Darker shade when hovered */
+                }
+            </style>
+                        
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Adjustments for RTL Languages */
+[data-lang="ur"], [data-lang="sd"], [data-lang="ar"] {
+    direction: rtl; /* Right-to-left text direction */
+}
+
+[data-lang="ur"] .job-card,
+[data-lang="sd"] .job-card,
+[data-lang="ar"] .job-card {
+    text-align: right; /* Align text to the right */
+}
+
+[data-lang="ur"] .job-card .header,
+[data-lang="sd"] .job-card .header,
+[data-lang="ar"] .job-card .header {
+    text-align: right; /* Align header elements to the right */
+}
+
+[data-lang="ur"] .job-card .header img,
+[data-lang="sd"] .job-card .header img,
+[data-lang="ar"] .job-card .header img {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+[data-lang="ur"] .job-card .save,
+[data-lang="sd"] .job-card .save,
+[data-lang="ar"] .job-card .save {
+    right: initial;
+    left: 15px;
+    text-align: left;
+}
+
+[data-lang="ur"] .job-card h4,
+[data-lang="sd"] .job-card h4,
+[data-lang="ar"] .job-card h4 {
+    text-align: right;
+}
+
+[data-lang="ur"] .job-card .details p,
+[data-lang="sd"] .job-card .details p,
+[data-lang="ar"] .job-card .details p {
+    text-align: right;
+}
+
+[data-lang="ur"] .job-card .job-actions,
+[data-lang="sd"] .job-card .job-actions,
+[data-lang="ar"] .job-card .job-actions {
+    text-align: right;
+}
+
+[data-lang="ur"] .job-card .job-actions .contact-btn,
+[data-lang="sd"] .job-card .job-actions .contact-btn,
+[data-lang="ar"] .job-card .job-actions .contact-btn {
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+[data-lang="ur"] .job-card .job-actions span,
+[data-lang="sd"] .job-card .job-actions span,
+[data-lang="ar"] .job-card .job-actions span {
+    text-align: right;
+}
+    .job-post-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .job-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        padding: 15px;
+        position: relative;
+    }
+
+    .job-card .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .job-card .header img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .job-card .header .info {
+        margin-left: 10px;
+    }
+
+    .job-card .header .info h3 {
+        font-size: 18px;
+        color: #333;
+    }
+
+    .job-card .header .info p {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .job-card .save {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 14px;
+        color: #007BFF;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .job-card .save img {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+    }
+
+    .job-card .save:hover {
+        text-decoration: underline;
+    }
+
+    .job-card h4 {
+        font-size: 20px;
+        color: #0056B3;
+        margin-bottom: 10px;
+    }
+
+    .job-card .details {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .job-card .details p {
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .job-card .details p img {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+
+    .job-card .job-actions {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .job-card .job-actions span {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .job-card .job-actions .contact-btn {
+        background: #007BFF;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .job-card .job-actions .contact-btn:hover {
+        background: #0056B3;
+    }
+
+    @media screen and (max-width: 600px) {
+        .job-card {
+            max-width: 100%;
+            padding: 10px;
+        }
+
+        .job-card .header .info h3 {
+            font-size: 16px;
+        }
+
+        .job-card .header .info p {
+            font-size: 12px;
+        }
+
+        .job-card h4 {
+            font-size: 18px;
+        }
+
+        .job-card .job-actions .contact-btn {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+    }
+    
+</style>
+
+<script>
+    function saveJob() {
+        window.location.href = 'savedjobdetail.html';
+    }
+</script>
+
+   
+<!-- Footer Section -->
+<footer class="footer">
+    <nav class="footer-nav">
+        <a href="#" data-en="About Us" data-ur="ہمارے بارے میں" data-hi="हमारे बारे में" data-sd="اسان بابت" data-de="Über uns" data-it="Chi siamo" data-ar="معلومات عنا" data-fr="À propos de nous">About Us</a>
+        <a href="#" data-en="FAQs" data-ur="عمومی سوالات" data-hi="अक्सर पूछे जाने वाले सवाल" data-sd="عام سوالات" data-de="FAQs" data-it="Domande frequenti" data-ar="الأسئلة الشائعة" data-fr="FAQ">FAQs</a>
+        <a href="#" data-en="Terms of Service" data-ur="سروس کی شرائط" data-hi="सेवा की शर्तें" data-sd="سروس جون شرائط" data-de="Nutzungsbedingungen" data-it="Termini di servizio" data-ar="شروط الخدمة" data-fr="Conditions d'utilisation">Terms of Service</a>
+        <a href="#" data-en="Privacy Policy" data-ur="پرائیویسی پالیسی" data-hi="गोपनीयता नीति" data-sd="رازداري پاليسي" data-de="Datenschutzrichtlinie" data-it="Politica sulla privacy" data-ar="سياسة الخصوصية" data-fr="Politique de confidentialité">Privacy Policy</a>
+    </nav>
+    <p data-en="&copy; 2025 LaborLinko" data-ur="© 2025 LaborLinko" data-hi="© 2025 LaborLinko" data-sd="© 2025 LaborLinko" data-de="© 2025 LaborLinko" data-it="© 2025 LaborLinko" data-ar="© 2025 LaborLinko" data-fr="© 2025 LaborLinko">
+        &copy; 2025 LaborLinko
+    </p>
+</footer>
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const profileIcon = document.querySelector(".profile-icon");
+            const profileDropdown = document.querySelector(".profile-dropdown");
+        
+            // Toggle dropdown visibility on profile icon click
+            profileIcon.addEventListener("click", (e) => {
+                e.stopPropagation(); // Prevent click from propagating to document
+                profileDropdown.classList.toggle("visible");
+            });
+        
+            // Close dropdown when clicking outside
+            document.addEventListener("click", () => {
+                if (profileDropdown.classList.contains("visible")) {
+                    profileDropdown.classList.remove("visible");
+                }
+            });
+        
+            // Prevent dropdown from closing when clicking inside
+            profileDropdown.addEventListener("click", (e) => {
+                e.stopPropagation();
+            });
+        });
+        document.getElementById('filterButton').addEventListener('click', function() {
+            const filterDropdown = document.getElementById('filterDropdown');
+            filterDropdown.classList.toggle('show');
+        });
+        
+        document.getElementById('salary-range').addEventListener('input', function() {
+            const salaryValue = this.value;
+            document.getElementById('salary-output').textContent = salaryValue;
+        });
+        
+        document.querySelector('.apply-filter-btn').addEventListener('click', function() {
+            const jobType = document.getElementById('job-type').value;
+            const salaryRange = document.getElementById('salary-range').value;
+            console.log('Filters Applied:', jobType, salaryRange);
+            document.getElementById('filterDropdown').classList.remove('show');  // Hide after applying
+        });
+        
+            </script>
+</html>

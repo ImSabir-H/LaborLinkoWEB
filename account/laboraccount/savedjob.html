@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Jobs | LaborLinko</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5;
+    color: #333;
+}
+
+/* Back Button */
+.back-button {
+    padding: 20px 15px;
+    background-color: #007BFF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.back-link {
+    color: white;
+    font-size: 1.3rem;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.back-link:hover {
+    color: #F5F5F5;
+}
+
+.back-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Saved Jobs Section */
+.saved-jobs {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.saved-jobs h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: #0056B3;
+}
+
+.saved-jobs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.job-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 380px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.job-card h2 {
+    font-size: 1.3rem;
+    font-family: 'Montserrat', sans-serif;
+    color: #0056B3;
+    margin-bottom: 5px;
+}
+
+.job-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.status {
+    font-size: 0.8rem;
+    color: #007BFF;
+}
+
+.job-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-actions button {
+    padding: 12px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.view-details {
+    background-color: #007BFF;
+    color: white;
+}
+
+.view-details:hover {
+    background-color: #0056B3;
+}
+
+.remove-job {
+    background-color: #C9302C;
+    color: white;
+}
+
+.remove-job:hover {
+    background-color: #C9302C;
+}
+
+.save-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .saved-jobs-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .job-card {
+        width: 90%;
+    }
+
+    .back-link {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .saved-jobs h1 {
+        font-size: 1.7rem;
+    }
+
+    .job-card h2 {
+        font-size: 1.1rem;
+    }
+
+    .job-actions button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+.back-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+        .back-icon img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .back-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+        
+        /* Overlay for the popup */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* Ensure the overlay is on top of other content */
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Popup box styling */
+.popup-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Popup title */
+.popup-box h2 {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+/* Popup message */
+.popup-box p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* Button styling */
+.popup-box .popup-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.popup-box .popup-buttons button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.popup-box .popup-buttons button.confirm {
+    background-color: #C9302C;
+    color: white;
+}
+
+.popup-box .popup-buttons button.confirm:hover {
+    background-color: #C9302C;
+}
+
+.popup-box .popup-buttons button.cancel {
+    background-color: #007BFF;
+    color: white;
+}
+
+.popup-box .popup-buttons button.cancel:hover {
+    background-color: #0056B3;
+}
+
+</style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="laborhome.html" class="back-icon">
+        <img src="icon/back-icon.png" alt="Back">
+    </a>
+
+    <!-- Saved Jobs Section -->
+    <section class="saved-jobs">
+        <h1>Saved Jobs</h1>
+        <div class="saved-jobs-list">
+            <div class="job-card">
+                <div class="job-details">
+                    <h2>Plumber for 1 hour</h2>
+                    <p>Asad Noman</p>
+                    <span class="status">Location: Quaidabad Malir Karachi</span>
+                </div>
+                <div class="job-actions">
+                    <a href="savedjobdetail.html"><button class="view-details">View Details</button></a>
+                    <button class="remove-job">Remove</button>
+                    <img src="icon/save-icon.png" alt="Saved" class="save-icon">
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-details">
+                    <h2>Plumber for a day</h2>
+                    <p>Asad Ali</p>
+                    <span class="status">Location: Green City Quaidabad Karachi</span>
+                </div>
+                <div class="job-actions">
+                    <a href="savedjobdetail.html"><button class="view-details">View Details</button></a>
+                    <button class="remove-job">Remove</button>
+                    <img src="icon/save-icon.png" alt="Saved" class="save-icon">
+                </div>
+            </div>
+            <!-- Add more saved job cards here -->
+            <div class="job-card">
+                <div class="job-details">
+                    <h2>Plumber Contract Base</h2>
+                    <p>Yasir Hussain</p>
+                    <span class="status">Location: Malir Karachi</span>
+                </div>
+                <div class="job-actions">
+                    <a href="savedjobdetail.html"><button class="view-details">View Details</button></a>
+                    <button class="remove-job">Remove</button>
+                    <img src="icon/save-icon.png" alt="Saved" class="save-icon">
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-details">
+                    <h2>4 days contract</h2>
+                    <p>Zain Abrar</p>
+                    <span class="status">Location: Quaidabad Karachi</span>
+                </div>
+                <div class="job-actions">
+                    <a href="savedjobdetail.html"><button class="view-details">View Details</button></a>
+                    <button class="remove-job">Remove</button>
+                    <img src="icon/save-icon.png" alt="Saved" class="save-icon">
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-details">
+                    <h2>Plumber Labor Need</h2>
+                    <p>Soomer Sethe</p>
+                    <span class="status">Location: Manzil Pump</span>
+                </div>
+                <div class="job-actions">
+                    <a href="savedjobdetail.html"><button class="view-details">View Details</button></a>
+                    <button class="remove-job">Remove</button>
+                    <img src="icon/save-icon.png" alt="Saved" class="save-icon">
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-details">
+                    <h2>Plumber Job</h2>
+                    <p>Abid Norani</p>
+                    <span class="status">Location: Green City Near Masjid Karachi</span>
+                </div>
+                <div class="job-actions">
+                    <a href="savedjobdetail.html"><button class="view-details">View Details</button></a>
+                    <button class="remove-job">Remove</button>
+                    <img src="icon/save-icon.png" alt="Saved" class="save-icon">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Popup Overlay -->
+<div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+        <h2>Remove Saved Job</h2>
+        <p>Are you sure you want to remove this job from your saved list?</p>
+        <div class="popup-buttons">
+            <button class="cancel" id="cancelBtn">Cancel</button>
+            <button class="confirm" id="confirmBtn">Confirm</button>
+        </div>
+    </div>
+</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    // Select all the remove buttons
+    const removeButtons = document.querySelectorAll('.remove-job');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    let currentJobCard = null;
+
+    // Event listener for remove buttons
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            currentJobCard = event.target.closest('.job-card');
+            
+            // Show the popup
+            popupOverlay.style.display = 'flex';
+        });
+    });
+
+    // Cancel button click - close the popup
+    cancelBtn.addEventListener('click', function () {
+        popupOverlay.style.display = 'none'; // Hide the popup
+    });
+
+    // Confirm button click - remove the job card
+    confirmBtn.addEventListener('click', function () {
+        if (currentJobCard) {
+            currentJobCard.remove(); // Remove the job card from the DOM
+        }
+        popupOverlay.style.display = 'none'; // Hide the popup after confirmation
+    });
+});
+
+</script>
+</body>
+</html>

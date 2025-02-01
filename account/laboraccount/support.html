@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - LaborLinko</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F5F5F5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #007BFF;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #808080;
+        }
+
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq {
+            margin-bottom: 20px;
+        }
+
+        .faq h3 {
+            font-size: 1.25rem;
+            color: #0056B3;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .faq p {
+            display: none;
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+            padding: 10px;
+            background-color: #FFF;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-section {
+            background-color: #FFF;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-section h2 {
+            font-size: 1.75rem;
+            color: #007BFF;
+            margin-bottom: 15px;
+        }
+
+        .contact-section form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-section form label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-section form input,
+        .contact-section form textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .contact-section form textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .contact-section form button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-section form button:hover {
+            background-color: #0056B3;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+        /* Add z-index to the back icon for better stacking order */
+.back-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.back-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.back-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <a href="laborhome.html" class="back-icon">
+        <img src="icon/back-icon.png" alt="Back">
+    </a>
+    <div class="container">
+        <div class="header">
+            <h1>Help & Support</h1>
+            <p>Find answers to common questions and get the support you need for your LaborLinko account.</p>
+        </div>
+
+        <div class="faq-section">
+            <div class="faq">
+                <h3>How do I create a labor profile?</h3>
+                <p>To create a labor profile, navigate to the sign-up page and select the "Labor" account type. Fill in your details and upload your work history or portfolio to get started.</p>
+            </div>
+
+            <div class="faq">
+                <h3>How do I find job opportunities?</h3>
+                <p>You can find job opportunities by visiting the "Find Work" section in your dashboard. Use filters to sort jobs by location, duration, and type to suit your preferences.</p>
+            </div>
+
+            <div class="faq">
+                <h3>How do I contact employers?</h3>
+                <p>You can contact employers through the in-platform messaging system. Go to the job post and click the "Message Employer" button to initiate communication.</p>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>Still Need Help?</h2>
+            <p>If you can’t find the answers you’re looking for, feel free to contact us directly.</p>
+            <form action="#" method="POST">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Describe your issue or question" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq h3').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>

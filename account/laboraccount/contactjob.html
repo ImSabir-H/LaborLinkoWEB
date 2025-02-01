@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Detail | LaborLinko</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8FAFC;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .back-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 1000;
+        }
+
+        .back-icon img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .back-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+        
+        .job-detail {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .job-detail h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1E40AF;
+        }
+
+        .job-detail .job-info {
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .job-detail .job-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #1E40AF;
+        }
+
+        .job-detail .job-info p {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 15px;
+        }
+
+        .job-detail .job-info ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .job-detail .job-info ul li {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 10px;
+            list-style-type: disc;
+        }
+
+        .job-detail .job-info .company-name {
+            font-weight: bold;
+            color: #2563EB;
+        }
+
+        .job-detail .job-info .status {
+            font-size: 1rem;
+            color: #2563EB;
+        }
+
+        .job-detail .apply-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #2563EB;
+            color: #FFFFFF;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .job-detail .apply-btn:hover {
+            background-color: #1E3A8A;
+            transform: translateY(-3px);
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 1001;
+            width: 300px;
+        }
+
+        .modal .modal-content {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 20px;
+        }
+
+        .modal .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modal .close-btn, .modal .apply-btn {
+            background-color: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal .close-btn:hover, .modal .apply-btn:hover {
+            background-color: #1E3A8A;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .job-detail h1 {
+                font-size: 2.2rem;
+            }
+
+            .job-detail .job-info {
+                padding: 20px;
+            }
+
+            .job-detail .apply-btn {
+                padding: 12px 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .job-detail h1 {
+                font-size: 1.8rem;
+            }
+
+            .job-detail .job-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .job-detail .apply-btn {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .job-detail h1 {
+                font-size: 1.5rem;
+            }
+
+            .job-detail .job-info h2 {
+                font-size: 1.3rem;
+            }
+
+            .job-detail .apply-btn {
+                font-size: 0.85rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="laborhome.html" class="back-icon">
+        <img src="icon/back-icon.png" alt="Back">
+    </a>
+
+    <!-- Job Detail Section -->
+    <section class="job-detail">
+        <h1>Job Title: General Laborer</h1>
+        <div class="job-info">
+            <h2>Job Description</h2>
+            <p>We are seeking hardworking and dedicated General Laborers to assist with various physical tasks, including loading and unloading materials, cleaning work sites, and operating basic machinery. This is an excellent opportunity to gain hands-on experience in a fast-paced environment.</p>
+
+            <h2>Responsibilities</h2>
+            <ul>
+                <li>Loading and unloading materials manually or with equipment.</li>
+                <li>Maintaining cleanliness and safety at the work site.</li>
+                <li>Assisting skilled workers with tasks as needed.</li>
+                <li>Operating simple tools and machinery.</li>
+            </ul>
+
+            <h2>Requirements</h2>
+            <ul>
+                <li>Physical fitness and stamina to handle labor-intensive tasks.</li>
+                <li>Ability to follow instructions and work in a team environment.</li>
+                <li>Basic knowledge of tools and safety practices is a plus.</li>
+                <li>Prior experience in labor work is preferred but not mandatory.</li>
+            </ul>
+
+            <p class="company-name">Contractor: Asad Abrar</p>
+            <p class="status">Location: Quaidabad Malir Karachi</p>
+        </div>
+
+        <!-- Apply Button -->
+        <button class="apply-btn" onclick="showModal()">Apply Now</button>
+    </section>
+
+    <!-- Modal Confirmation -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <p>Are you sure you want to apply for this job?</p>
+        </div>
+        <div class="modal-buttons">
+            <button class="close-btn" onclick="closeModal()">Cancel</button>
+            <button class="apply-btn" onclick="confirmApply()">Confirm</button>
+        </div>
+    </div>
+
+    <script>
+        function showModal() {
+            document.getElementById('confirmationModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        function confirmApply() {
+            alert("You have successfully applied for the job!");
+            closeModal();
+        }
+    </script>
+</body>
+</html>

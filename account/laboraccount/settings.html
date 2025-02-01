@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - LaborLinko</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8F9FA;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: #007BFF;
+        }
+
+        .settings-section {
+            padding: 25px;
+            border-bottom: 1px solid #E9ECEF;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+
+        .settings-section h2 {
+            font-size: 1.6rem;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .settings-section label {
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .settings-section input,
+        .settings-section select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            border: 1px solid #CED4DA;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .settings-section input:focus,
+        .settings-section select:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+        }
+
+        .settings-section button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #007BFF;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .settings-section button:hover {
+            background-color: #0056B3;
+        }
+
+        .delete-account {
+            background-color: #FFE2E6;
+            color: #D9534F;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .delete-account p {
+            margin-bottom: 15px;
+        }
+
+        .delete-account button {
+            background-color: #D9534F;
+            color: #FFFFFF;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .settings-section h2 {
+                font-size: 1.4rem;
+            }
+        }
+        .back-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.back-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.back-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <a href="laborhome.html" class="back-icon">
+        <img src="icon/back-icon.png" alt="Back">
+    </a>
+    <div class="container">
+        <div class="header">
+            <h1>Account Settings</h1>
+        </div>
+
+        <!-- Personal Information Section -->
+        <div class="settings-section">
+            <h2>Personal Information</h2>
+            <form action="#" method="POST">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- Security Section -->
+        <div class="settings-section">
+            <h2>Security</h2>
+            <form action="#" method="POST">
+                <label for="password">New Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter a new password" required>
+
+                <label for="confirm-password">Confirm New Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your new password" required>
+
+                <button type="submit">Update Password</button>
+            </form>
+        </div>
+
+        <!-- Notification Preferences -->
+        <div class="settings-section">
+            <h2>Notification Preferences</h2>
+            <form action="#" method="POST">
+                <label for="email-notifications">Email Notifications</label>
+                <select id="email-notifications" name="email-notifications">
+                    <option value="all">Receive all notifications</option>
+                    <option value="important">Only important notifications</option>
+                    <option value="none">Do not receive notifications</option>
+                </select>
+
+                <label for="sms-notifications">SMS Notifications</label>
+                <select id="sms-notifications" name="sms-notifications">
+                    <option value="all">Receive all notifications</option>
+                    <option value="important">Only important notifications</option>
+                    <option value="none">Do not receive notifications</option>
+                </select>
+
+                <button type="submit">Save Preferences</button>
+            </form>
+        </div>
+
+        <!-- Account Deletion -->
+        <div class="settings-section">
+            <h2>Delete Account</h2>
+            <div class="delete-account">
+                <p>Deleting your account is irreversible. All your data will be permanently erased.</p>
+                <button onclick="confirm('Are you sure you want to delete your account? This action cannot be undone.')">Delete Account</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

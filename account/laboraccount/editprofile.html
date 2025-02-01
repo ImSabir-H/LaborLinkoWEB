@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborLinko - Edit Profile</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #007BFF;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 98%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .profile-pic-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+
+        .profile-options {
+            margin-top: 10px;
+        }
+
+        .profile-options button {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .profile-options button:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-options .remove {
+            background-color: #f44336;
+        }
+
+        .profile-options .remove:hover {
+            background-color: #d32f2f;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn.cancel {
+            background-color: #f44336;
+        }
+
+        .btn.cancel:hover {
+            background-color: #d32f2f;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .skill-tag button {
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            font-size: 14px;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .back-icon:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 15px;
+                padding: 20px;
+            }
+        }
+            
+            .form-group input,
+        .form-group textarea {
+            width: 91%;
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="userprofile.html" class="back-icon">
+            <img src="icon/back-icon.png" alt="Back" width="20" height="20">
+        </a>
+        <h1>Edit Profile</h1>
+        <form>
+            <div class="profile-pic-container">
+                <img src="image/profile-picture.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic">
+                <input type="file" id="file-input" accept="image/*">
+                <div class="profile-options">
+                    <button type="button" id="choose-btn">Choose Profile</button>
+                    <button type="button" class="remove" id="remove-btn">Remove Profile</button>
+                </div>
+            </div>
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" value="Imran Shah" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" value="imranshah@example.com" required>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" value="+92 322 23415123" required>
+            </div>
+
+            <!-- Bio -->
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4" placeholder="Write something about yourself...">Experienced laborer skilled in plumbing and construction works.</textarea>
+            </div>
+
+            <!-- Skills -->
+            <div class="form-group skills-container">
+                <label for="skills">Skills</label>
+                <div class="skill-search">
+                    <input type="text" id="skill-search" placeholder="Search or add skills...">
+                </div>
+                <div class="skills-tags" id="skills-tags">
+                    <div class="skill-tag">
+                        <span>Plumbing</span>
+                        <button type="button" class="remove-tag" onclick="removeSkill(this)">x</button>
+                    </div>
+                    <div class="skill-tag">
+                        <span>Construction</span>
+                        <button type="button" class="remove-tag" onclick="removeSkill(this)">x</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="button-group">
+                <button type="submit" class="btn">Save Changes</button>
+                <a href="userprofile.html" class="btn cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const profilePic = document.getElementById('profile-pic');
+        const chooseBtn = document.getElementById('choose-btn');
+        const removeBtn = document.getElementById('remove-btn');
+    
+        // Open file selector when "Choose Profile" is clicked
+        chooseBtn.addEventListener('click', () => fileInput.click());
+    
+        // Preview the selected image
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profilePic.src = e.target.result;
+                    profilePic.style.backgroundColor = ''; // Reset background color
+                    profilePic.style.border = ''; // Reset border
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    
+        // Remove the profile picture
+        removeBtn.addEventListener('click', () => {
+            profilePic.src = ''; // Clear the image source
+            profilePic.style.backgroundColor = '#ddd'; // Light gray background
+            profilePic.style.border = '2px dashed #aaa'; // Dashed border to indicate an empty profile
+            fileInput.value = ''; // Clear file input
+        });
+    
+        const skillsTagsContainer = document.getElementById('skills-tags');
+        const skillSearchInput = document.getElementById('skill-search');
+    
+        // Add skill tags
+        skillSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const skill = e.target.value.trim();
+                if (skill) {
+                    addSkill(skill);
+                    e.target.value = '';
+                }
+            }
+        });
+    
+        function addSkill(skill) {
+            const tag = document.createElement('div');
+            tag.className = 'skill-tag';
+            tag.innerHTML = `${skill} <button onclick="removeSkill(this)">x</button>`;
+            skillsTagsContainer.appendChild(tag);
+        }
+    
+        function removeSkill(button) {
+            button.parentElement.remove();
+        }
+    </script>
+    
+</body>
+</html>

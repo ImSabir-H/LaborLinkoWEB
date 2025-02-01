@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborLinko Top Bar</title>
+    <style>
+    /* General Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* Top Bar Item Styling */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 10px;  /* Adds spacing around each item */
+}
+
+.top-bar-item:hover {
+    color: #007BFF;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px; /* Set icon size to 24px */
+    height: 24px; /* Set icon size to 24px */
+    margin-right: 8px;
+}
+
+.top-bar-item .top-bar-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: gray;
+}
+
+.top-bar-item:hover .top-bar-label {
+    color: #007BFF;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem; /* Default size */
+    font-weight: 600;
+    color: #007BFF;
+    padding-right: 8px;
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 400;
+    color: #007BFF;
+}
+
+/* Responsive Logo Size */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 7vw;  /* Set size relative to the viewport width */
+        max-font-size: 2rem;  /* Maximum size, keeping it from getting too big */
+        min-font-size: 1.5rem; /* Minimum size, keeping it readable */
+    }
+}
+
+@media (min-width: 769px) {
+    .logo {
+        font-size: 2rem;  /* Default size for larger screens */
+    }
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #007BFF;
+}
+
+.nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #007BFF;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile-Only Styling (Small Screen) */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 12px 15px;
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none;  /* Hide text labels on small screens */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 6vw;  /* Icon width relative to viewport width */
+        height: 6vw; /* Icon height relative to viewport width */
+        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
+        max-height: 28px; /* Maintain a max size */
+        min-width: 20px; /* Ensure icons do not shrink too small */
+        min-height: 20px; /* Minimum size for better usability */
+    }
+
+    .top-bar-item {
+        padding: 1px;
+        cursor: pointer;
+    }
+
+    .nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    /* Profile Icon size adjustments for mobile responsiveness */
+    .profile-icon {
+        width: 12vw;  /* Profile icon width relative to viewport width */
+        height: 12vw; /* Profile icon height relative to viewport width */
+        max-width: 50px;  /* Ensure profile icon does not get too large */
+        max-height: 50px; /* Max profile icon size */
+        min-width: 40px; /* Minimum profile icon size */
+        min-height: 40px; /* Keep profile icon size practical */
+        border-radius: 50%; /* Ensure it's circular */
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 24px;  /* Static size on desktop */
+        height: 24px; /* Static size on desktop */
+    }
+
+    .profile-icon {
+        width: 40px;  /* Fixed size on desktop */
+        height: 40px; /* Fixed size on desktop */
+    }
+}
+
+
+/* Desktop-Only Styling (Larger Screen) */
+@media (min-width: 769px) {
+    /* Show only text on desktop */
+    .top-bar-item .top-bar-label {
+        display: inline-block; /* Show text labels */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: none; /* Hide icons */
+    }
+}
+
+/* Profile Section Styles */
+.profile-section {
+    position: relative;
+    display: inline-block;
+}
+
+/* Profile Icon */
+.profile-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Dropdown Menu */
+.profile-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    width: 260px;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+.profile-dropdown.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Profile Header */
+.profile-header {
+    background-color: #f5f5f5;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px 10px 0 0;
+}
+
+.profile-header .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-header .user-role {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Dropdown List Items */
+.profile-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-dropdown li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.profile-dropdown li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.profile-dropdown li a:hover {
+    color: #007BFF; /* Highlight color on hover */
+}
+
+/* Logout Section */
+.logout-section {
+    padding: 10px 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.logout-btn {
+    color: #FF3B3B;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: #D32F2F;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Chat container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    position: relative;
+}
+
+/* Messages container */
+.messages-container {
+    display: flex;
+    height: calc(100vh - 80px); /* Adjust based on top bar height */
+    overflow: hidden;
+    flex-grow: 1; /* Allows the chat body to take up available space */
+    overflow-y: auto; /* Enable scrolling for long chat */
+    padding: 10px;
+}
+
+/* Contacts List */
+.contacts-list {
+    margin-top: 0%;
+    width: 30%;
+    border-right: 1px solid #ddd;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+.contact {
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s;
+}
+
+.contact:hover {
+    background-color: #f9f9f9;
+}
+
+.contact-icon {
+    width: 12vw;  /* Profile icon width relative to viewport width */
+        height: 12vw; /* Profile icon height relative to viewport width */
+        max-width: 50px;  /* Ensure profile icon does not get too large */
+        max-height: 50px; /* Max profile icon size */
+        min-width: 40px; /* Minimum profile icon size */
+        min-height: 40px; /* Keep profile icon size practical */
+        border-radius: 50%; /* Ensure it's circular */
+        margin-right: 12px;
+}
+
+.contact-info {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.contact-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.last-message {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.contact-time {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+/* Chat Box */
+.chat-box {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f5f5f5;
+}
+
+.chat-header .back-btn {
+    display: none; /* Hidden on desktop */
+    margin-right: 10px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #007BFF;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for the status and circle */
+.status-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Circle for the online status */
+.status-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: green; /* Green color for online status */
+    margin-right: 8px; /* Space between circle and text */
+}
+
+/* Styling the status text */
+.status-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: green;
+}
+
+/* Make it responsive */
+@media (max-width: 600px) {
+    .status-circle {
+        width: 10px;
+        height: 10px;
+    }
+
+    .status-text {
+        font-size: 12px;
+    }
+}
+
+
+/* Base Message Bubble Styles */
+.message-bubble {
+    max-width: 70%;
+    margin: 10px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 16px;
+    position: relative;
+    line-height: 1.5;
+}
+
+/* Contact's Message (Left Side) */
+.contact-message {
+    background-color: #f1f1f1; /* Light gray background */
+    color: #333;
+    text-align: left;
+    border-top-left-radius: 0;
+    align-self: flex-start;
+}
+
+/* User's Message (Right Side) */
+.user-message {
+    background-color: #007BFF; /* Primary blue for user's message */
+    color: #fff;
+    text-align: left;
+    border-top-right-radius: 0;
+    align-self: flex-end;
+}
+
+/* Align Messages in Chat Container */
+.chat-body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+/* Timestamp Styling */
+.message-time {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+    display: block;
+    text-align: right;
+}
+
+/* Chat Input (Fixed at Bottom) */
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 70%; /* Matches chat box width */
+    z-index: 1000; /* Keeps the input box on top */
+}
+
+/* Chat Input Field */
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+    outline: none;
+}
+
+/* Send Button */
+.chat-input .send-btn {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-input .send-btn:hover {
+    background-color: #0056b3;
+}
+/* Desktop View Adjustments */
+@media (min-width: 769px) {
+    /* Chat Input */
+    .chat-input {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        max-width: 76.6%; /* Chat box remains visible next to contacts */
+        padding: 15px 20px;
+    }
+
+    /* Contacts List */
+    .contacts-list {
+        margin-top: 0px;
+        width: 30%;
+        overflow-y: auto;
+    }
+
+    /* Chat Box */
+    .chat-box {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        width: 70%; /* Make sure chat box takes the remaining space */
+    }
+
+    /* Back Button (Desktop View) */
+    .back-btn {
+        display: none; /* Hide back button on desktop */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    }
+    
+    /* Adjustments for the message bubbles */
+    .message-bubble {
+        margin: 10px;
+        padding: 12px 18px;
+        border-radius: 15px;
+        font-size: 16px;
+        line-height: 1.5;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    }
+
+    .message-bubble.user {
+        background-color: #007BFF; /* User's message bubble */
+        color: white;
+        align-self: flex-end;
+    }
+
+    .message-bubble.contact {
+        background-color: #f1f1f1; /* Contact's message bubble */
+        color: #333;
+        align-self: flex-start;
+    }
+
+    /* Ensure the contact list and chat box are aligned properly */
+    .messages-container {
+        display: flex;
+        height: calc(100vh - 80px); /* Adjust based on top bar height */
+    }
+
+    /* Adjust spacing in chat container */
+    .chat-container {
+        padding-bottom: 70px; /* Adjust space for chat input box */
+    }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .messages-container {
+        flex-direction: column;
+    }
+
+    .contacts-list {
+        width: 100%;
+        display: block;
+    }
+
+    .chat-box {
+        width: 100%;
+        display: none;
+    }
+
+    .chat-box.active {
+        display: flex;
+    }
+
+    .chat-header .back-btn {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    /* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .chat-input {
+        position: fixed; /* Fix position at the bottom */
+        bottom: 0; /* Ensure it stays at the bottom */
+        left: 0; /* Align it to the left side */
+        width: 100%; /* Full width on mobile */
+        padding: 15px; /* Adjust padding for mobile */
+        margin: 0;
+        background-color: #fff; /* Ensure background is visible */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+        z-index: 10; /* Make sure it stays on top of chat body */
+    }
+
+    .chat-container {
+        padding-bottom: 70px; /* Make room for the fixed input box */
+    }
+
+    .chat-body {
+        padding-bottom: 70px; /* Prevent chat overlap with message box */
+    }
+
+    .chat-input input {
+        width: 90%; /* Input box takes most of the space */
+        padding: 10px; /* Adjust input box padding */
+        font-size: 16px; /* Adjust font size for readability */
+    }
+
+    .chat-input .send-btn {
+        width: auto;
+        padding: 10px 15px; /* Adjust send button size */
+    }
+}
+
+
+/* Ensure chat input stays fixed */
+.chat-input {
+    position: fixed; /* Fixed position on mobile */
+    bottom: 0;
+    z-index: 1000; /* Stay above other elements */
+    background-color: #fff; /* Ensure background covers content behind */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for clarity */
+}
+
+/* Desktop View Adjustments */
+@media (min-width: 769px) {
+    .chat-input {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        max-width: 76.6%; /* Chat box remains visible next to contacts */
+        padding: 26px;
+    }
+}
+
+/* Back Button (Mobile View) */
+.back-btn {
+    display: none; /* Hide by default for larger screens */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.back-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 768px) {
+    .back-btn {
+        display: inline-block; /* Show only for mobile screens */
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+    <div class="logo">
+        <span class="labor">Labor</span><span class="linko">Linko</span>
+    </div>
+    <div class="nav">
+        <a href="laborhome.html">
+            <div class="top-bar-item">
+                <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
+                <span class="top-bar-label">Home</span>
+            </div>
+        </a>
+        <a href="message.html">
+            <div class="top-bar-item">
+                <img src="icon/message-icon.png" alt="Message" class="top-bar-icon">
+                <span class="top-bar-label">Message</span>
+            </div>
+        </a>
+        <a href="notification.html">
+            <div class="top-bar-item">
+                <img src="icon/notification-icon.png" alt="Notification" class="top-bar-icon">
+                <span class="top-bar-label">Notification</span>
+            </div>
+        </a>
+    </div>
+    <div class="profile-section">
+        <div class="profile-icon">
+            <img src="image/profile-picture.jpg" alt="Profile">
+        </div>
+        <div class="profile-dropdown">
+            <div class="profile-header">
+                <span class="user-name">Imran Shah</span>
+                <small class="user-role">Labor Worker</small>
+            </div>
+            <ul>
+                <li><a href="userprofile.html">My Profile</a></li>
+                <li><a href="savedjob.html">Saved Job</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="support.html">Help & Support</a></li>
+            </ul>
+            <div class="logout-section">
+                <a href="../../home.html" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <!-- Hero Section -->
+   <div class="messages-container">
+    <!-- Contacts List -->
+    <div class="contacts-list">
+        <div class="contact">
+            <img src="image/profile0.jpg" alt="Contact 1" class="contact-icon">
+            <div class="contact-info">
+                <span class="contact-name">Ali Ahmed</span>
+                <span class="last-message">Hey, how's it going?</span>
+            </div>
+            <span class="contact-time">10:30 AM</span>
+        </div>
+        <!-- Repeat for more contacts -->
+        <div class="contact">
+            <img src="image/profile1.jpg" alt="Contact 1" class="contact-icon">
+            <div class="contact-info">
+                <span class="contact-name">Ameer Tunio</span>
+                <span class="last-message">Hey, how's it going?</span>
+            </div>
+            <span class="contact-time">10:40 AM</span>
+        </div>
+        <div class="contact">
+            <img src="image/profile2.jpg" alt="Contact 1" class="contact-icon">
+            <div class="contact-info">
+                <span class="contact-name">Faraz Ali</span>
+                <span class="last-message">I am Okay with this Price</span>
+            </div>
+            <span class="contact-time">10:21 AM</span>
+        </div>
+        <div class="contact">
+            <img src="image/profile3.jpg" alt="Contact 1" class="contact-icon">
+            <div class="contact-info">
+                <span class="contact-name">Samed Jonejo</span>
+                <span class="last-message">Let's Start Work</span>
+            </div>
+            <span class="contact-time">10:30 AM</span>
+        </div>
+    </div>
+
+    <!-- Chat Box -->
+    <div class="chat-box">
+        <div class="chat-header">
+            <button class="back-btn" id="backButton">
+                <img src="icon/back-icon.png" alt="Back" />
+            </button>
+            <div class="chat-header-info">
+                <h3 class="chat-user-name">Ali Ahmed</h3>
+            
+            <div class="status-container">
+    <div class="status-circle"></div>
+    <span class="status-text">Online</span>
+</div>
+</div>
+
+        </div>
+        <div class="message-bubble contact-message">
+            <p>Hello! How are you?</p>
+            <span class="message-time">10:15 AM</span>
+        </div>
+        <div class="message-bubble user-message">
+            <p>I’m good, thanks! What about you?</p>
+            <span class="message-time">10:16 AM</span>
+        </div>
+        <div class="message-bubble contact-message">
+            <p>Doing great, thanks for asking!</p>
+            <span class="message-time">10:17 AM</span>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message..." />
+            <button class="send-btn">Send</button>
+        </div>
+    </div>
+</div>
+    <script>
+        
+document.addEventListener("DOMContentLoaded", () => {
+    const profileIcon = document.querySelector(".profile-icon");
+    const profileDropdown = document.querySelector(".profile-dropdown");
+
+    // Toggle dropdown visibility on profile icon click
+    profileIcon.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent click from propagating to document
+        profileDropdown.classList.toggle("visible");
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", () => {
+        if (profileDropdown.classList.contains("visible")) {
+            profileDropdown.classList.remove("visible");
+        }
+    });
+
+    // Prevent dropdown from closing when clicking inside
+    profileDropdown.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const contacts = document.querySelectorAll(".contact");
+    const chatBox = document.querySelector(".chat-box");
+    const contactsList = document.querySelector(".contacts-list");
+    const backButton = document.querySelector(".back-btn");
+    const chatMessages = document.querySelector(".chat-messages");
+    const chatInput = document.querySelector(".chat-input");
+
+    // Open chat box when clicking a contact
+    contacts.forEach(contact => {
+        contact.addEventListener("click", () => {
+            chatBox.classList.add("active");
+
+            // For mobile, hide contacts
+            if (window.innerWidth <= 768) {
+                contactsList.style.display = "none";
+                chatBox.style.display = "flex";
+            }
+        });
+    });
+
+    // Back button for mobile users
+    backButton.addEventListener("click", () => {
+        chatBox.classList.remove("active");
+
+        // Show contacts on mobile
+        if (window.innerWidth <= 768) {
+            contactsList.style.display = "block";
+            chatBox.style.display = "none";
+        }
+    });
+
+    // Adjust chat box height on keyboard open (mobile)
+    chatInput.querySelector("input").addEventListener("focus", () => {
+        if (window.innerWidth <= 768) {
+            chatMessages.style.height = "calc(100vh - 200px)"; // Reduced height for keyboard
+        }
+    });
+
+    chatInput.querySelector("input").addEventListener("blur", () => {
+        if (window.innerWidth <= 768) {
+            chatMessages.style.height = "calc(100vh - 140px)";
+        }
+    });
+
+    // Window resize handling for switching layouts
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+            contactsList.style.display = "block";
+            chatBox.style.display = "flex";
+            chatMessages.style.height = "auto";
+        }
+    });
+});
+
+    </script>
+
+</body>
+</html>
