@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="language.js" defer></script>
+    <title>LaborLinko Top Bar</title>
+    <style>
+    /* General Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+    font-family: 'montserrat' sans-serif;
+}
+
+/* For Hindi, Urdu, Sindhi, and Arabic languages */
+body[data-lang="hi"] {
+    font-family: 'Scheherazade New', serif;;
+    
+}
+
+body[data-lang="ur"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="sd"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+/* For German, Italian, French */
+body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.top-bar {
+    font-family: 'roboto', sans-serif !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    direction: ltr !important;  /* Prevent any changes from language affecting the top bar */
+}                                                                                                               
+/* Top Bar Item Styling */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 10px;  /* Adds spacing around each item */
+}
+
+.top-bar-item:hover {
+    color: #007BFF;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px; /* Set icon size to 24px */
+    height: 24px; /* Set icon size to 24px */
+    margin-right: 6px;
+    margin-bottom: 0px;
+}
+
+.top-bar-item .top-bar-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: gray;
+}
+
+.top-bar-item:hover .top-bar-label {
+    color: #007BFF;
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 2rem; /* Default size */
+    font-weight: 600;
+    color: #007BFF;
+    padding-right: 8px;
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 400;
+    color: #007BFF;
+}
+
+/* Responsive Logo Size */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 6.4vw;  /* Set size relative to the viewport width */
+    }
+}
+
+/* Navigation styling */
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #007BFF;
+}
+
+.nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #007BFF;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile-Only Styling (Small Screen) */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 12px 10px;
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none;  /* Hide text labels on small screens */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 5vw;  /* Icon width relative to viewport width */
+        height: 5vw; /* Icon height relative to viewport width */
+        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
+        max-height: 28px; /* Maintain a max size */
+        min-width: 20px; /* Ensure icons do not shrink too small */
+        min-height: 20px; /* Minimum size for better usability */
+    }
+
+    .top-bar-item {
+        padding: 0px;
+    }
+
+    .nav {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-bar-item .top-bar-icon {
+        display: block;
+        width: 24px;  /* Static size on desktop */
+        height: 24px; /* Static size on desktop */
+    }
+}
+
+
+/* Desktop-Only Styling (Larger Screen) */
+@media (min-width: 769px) {
+    /* Show only text on desktop */
+    .top-bar-item .top-bar-label {
+        display: inline-block; /* Show text labels */
+    }
+
+    .top-bar-item .top-bar-icon {
+        display: none; /* Hide icons */
+    }
+}
+/* Login Button Container (for alignment) */
+.login-btn-container {
+    margin-left: 20px; /* Spacing from other top bar items */
+    display: flex;
+    align-items: center;
+}
+
+/* Login Button Styling */
+/* Adjusted Login Button */
+
+.login-btn {
+    background-color: rgba(0, 123, 255, 0.1); /* Subtle blue background */
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    font-size: 16px; /* Adjusted font size for consistency */
+    border-radius: 4px;
+    color: #007BFF; /* Brand blue color */
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif !important; /* Brand font */
+    font-weight: 500 !important; /* Medium weight for balance */
+    text-transform: uppercase;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transitions */
+}
+
+/* Hover Effect for Login Button */
+.login-btn:hover {
+    background-color: #007BFF; /* Solid blue background */
+    color: #FFFFFF; /* White text */
+    border: 1px solid #007BFF; /* Blue border */
+}
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif; 
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+    /* Hero Section */
+    section.hero {
+        background-color: #007BFF;
+        color: #fff;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    .hero .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .cta-buttons a {
+        background-color: #fff;
+        padding: 12px 24px;
+        color: #007BFF;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .cta-buttons a:hover {
+        background-color: #0056B3;
+        color: #fff;
+    }
+
+    /* How It Works Section */
+    section.how-it-works {
+        background-color: #f5f5f5;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .how-it-works h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .how-it-works p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+    .steps {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.step {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 250px;
+    transition: all 0.6s ease-in-out;
+    transform: scale(0.9) translateY(30px);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* When scrolling down, change shape */
+.step.scrolled {
+    border-radius: 8px;
+    transform: scale(1) translateY(0) rotateX(10deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+}
+
+/* Restore the original shape when scrolling back up */
+.step.visible {
+    border-radius: 20px;
+    transform: scale(0.9) translateY(30px) rotateX(0deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0.5;
+}
+
+/* Text animation */
+.step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease-in-out;
+}
+
+.step h3 span {
+    font-weight: bold;
+    animation: animateLinko 1.5s ease-in-out infinite;
+}
+
+.step p {
+    font-size: 1rem;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Optional: Smooth fade-in for text inside each step */
+.step.scrolled h3, .step.scrolled p {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.5s ease-in-out;
+}
+
+
+/* Adding animation for emphasis on "Linko" */
+@keyframes animateLinko {
+    0% {
+        color: #007BFF;
+        text-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+    }
+    50% {
+        color: #0056B3;
+        text-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+    }
+    100% {
+        color: #007BFF;
+        text-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+    }
+}
+
+/* Adding animation for emphasis on "Linko" */
+@keyframes animateLinko {
+    0% {
+        color: #007BFF;
+        text-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+    }
+    50% {
+        color: #0056B3;
+        text-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+    }
+    100% {
+        color: #007BFF;
+        text-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+    }
+}
+    /* Quick Tips Section */
+    section.quick-tips {
+        background-color: #fff;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .quick-tips h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .tip {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+  
+/* Language-specific styling for the body */
+body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;
+    direction: rtl;  /* Apply rtl only to the body */
+    text-align: right;
+}
+
+/* For other languages, ensure left-to-right text direction and proper layout */
+body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+    font-family: 'Roboto', sans-serif;
+    direction: ltr;
+}
+
+    </style>
+    <style>
+        /* CSS Variables for easy customization */
+        :root {
+            --primary-color: #f8f8f8;
+            --primary-hover: #007BFF;
+            --success-color: #28a745;
+            --success-hover: #218838;
+            --background-overlay: rgba(0, 0, 0, 0.5);
+            --font-family-ltr: 'Roboto', sans-serif;
+            --font-family-rtl: 'Scheherazade New', serif;
+        }
+
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-ltr);
+        }
+
+
+    /* Language Button - Now Positioned at the Top Right with Icon */
+    .language-button {
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+        padding: 6px 6px;
+        margin: 0px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        position: fixed;
+        top: 20%;
+        max-height: 60px;
+        right: 0px;
+        z-index: 10000;
+        transition: background-color 0.3s ease-out;
+        align-items: center;
+        opacity: 80%;
+    }
+
+    .language-icon {
+        margin-right: 10px;  /* Space between icon and text */
+        width: 24px;         /* Icon size */
+        height: 24px;
+    }
+
+    .language-button:hover {
+        background-color: var(--primary-hover);
+        color: #fff;
+        opacity: 100%;
+    }
+
+
+        /* Language Pop-up */
+        .language-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-overlay);
+            transition: opacity 0.3s ease;
+            z-index: 9999;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup-content h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .popup-content select {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            margin-top: 10px;
+        }
+
+        .popup-content select option {
+            display: flex;
+            align-items: center;
+        }
+
+        .popup-content select option img {
+            width: 20px;
+            height: 14px;
+            margin-right: 8px;
+        }
+
+        .change-btn {
+            background-color: var(--success-color);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .change-btn:hover {
+            background-color: var(--success-hover);
+        }
+
+        /* Close Button for Pop-up */
+        .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .language-button {
+                right: 0px;
+                top: 140px;
+            }
+
+            .popup-content {
+                padding: 15px;
+                width: 80%;
+                max-width: 400px;
+                top: 10px;
+            }
+
+            .popup-content h2 {
+                font-size: 16px;
+            }
+
+            .popup-content select {
+                padding: 7px 10px;
+                font-size: 14px;
+            }
+
+            .change-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        /* RTL Languages Styling */
+        body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
+            font-family: var(--font-family-rtl);
+            direction: rtl;
+            text-align: right;
+        }
+
+        body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+            font-family: var(--font-family-ltr);
+            direction: ltr;
+        }
+    </style>
+</head>
+<body>
+    <button id="languageButton" class="language-button" aria-label="Change language">
+        <img src="icon/language-icon.png" alt="Language Icon" class="language-icon" id="languageIcon">
+    </button>
+    
+    <!-- Language Pop-up -->
+    <div id="languagePopup" class="language-popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup" aria-label="Close Popup">&times;</span>
+            <h2 id="popupTitle">Select Language</h2>
+            <select id="languageSelect">
+                <option value="en">&#127468;&#127463; English</option>
+                <option value="de">&#127465;&#127466; German</option>
+                <option value="ur">&#127477;&#127472; Urdu</option> <!-- 🇵🇰 Pakistan -->
+                <option value="hi">&#127470;&#127475; Hindi</option>
+                <option value="sd">&#127477;&#127472; Sindhi</option> <!-- 🇵🇰 Pakistan -->
+                <option value="it">&#127470;&#127481; Italian</option>
+                <option value="ar">&#127462;&#127466; Arabic</option>
+                <option value="ru">&#127479;&#127482; Russian</option>
+            </select>
+            <button id="changeButton" class="change-btn" aria-label="Change language">Change</button>
+        </div>
+    </div>
+
+    <script>
+        
+        const languageButton = document.getElementById('languageButton');
+            const languageIcon = document.getElementById('languageIcon');
+    
+            // Change icon on hover
+            languageButton.addEventListener('mouseenter', () => {
+                languageIcon.src = 'icon/language-icon2.png';  // Hover icon
+            });
+    
+            // Change icon back when hover ends
+            languageButton.addEventListener('mouseleave', () => {
+                languageIcon.src = 'icon/language-icon.png';  // Original icon
+            });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const languageButton = document.getElementById("languageButton");
+            const languagePopup = document.getElementById("languagePopup");
+            const closePopup = document.getElementById("closePopup");
+            const selectElement = document.getElementById("languageSelect");
+            const changeButton = document.getElementById("changeButton");
+            const popupTitle = document.getElementById("popupTitle");
+    
+            // Load language from localStorage
+            const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+            setLanguage(savedLanguage);
+    
+            // Show popup
+            languageButton.onclick = () => languagePopup.style.display = "block";
+    
+            // Hide popup
+            closePopup.onclick = () => languagePopup.style.display = "none";
+    
+            // Hide popup when clicking outside
+            window.onclick = (event) => {
+                if (event.target === languagePopup) languagePopup.style.display = "none";
+            };
+    
+            // Change language
+            changeButton.onclick = () => {
+                const selectedLang = selectElement.value;
+                setLanguage(selectedLang);
+                localStorage.setItem("selectedLanguage", selectedLang);
+                languagePopup.style.display = "none";
+            };
+    
+            // Function to set language
+            function setLanguage(language) {
+                document.body.setAttribute("data-lang", language);
+    
+                // Update translatable text
+                document.querySelectorAll("[data-en]").forEach((element) => {
+                    element.innerText = element.getAttribute(`data-${language}`) || element.getAttribute("data-en");
+                });
+    
+                // Set popup title and button text based on language
+                const languageText = {
+                    en: { title: "Select Language", button: "Change" },
+                    de: { title: "Sprache wählen", button: "Ändern" },
+                    ur: { title: "زبان منتخب کریں", button: "تبدیل کریں" },
+                    hi: { title: "भाषा चुनें", button: "बदले" },
+                    sd: { title: "ٻولي چونڊيو", button: "تبديل ڪريو" },
+                    it: { title: "Seleziona la lingua", button: "Cambia" },
+                    ar: { title: "اختر اللغة", button: "تغيير" },
+                    ru: { title: "Выберите язык", button: "Изменить" }
+                };
+    
+                popupTitle.innerText = languageText[language]?.title || languageText["en"].title;
+                changeButton.innerText = languageText[language]?.button || languageText["en"].button;
+    
+                // Ensure correct RTL for languages like Sindhi, Urdu, and Arabic
+                if (["ur", "sd", "ar"].includes(language)) {
+                    document.body.style.direction = "rtl";
+                } else {
+                    document.body.style.direction = "ltr";
+                }
+    
+                // Set the dropdown to the current language
+                selectElement.value = language;
+    
+                // Reapply file input event listener to ensure the profile pic uploader works after language change
+                const fileInput = document.getElementById("profile-pic");
+                if (fileInput) {
+                    fileInput.removeEventListener("change", loadImage); // Remove previous listener
+                    fileInput.addEventListener("change", loadImage); // Add it back
+                }
+            }
+    
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    languagePopup.style.display = 'none';
+                }
+            });
+        });
+    
+        // Profile picture upload functionality (loadImage function)
+        function loadImage(event) {
+            const uploadStatus = document.getElementById("upload-status");
+            const waterFill = document.getElementById("water-fill");
+            const uploadText = document.getElementById("upload-text");
+            const uploadLabel = document.querySelector(".upload-label");
+            const loadingSpinner = document.getElementById("loading-spinner");
+    
+            // Ensure the language update is applied correctly
+            const lang = document.body.getAttribute("data-lang") || "en";
+    
+            // Start water animation
+            waterFill.style.height = "100%";
+            uploadText.style.color = "white";
+    
+            // Show upload success message
+            uploadStatus.style.display = "block";
+            uploadStatus.innerText = uploadStatus.getAttribute(`data-${lang}`) || "Picture Uploaded Successfully!";
+    
+            // Show loading spinner
+            loadingSpinner.style.display = "block";
+    
+            // Read file input
+            const file = event.target.files[0];
+            const reader = new FileReader();
+    
+            reader.onload = function () {
+                loadingSpinner.style.display = "none";
+            };
+    
+            reader.readAsDataURL(file);
+        }
+    </script>
+
+    
+    <div class="top-bar">
+        <div class="logo">
+            <span class="labor">Labor</span><span class="linko">Linko</span>
+        </div>
+        <div class="nav">
+            <a href="home.html">
+                <div class="top-bar-item">
+                    <img src="icon/home-icon2.png" alt="Home" class="top-bar-icon">
+                    <span class="top-bar-label">Home</span>
+                </div>
+            </a>
+            <a href="services.html">
+                <div class="top-bar-item">
+                    <img src="icon/services-icon.png" alt="Services" class="top-bar-icon">
+                    <span class="top-bar-label">Services</span>
+                </div>
+            </a>
+            <a href="about.html">
+                <div class="top-bar-item">
+                    <img src="icon/about-icon.png" alt="About" class="top-bar-icon">
+                    <span class="top-bar-label">About</span>
+                </div>
+            </a>
+        </div>
+        <div class="login-section">
+            <a href="login.html" class="login-btn">Login</a>
+        </div>
+            </div>
+    </div>
+    <style>
+            /* Top Bar (Unchanged) */
+            #topBar {
+                background-color: #333;
+                color: white;
+                padding: 10px 15px;
+                text-align: center;
+                direction: ltr;  /* Ensure the top bar stays left-to-right */
+            }
+    
+            
+/* For Hindi, Urdu, Sindhi, and Arabic languages */
+body[data-lang="hi"] {
+    font-family: 'Scheherazade New', serif;;
+    
+}
+
+body[data-lang="ur"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="sd"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;;
+    top: 0%;
+}
+
+/* For German, Italian, French */
+body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
+    font-family: 'Montserrat', sans-serif;
+}
+    
+    
+            footer {
+                background-color: #f8f9fa;
+                padding: 20px;
+                text-align: center;
+            }
+    
+            footer[data-lang="ar"], footer[data-lang="ur"], footer[data-lang="sd"] {
+                direction: rtl; /* Apply rtl only to footer */
+            }
+            /* Full Screen Center Alignment */
+
+
+/* Welcome Text Styling */
+
+.hero h1 {
+    font-size: 3vw; /* Responsive size */
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 12px; /* Space between Welcome text and logo */
+
+}
+/* Homepage Hero Logo Styling */
+.hero-logo {
+    font-family: roboto, sans-serif;
+    font-size: 6vw !important;/* Responsive size */
+    font-weight: 600;
+    color: black; /* Changed to Black */
+    direction: ltr; /* Enforces Left-to-Right direction */
+    unicode-bidi: embed; /* Prevents direction changes inside this block */
+}
+
+/* Styling for Labor text */
+.hero-logo .labor {
+    font-weight: 700;
+    color: white;
+    direction: ltr; /* Enforces Left-to-Right direction */
+    unicode-bidi: embed; /* Prevents direction changes inside this block */
+}
+
+/* Styling for Linko text and refined animation */
+.hero-logo .linko {
+    font-weight: 300;
+    color: white;
+    position: relative;
+    opacity: 0; /* Hidden initially */
+    animation: connectFlowFromRight 4s ease-in-out forwards; /* Animation for flowing effect */
+    direction: ltr; /* Enforces Left-to-Right direction */
+    unicode-bidi: embed; /* Prevents direction changes inside this block */
+}
+
+/* Keyframe animation for subtle connection effect */
+@keyframes connectFlowFromRight {
+    0% {
+        letter-spacing: 15px; /* Letters far apart initially */
+        opacity: 0; /* Fully hidden */
+        transform: translateX(100%); /* Start from the right side */
+    }
+    50% {
+        letter-spacing: 5px; /* Letters moving closer */
+        opacity: 0.5; /* Fade in */
+        transform: translateX(0); /* Move to normal position */
+    }
+    80% {
+        letter-spacing: 2px; /* Letters even closer */
+        opacity: 0.9; /* Fully visible */
+        transform: translateX(0); /* Stay at normal position */
+    }
+    100% {
+        letter-spacing: 0px; /* Letters fully connected */
+        opacity: 1; /* Fully visible */
+        transform: translateX(0); /* No movement */
+    }
+}
+
+/* Optional: Apply glow effect to indicate a strong connection */
+.hero-logo .linko.connected {
+    text-shadow: 0 0 15px rgb(3, 3, 3); /* Strong glow effect when fully connected */
+}
+
+/* Responsive Logo & Text */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 6vw !important;
+        flex-direction: column; /* Stack text and logo */
+        white-space: nowrap;
+    }
+    .hero-logo {
+        font-size: 10vw !important;
+        display: block;
+    }
+}
+        </style>
+    </head>
+    <body>
+       
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="h1-hero">   
+<span class="hero-logo">
+    <span class="labor">Labor</span><span class="linko">Linko</span>
+</span>
+<h1>
+    <span id="welcomeText" style="font-family: 'Roboto', sans-serif !important;"
+        data-en="Welcome to LaborLinko" 
+        data-ur="خوش آمدید لیبرلنکو میں" 
+        data-hi="लेबरलिंको में आपका स्वागत है" 
+        data-sd="ڀلي ڪري آيا ليبرلنڪو ۾" 
+        data-de="Willkommen bei Leberlinko" 
+        data-it="Benvenuto su Laborlinko" 
+        data-ar="مرحبًا بك في ليبرلنكو"  
+        data-zh="欢迎来到 劳博林科" 
+        data-ja="ラボルリンコへようこそ" 
+        data-ko="라보르링코에 오신 것을 환영합니다" 
+        data-tr="Laborlinko'ya hoş geldiniz"
+        data-sv="Välkommen till Laborlinko"
+        data-el="Καλώς ήρθατε στο Λαμπορλίνκο">
+        Welcome to LaborLinko
+    </span>
+</h1>
+</div>
+<br>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const welcomeText = document.getElementById("welcomeText");
+        const languages = ["en", "ur", "hi", "sd", "de", "it", "ar", "zh", "ja", "ko", "tr", "sv", "el"];
+
+        function scrambleText(newText) {
+            let currentText = welcomeText.innerText.split('');
+            let targetText = newText.split('');
+            let maxLength = Math.max(currentText.length, targetText.length);
+            let animationSteps = 14; // Increase steps for slower transition
+            let step = 0;
+
+            function animate() {
+                let tempText = [...currentText];
+
+                for (let i = 0; i < maxLength; i++) {
+                    if (Math.random() > step / animationSteps) {
+                        tempText[i] = String.fromCharCode(97 + Math.floor(Math.random() * 26)); // Random letters
+                    } else {
+                        tempText[i] = targetText[i] || '';
+                    }
+                }
+
+                welcomeText.innerText = tempText.join('');
+
+                if (step < animationSteps) {
+                    step++;
+                    setTimeout(animate, 100); // Slow down the change by increasing timeout
+                } else {
+                    welcomeText.innerText = newText; // Set final text
+                }
+            }
+
+            animate();
+        }
+
+        function changeLanguage() {
+            const randomIndex = Math.floor(Math.random() * languages.length); // Get a random language index
+            const langKey = languages[randomIndex];
+            scrambleText(welcomeText.dataset[langKey]);
+        }
+
+        setInterval(changeLanguage, 3000); // Change every 3 seconds (slower transition)
+    });
+</script>
+
+        <p data-en="Your Local Solution for Finding Skilled Work, Hiring Contractors, and Offering Short-Term Jobs."
+   data-ur="آپ کا مقامی حل ہنر مند کام تلاش کرنے، ٹھیکیداروں کو ملازمت دینے اور قلیل مدتی کام فراہم کرنے کے لیے۔"
+   data-de="Ihre lokale Lösung, um qualifizierte Arbeit zu finden, Auftragnehmer zu beschäftigen und kurzfristige Arbeiten anzubieten."
+   data-hi="आपका स्थानीय समाधान कुशल काम ढूंढने, ठेकेदारों को नियुक्त करने और छोटे समय के काम प्रदान करने के लिए।"
+   data-sd="توهان جو مقامي حل ماهر ڪم ڳولڻ، ٺيڪيدار کي روزگار ڏيڻ ۽ قلیل مدتی ڪم فراهم ڪرڻ لاءِ."
+   data-it="La tua soluzione locale per trovare lavoro qualificato, assumere appaltatori e offrire lavori a breve termine."
+   data-ru="Ваше местное решение для поиска квалифицированной работы, найма подрядчиков и предложения краткосрочных работ."
+   data-ar="حل محلي للعثور على عمل ماهر، توظيف المقاولين، وتقديم أعمال قصيرة المدى.">
+   Your Local Solution for Finding Skilled Work, Hiring Contractors, and Offering Short-Term Jobs.
+</p>
+
+        <div class="cta-buttons">
+            <a href="login.html" 
+                data-en="Create Account" 
+                data-ur="اکاؤنٹ بنائیں" 
+                data-hi="खाता बनाएं" 
+                data-sd="اکاؤنٽ ٺاهيو" 
+                data-de="Konto erstellen" 
+                data-it="Crea Account" 
+                data-ar="إنشاء حساب" 
+                data-fr="Créer un compte" 
+                data-ru="Создать аккаунт">
+                Create Account
+            </a>
+            <a href="explorejob.html" 
+    data-en="Explore Jobs" 
+    data-ur="ملازمتوں کا جائزہ لیں" 
+    data-hi="नौकरियों की खोज करें" 
+    data-sd="ڪم ڳوليو" 
+    data-de="Stellenangebote entdecken" 
+    data-it="Esplora opportunità di lavoro" 
+    data-ar="استكشاف الوظائف" 
+    data-ru="Исследовать вакансии">
+    Explore Jobs
+</a>
+        </div>
+    </section>
+    
+<!-- How It Works Section -->
+<section class="how-it-works">
+    <h2 
+        data-en="How LaborLinko Works" 
+        data-ur="LaborLinko کیسے کام کرتا ہے" 
+        data-hi="लेबरलिंको कैसे काम करता है" 
+        data-sd="لابرلنڪو ڪيئن ڪم ڪري ٿو" 
+        data-de="Wie LaborLinko funktioniert" 
+        data-it="Come funziona LaborLinko" 
+        data-ar="كيف يعمل LaborLinko" 
+        data-ru="Как работает LaborLinko">
+        How LaborLinko Works
+    </h2>
+    <p 
+        data-en="Get started with these easy steps to find work or hire labor in your area." 
+        data-ur="اپنے علاقے میں کام تلاش کرنے یا مزدوروں کو ملازمت دینے کے لئے یہ آسان اقدامات شروع کریں۔" 
+        data-hi="अपने क्षेत्र में काम खोजने या श्रमिकों को नियुक्त करने के लिए इन आसान कदमों से शुरू करें।" 
+        data-sd="پنھنجي علائقي ۾ ڪم ڳولڻ يا مزدورن کي ملازمت ڏيڻ لاءِ هي آسان قدمن سان شروع ڪريو." 
+        data-de="Starten Sie mit diesen einfachen Schritten, um Arbeit zu finden oder Arbeitskräfte in Ihrer Region zu beschäftigen." 
+        data-it="Inizia con questi semplici passaggi per trovare lavoro o assumere manodopera nella tua zona." 
+        data-ar="ابدأ بهذه الخطوات السهلة للعثور على عمل أو توظيف العمال في منطقتك." 
+        data-ru="Начните с этих простых шагов, чтобы найти работу или нанять работников в вашем районе.">
+        Get started with these easy steps to find work or hire labor in your area.
+    </p>
+    <div class="steps">
+        <div class="step">
+            <h3 
+                data-en="Create a Profile" 
+                data-ur="پروفائل بنائیں" 
+                data-hi="प्रोफ़ाइल बनाएं" 
+                data-sd="پروفائل ٺاھيو" 
+                data-de="Erstellen Sie ein Profil" 
+                data-it="Crea un profilo" 
+                data-ar="إنشاء ملف شخصي" 
+                data-ru="Создайте профиль">
+                Create a Profile
+            </h3>
+            <p 
+                data-en="Fill out your profile with the necessary details for workers or employers." 
+                data-ur="مزدوروں یا آجر کے لئے ضروری تفصیلات کے ساتھ اپنا پروفائل پُر کریں۔" 
+                data-hi="अपने प्रोफ़ाइल को श्रमिकों या नियोक्ताओं के लिए आवश्यक विवरण के साथ भरें।" 
+                data-sd="مزدورن يا آجرن لاءِ ضروري تفصيلن سان پنهنجو پروفائل ڀريو." 
+                data-de="Füllen Sie Ihr Profil mit den notwendigen Details für Arbeiter oder Arbeitgeber aus." 
+                data-it="Compila il tuo profilo con i dettagli necessari per lavoratori o datori di lavoro." 
+                data-ar="املأ ملفك الشخصي بالتفاصيل اللازمة للعمال أو أصحاب العمل." 
+                data-ru="Заполните свой профиль необходимыми данными для работников или работодателей.">
+                Fill out your profile with the necessary details for workers or employers.
+            </p>
+        </div>
+        <div class="step">
+            <h3 
+                data-en="Search Jobs or Labor" 
+                data-ur="ملازمتوں یا مزدوروں کو تلاش کریں" 
+                data-hi="नौकरियाँ या श्रमिक खोजें" 
+                data-sd="نوڪري يا مزدور ڳوليو" 
+                data-de="Suchen Sie Jobs oder Arbeitskräfte" 
+                data-it="Cerca lavori o manodopera" 
+                data-ar="ابحث عن وظائف أو عمالة" 
+                data-ru="Ищите вакансии или работников">
+                Search Jobs or Labor
+            </h3>
+            <p 
+                data-en="Use our search feature to find jobs or labor based on your needs and location." 
+                data-ur="ہمارے تلاش کے فیچر کا استعمال کریں تاکہ آپ کی ضروریات اور مقام کے مطابق ملازمتیں یا مزدور تلاش کریں۔" 
+                data-hi="हमारी खोज सुविधा का उपयोग करें ताकि आप अपनी आवश्यकताओं और स्थान के आधार पर नौकरियों या श्रमिकों को खोज सकें।" 
+                data-sd="اسانجي ڳولا فيچر کي استعمال ڪريو ته جيئن توهان جي ضرورتن ۽ جڳهين مطابق نوڪريون يا مزدور ڳوليو." 
+                data-de="Verwenden Sie unsere Suchfunktion, um Jobs oder Arbeitskräfte basierend auf Ihren Bedürfnissen und Ihrem Standort zu finden." 
+                data-it="Usa la nostra funzione di ricerca per trovare lavori o manodopera in base alle tue esigenze e alla tua posizione." 
+                data-ar="استخدم ميزة البحث الخاصة بنا للعثور على وظائف أو عمالة بناءً على احتياجاتك وموقعك." 
+                data-ru="Используйте нашу функцию поиска, чтобы найти вакансии или работников в зависимости от ваших потребностей и местоположения.">
+                Use our search feature to find jobs or labor based on your needs and location.
+            </p>
+        </div>
+        <div class="step">
+            <h3 
+                data-en="Connect & Hire" 
+                data-ur="جوڑیں اور ملازمت دیں" 
+                data-hi="जोड़ें और नियुक्त करें" 
+                data-sd="جوڙيو ۽ نوڪري ڏيو" 
+                data-de="Verbinden und einstellen" 
+                data-it="Connetti e assumi" 
+                data-ar="اتصل و وظف" 
+                data-ru="Свяжитесь и наймите">
+                Connect & Hire
+            </h3>
+            <p 
+                data-en="Connect directly with workers or employers and start the job as soon as you're ready." 
+                data-ur="مزدوروں یا آجر سے براہ راست رابطہ کریں اور جب آپ تیار ہوں تو کام شروع کریں۔" 
+                data-hi="श्रमिकों या नियोक्ताओं से सीधे संपर्क करें और जैसे ही आप तैयार हों, नौकरी शुरू करें।" 
+                data-sd="مزدورن يا آجرن سان سڌو رابطو ڪريو ۽ جڏهن توهان تيار هجو تڏهن ڪم شروع ڪيو." 
+                data-de="Treten Sie direkt mit Arbeitern oder Arbeitgebern in Kontakt und beginnen Sie den Job, sobald Sie bereit sind." 
+                data-it="Connettiti direttamente con i lavoratori o i datori di lavoro e inizia il lavoro non appena sei pronto." 
+                data-ar="اتصل مباشرة بالعمال أو أصحاب العمل وابدأ العمل بمجرد أن تكون جاهزًا." 
+                data-ru="Свяжитесь напрямую с работниками или работодателями и начните работу, как только будете готовы.">
+                Connect directly with workers or employers and start the job as soon as you're ready.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Tips Section -->
+<section class="quick-tips">
+    <h2 data-en="Quick Tips" data-ur="جلدی ٹپس" data-hi="त्वरित टिप्स" data-sd="جلدي ٽپس" data-de="Schnelle Tipps" data-it="Suggerimenti veloci" data-ar="نصائح سريعة" data-ru="Быстрые советы">
+        Quick Tips
+    </h2>
+    <p class="tip" data-en="Make sure your profile is complete for better visibility and connections." data-ur="بہتر دیکھاوٹ اور روابط کے لئے اپنے پروفائل کو مکمل کریں۔" data-hi="बेहतर दृश्यता और कनेक्शन के लिए अपने प्रोफ़ाइल को पूरा करें।" data-sd="بہتر ڏيکارڻ ۽ ڳنڍڻ لاءِ پنهنجو پروفائل مڪمل ڪريو." data-de="Stellen Sie sicher, dass Ihr Profil vollständig ist, um bessere Sichtbarkeit und Verbindungen zu erhalten." data-it="Assicurati che il tuo profilo sia completo per una migliore visibilità e connessioni." data-ar="تأكد من أن ملفك الشخصي مكتمل للحصول على رؤية وروابط أفضل." data-ru="Убедитесь, что ваш профиль заполнен для лучшей видимости и связей.">
+        Make sure your profile is complete for better visibility and connections.
+    </p>
+    <p class="tip" data-en="Use filters to narrow down your job search or labor needs based on your preferences." data-ur="اپنی ترجیحات کی بنیاد پر ملازمت کی تلاش یا مزدوری کی ضروریات کو محدود کرنے کے لئے فلٹرز استعمال کریں۔" data-hi="अपनी प्राथमिकताओं के आधार पर अपनी नौकरी खोज या श्रमिक आवश्यकताओं को सीमित करने के लिए फ़िल्टर का उपयोग करें।" data-sd="پنھنجي ترجيحن جي بنياد تي نوڪري ڳولڻ يا مزدوري جي ضرورتن کي محدود ڪرڻ لاءِ فلٽر استعمال ڪريو." data-de="Verwenden Sie Filter, um Ihre Jobsuche oder Arbeitskraftbedürfnisse basierend auf Ihren Vorlieben einzugrenzen." data-it="Usa i filtri per restringere la tua ricerca di lavoro o le tue necessità di manodopera in base alle tue preferenze." data-ar="استخدم الفلاتر لتضييق نطاق بحثك عن الوظائف أو احتياجاتك من العمالة بناءً على تفضيلاتك." data-ru="Используйте фильтры, чтобы сузить поиск работы или рабочей силы в соответствии с вашими предпочтениями.">
+        Use filters to narrow down your job search or labor needs based on your preferences.
+    </p>
+    <p class="tip" data-en="Don't hesitate to message directly for quicker responses and to clarify details." data-ur="جلدی جواب دینے اور تفصیلات واضح کرنے کے لئے براہ راست پیغام بھیجنے میں ہچکچائیں نہیں۔" data-hi="त्वरित प्रतिक्रियाएँ प्राप्त करने और विवरण स्पष्ट करने के लिए सीधे संदेश भेजने में संकोच न करें।" data-sd="جلدي جواب حاصل ڪرڻ ۽ تفصيلات کي واضع ڪرڻ لاءِ سڌو پيغام موڪليو." data-de="Zögern Sie nicht, direkt eine Nachricht zu senden, um schnellere Antworten zu erhalten und Details zu klären." data-it="Non esitare a inviare un messaggio direttamente per risposte più rapide e per chiarire i dettagli." data-ar="لا تتردد في إرسال رسالة مباشرة للحصول على ردود أسرع ولتوضيح التفاصيل." data-ru="Не стесняйтесь отправлять сообщения напрямую для более быстрого ответа и уточнения деталей.">
+        Don't hesitate to message directly for quicker responses and to clarify details.
+    </p>
+</section>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <nav class="footer-nav">
+        <a href="#" data-en="About Us" data-ur="ہمارے بارے میں" data-hi="हमारे बारे में" data-sd="اسان بابت" data-de="Über uns" data-it="Chi siamo" data-ar="معلومات عنا" data-ru="О нас">About Us</a>
+        <a href="#" data-en="FAQs" data-ur="عمومی سوالات" data-hi="अक्सर पूछे जाने वाले सवाल" data-sd="عام سوالات" data-de="FAQs" data-it="Domande frequenti" data-ar="الأسئلة الشائعة" data-ru="Часто задаваемые вопросы">FAQs</a>
+        <a href="#" data-en="Terms of Service" data-ur="سروس کی شرائط" data-hi="सेवा की शर्तें" data-sd="سروس جون شرائط" data-de="Nutzungsbedingungen" data-it="Termini di servizio" data-ar="شروط الخدمة" data-ru="Условия обслуживания">Terms of Service</a>
+        <a href="#" data-en="Privacy Policy" data-ur="پرائیویسی پالیسی" data-hi="गोपनीयता नीति" data-sd="رازداري پاليسي" data-de="Datenschutzrichtlinie" data-it="Politica sulla privacy" data-ar="سياسة الخصوصية" data-ru="Политика конфиденциальности">Privacy Policy</a>
+    </nav>
+    <p data-en="&copy; 2025 LaborLinko" data-ur="© 2025 LaborLinko" data-hi="© 2025 LaborLinko" data-sd="© 2025 LaborLinko" data-de="© 2025 LaborLinko" data-it="© 2025 LaborLinko" data-ar="© 2025 LaborLinko" data-ru="© 2025 LaborLinko">
+        &copy; 2025 LaborLinko
+    </p>
+</footer>
+
+<script>
+    document.addEventListener("scroll", function () {
+    const steps = document.querySelectorAll(".step");
+    steps.forEach(step => {
+        const rect = step.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.8) {
+            step.classList.add("scrolled");
+            step.classList.remove("visible");
+        } else {
+            step.classList.remove("scrolled");
+            step.classList.add("visible");
+        }
+    });
+});
+
+</script>
+
+<!--Drag PAGE Js-->
+<script>
+let touchstartX = 0;
+let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
+
+const swipeThreshold = 50; // Minimum horizontal distance (in pixels) to trigger the swipe
+
+function checkSwipe() {
+    // Calculate horizontal and vertical swipe distances
+    const horizontalDistance = touchendX - touchstartX;
+    const verticalDistance = touchendY - touchstartY;
+
+    // Only trigger horizontal swipe if horizontal distance is greater than vertical distance and exceeds the threshold
+    if (Math.abs(horizontalDistance) > Math.abs(verticalDistance) && Math.abs(horizontalDistance) > swipeThreshold) {
+        if (horizontalDistance < 0) {
+            // Swiped left (go to the next page)
+            navigateToNextPage();
+        } else if (horizontalDistance > 0) {
+            // Swiped right (go to the previous page)
+            navigateToPreviousPage();
+        }
+    }
+}
+
+function navigateToNextPage() {
+    let currentPage = window.location.pathname;
+    if (currentPage.includes('home.html')) {
+        window.location.href = 'services.html';
+    } else if (currentPage.includes('services.html')) {
+        window.location.href = 'about.html';
+    } else if (currentPage.includes('about.html')) {
+        window.location.href = 'home.html';
+    }
+}
+
+function navigateToPreviousPage() {
+    let currentPage = window.location.pathname;
+    if (currentPage.includes('home.html')) {
+        window.location.href = 'about.html';
+    } else if (currentPage.includes('services.html')) {
+        window.location.href = 'home.html';
+    } else if (currentPage.includes('about.html')) {
+        window.location.href = 'services.html';
+    }
+}
+
+document.addEventListener('touchstart', (e) => {
+    touchstartX = e.changedTouches[0].screenX;
+    touchstartY = e.changedTouches[0].screenY;
+}, false);
+
+document.addEventListener('touchend', (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    touchendY = e.changedTouches[0].screenY;
+    checkSwipe();
+}, false);
+
+</script>
+
+
+</body>
+</html>
