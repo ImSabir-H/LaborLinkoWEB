@@ -862,7 +862,64 @@ main {
 </a>
         </div>
     </section>
-    
+    <!-- LaborLinko Professional Search Bar -->
+<section id="search-bar">
+    <div class="search-container">
+        <select id="search-type">
+            <option value="labor">Labor Search</option>
+            <option value="job">Job Search</option>
+        </select>
+        <input type="text" id="search-input" placeholder="Search for labor or jobs...">
+        <button id="search-btn">Search</button>
+    </div>
+    <div id="search-results"></div>
+</section>
+
+<style>
+    #search-bar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .search-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    #search-type, #search-input, #search-btn {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    #search-input {
+        flex: 1;
+    }
+    #search-btn {
+        background: #007BFF;
+        color: white;
+        cursor: pointer;
+    }
+    #search-results {
+        margin-top: 10px;
+    }
+</style>
+
+<script>
+    document.getElementById('search-btn').addEventListener('click', function() {
+        let type = document.getElementById('search-type').value;
+        let query = document.getElementById('search-input').value.trim();
+        if (query === '') return;
+        
+        // Simulating search functionality (Replace with backend integration)
+        let results = `Searching for ${type === 'labor' ? 'labor' : 'jobs'}: "${query}"`;
+        document.getElementById('search-results').innerHTML = `<p>${results}</p>`;
+    });
+</script>
 <!-- How It Works Section -->
 <section class="how-it-works">
     <h2 
