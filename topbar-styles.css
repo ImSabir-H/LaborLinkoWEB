@@ -1,0 +1,348 @@
+
+/*Language font's Styels
+/* Import Optimized Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;500&display=swap');
+
+/* Self-hosted Urdu & Sindhi Fonts */
+@font-face {
+    font-family: 'Jameel Noori Nastaleeq';
+    src: url('../fonts/Jameel-Noori-Nastaleeq.woff2') format('woff2'),
+         url('../fonts/Jameel-Noori-Nastaleeq.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Mehr Nastaliq Web';
+    src: url('../fonts/Mehr-Nastaliq-Web.woff2') format('woff2'),
+         url('../fonts/Mehr-Nastaliq-Web.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Default Styles for LTR Languages (English, German, Italian, Russian) */
+body {
+    font-family: 'Inter', 'Open Sans', 'Playfair Display', 'Manrope', sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    direction: ltr;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+/* RTL Language Support (Urdu, Arabic, Sindhi) */
+body[data-lang="ur"], 
+body[data-lang="sd"], 
+body[data-lang="ar"] {
+    font-family: 'Jameel Noori Nastaleeq', 'Mehr Nastaliq Web', 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+}
+
+/* Hindi */
+body[data-lang="hi"] {
+    font-family: 'Mukta', sans-serif;
+}
+
+/* Headings */
+h1 {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 600;
+    color: #ffffff;
+}
+
+h2 {
+    font-size: 2rem; /* 32px */
+    font-weight: 500;
+    color: #333;
+}
+
+h3 {
+    font-size: 1.75rem; /* 28px */
+    font-weight: 500;
+    color: #272727;
+}
+
+/* Paragraphs */
+p {
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    font-size: 1rem; /* 16px */
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Responsive Typography for Mobile */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem; /* 32px */
+    }
+
+    h2 {
+        font-size: 1.75rem; /* 28px */
+    }
+
+    h3 {
+        font-size: 1.5rem; /* 24px */
+    }
+
+    p, a {
+        font-size: 0.9rem; /* 14px */
+    }
+}
+
+/* Ensure top-bar styles are persistent */
+.top-bar {
+    font-family: roboto, sans-serif !important;
+    display: inline-flex !important; /* Keeps layout intact */
+    justify-content: space-between; /* Maintains space distribution */
+    align-items: center; /* Keeps vertical alignment */
+    padding: 10px 18px; /* Keeps padding consistent */
+    background-color: rgba(255, 255, 255, 0.8) !important; /* Background color stays */
+    backdrop-filter: blur(10px); /* Ensures blur effect persists */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important; /* Shadow effect remains */
+    border-bottom: 1px solid #ddd !important; /* Keeps border consistent */
+    position: sticky !important; /* Maintains sticky positioning */
+    top: 0 !important; /* Ensures top positioning remains */
+    left: 0 !important; /* Prevents displacement */
+    width: 100% !important; /* Ensures full-width */
+    direction: ltr !important;
+    z-index: 1000 !important; /* Keeps the top bar on top of other elements */
+}
+
+/* Logo Styling */
+.logo {
+    user-select: none;
+    font-size: 2rem; /* Consistent font size */
+    font-weight: 600 ; /* Bold logo */
+    color: #007BFF; /* Maintains logo color */
+}
+
+/* Navigation Styling */
+.nav a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: gray; /* Maintains navigation text color */
+    padding: 10px; /* Keeps padding intact */
+}
+
+.logo .labor {
+    font-weight: 700;
+    color: gray;
+}
+
+.logo .linko {
+    font-weight: 300;
+    color: #007BFF;
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    gap: 14px;
+}
+
+
+/* Active link color */
+.nav a.active {
+    color: #007BFF;
+}
+
+/* Ensure only the active icon changes color */
+.nav a.active .top-bar-icon {
+    filter: invert(27%) sepia(99%) saturate(743%) hue-rotate(198deg) brightness(97%) contrast(99%);
+}
+
+/* Icons */
+.top-bar-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.top-bar-item .top-bar-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+}
+
+/* Remove hover effects */
+.nav a::after,
+.nav a:hover::after {
+    display: none;
+}
+
+/* Refined Professional Login Button */
+.login-btn {
+    background-color: #007BFF; /* Solid blue background */
+    padding: 10px 20px; /* Balanced padding */
+    font-size: 16px; /* Clean, legible font size */
+    border-radius: 4px; /* Subtle rounded corners */
+    color: #FFFFFF; /* White text for contrast */
+    font-weight: 600; /* Bold text for emphasis */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s, border 0.2s; /* Smooth transitions */
+    display: inline-block; /* Inline block for better control */
+    cursor: pointer; /* Pointer cursor for click action */
+}
+
+/* Hover Effect */
+.login-btn:hover {
+    background-color: #0056b3; /* Darker blue background */
+    
+}
+/* Mobile-First Design */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 1.6rem; /* Adjust font size for tablets and mobile */
+    }
+    
+    .nav {
+        display: none; /* Hide the navigation links on mobile */
+    }
+
+    .top-bar-item .top-bar-label {
+        display: none; /* Hide text labels on small screens */
+    }
+
+    .login-btn {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+        font-family: Roboto, sans-serif !important;
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 12px 0; /* Increased padding for better usability */
+        z-index: 999;
+        direction: ltr !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .bottom-nav a {
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        color: #444; /* Improved contrast */
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        transition: all 0.5s ease-in-out;
+        padding: 10px;
+    }
+
+    /* Active & Hover Effects */
+    .bottom-nav a:hover,
+    .bottom-nav a:focus {
+        color: #0056b3;
+        background-color: rgba(0, 91, 187, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .bottom-nav a.active {
+        color: #007BFF;
+        background-color: rgba(0, 123, 255, 0.15);
+        border-radius: 10px;
+    }
+
+    .bottom-nav a.active .bottom-nav-icon {
+        filter: brightness(0) saturate(100%) invert(29%) sepia(94%) saturate(746%) hue-rotate(199deg) brightness(98%) contrast(100%);
+        transform: scale(1.1);
+    }
+
+    /* Icon Styling */
+    .bottom-nav .bottom-nav-icon {
+        width: 24px; /* Slightly larger for better visibility */
+        height: 24px;
+        margin-bottom: 6px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Animate Icon on Hover */
+    .bottom-nav a:hover .bottom-nav-icon {
+        transform: scale(1.15);
+    }
+
+    /* Accessibility: Prevent Layout Shifts */
+    .bottom-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 24px;
+        border-radius: 6px;
+        transition: all 0.5s ease-in-out;
+        color: #6c757d;
+    }
+}
+
+/*Desktop Top Navigation*/
+   @media (min-width: 769px) {
+    .top-bar-item .top-bar-label {
+        display: inline-block;
+    }
+
+    .top-bar-item .top-bar-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px; /* Space between icon and label */
+        display: inline-block;
+    }
+
+    /* Hide Bottom Navigation Bar in Desktop */
+    .bottom-nav {
+        display: none;
+    }
+}
+
+.nav a:hover, .nav a:focus {
+    background-color: rgba(0, 123, 255, 0.1);
+    border-radius: 4px;  /* Subtle roundness */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+/* SVG Icon Backgrounds for Top Navigation */
+.nav .home-icon {
+    background: url('icon/home-icon.svg') no-repeat center center;
+    background-size: contain;
+}
+
+.nav .services-icon {
+    background: url('icon/services-icon.svg') no-repeat center center;
+    background-size: contain;
+}
+
+.nav .about-icon {
+    background: url('icon/about-icon.svg') no-repeat center center;
+    background-size: contain;
+}
