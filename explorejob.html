@@ -1,4 +1,14 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="bottom.js"></script>
+    <link rel="stylesheet" href="topbar-styles.css">
+    <link rel="stylesheet" href="drag.js">
+    <script src="smooth-scroll.js"></script>
+    <title>top-bar</title>
+</head>
 <style>
     /* CSS Variables for easy customization */
     :root {
@@ -389,220 +399,6 @@ body[data-lang="ar"] {
 /* For German, Italian, French */
 body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
     font-family: 'Montserrat', sans-serif;
-}
-
-.top-bar {
-    font-family: 'roboto', sans-serif !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 20px;
-    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
-    backdrop-filter: blur(10px); /* Apply the blur effect */
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    direction: ltr !important;  /* Prevent any changes from language affecting the top bar */
-}
-/* Top Bar Item Styling */
-.top-bar-item {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    padding: 10px;  /* Adds spacing around each item */
-}
-
-.top-bar-item:hover {
-    color: #007BFF;
-}
-
-.top-bar-item .top-bar-icon {
-    width: 24px; /* Set icon size to 24px */
-    height: 24px; /* Set icon size to 24px */
-    margin-right: 6px;
-    margin-bottom: 0px;
-}
-
-.top-bar-item .top-bar-label {
-    font-size: 18px;
-    font-weight: 500;
-    color: gray;
-}
-
-.top-bar-item:hover .top-bar-label {
-    color: #007BFF;
-}
-
-/* Logo Styling */
-.logo {
-    font-size: 2rem; /* Default size */
-    font-weight: 600;
-    color: #007BFF;
-    padding-right: 8px;
-}
-
-.logo .labor {
-    font-weight: 700;
-    color: gray;
-}
-
-.logo .linko {
-    font-weight: 400;
-    color: #007BFF;
-}
-
-/* Responsive Logo Size */
-@media (max-width: 768px) {
-    .logo {
-        font-size: 6vw;  /* Set size relative to the viewport width */
-        max-font-size: 2rem;  /* Maximum size, keeping it from getting too big */
-        min-font-size: 1.5rem; /* Minimum size, keeping it readable */
-    }
-}
-
-@media (min-width: 769px) {
-    .logo {
-        font-size: 2rem;  /* Default size for larger screens */
-    }
-}
-
-/* Navigation styling */
-.nav {
-    display: flex;
-    gap: 30px;
-}
-
-.nav a {
-    text-decoration: none;
-    color: gray;
-    font-size: 20px;
-    font-weight: 500;
-    position: relative;
-}
-
-.nav a:hover {
-    color: #007BFF;
-}
-
-.nav a::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #007BFF;
-    transition: width 0.3s ease-in-out;
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.nav a:hover::after {
-    width: 100%;
-}
-
-/* Mobile-Only Styling (Small Screen) */
-@media (max-width: 768px) {
-    .top-bar {
-        top: 0%;
-        padding: 12px 10px;
-    }
-
-    .top-bar-item .top-bar-label {
-        display: none;  /* Hide text labels on small screens */
-    }
-
-    .top-bar-item .top-bar-icon {
-        display: block;
-        width: 5vw;  /* Icon width relative to viewport width */
-        height: 5vw; /* Icon height relative to viewport width */
-        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
-        max-height: 28px; /* Maintain a max size */
-        min-width: 20px; /* Ensure icons do not shrink too small */
-        min-height: 20px; /* Minimum size for better usability */
-    }
-
-    .top-bar-item {
-        padding: 0px;
-    }
-
-    .nav {
-        display: flex;
-        gap: 16px;
-        justify-content: center;
-    }
-
-    /* Profile Icon size adjustments for mobile responsiveness */
-    .profile-icon {
-        width: 12vw;  /* Profile icon width relative to viewport width */
-        height: 12vw; /* Profile icon height relative to viewport width */
-        max-width: 50px;  /* Ensure profile icon does not get too large */
-        max-height: 50px; /* Max profile icon size */
-        min-width: 40px; /* Minimum profile icon size */
-        min-height: 40px; /* Keep profile icon size practical */
-        border-radius: 50%; /* Ensure it's circular */
-        overflow: hidden;
-    }
-}
-
-@media (min-width: 769px) {
-    .top-bar-item .top-bar-icon {
-        display: block;
-        width: 24px;  /* Static size on desktop */
-        height: 24px; /* Static size on desktop */
-    }
-
-    .profile-icon {
-        width: 40px;  /* Fixed size on desktop */
-        height: 40px; /* Fixed size on desktop */
-    }
-}
-
-
-/* Desktop-Only Styling (Larger Screen) */
-@media (min-width: 769px) {
-    /* Show only text on desktop */
-    .top-bar-item .top-bar-label {
-        display: inline-block; /* Show text labels */
-    }
-
-    .top-bar-item .top-bar-icon {
-        display: none; /* Hide icons */
-    }
-}
-/* Login Button Container (for alignment) */
-.login-btn-container {
-    margin-left: 20px; /* Spacing from other top bar items */
-    display: flex;
-    align-items: center;
-}
-
-/* Login Button Styling */
-/* Adjusted Login Button */
-
-.login-btn {
-    background-color: rgba(0, 123, 255, 0.1); /* Subtle blue background */
-    border: 1px solid transparent;
-    padding: 8px 16px;
-    font-size: 16px; /* Adjusted font size for consistency */
-    border-radius: 4px;
-    color: #007BFF; /* Brand blue color */
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif; /* Brand font */
-    font-weight: 500; /* Medium weight for balance */
-    text-transform: uppercase;
-    text-decoration: none; /* Remove underline */
-    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transitions */
-}
-
-/* Hover Effect for Login Button */
-.login-btn:hover {
-    background-color: #007BFF; /* Solid blue background */
-    color: #FFFFFF; /* White text */
-    border: 1px solid #007BFF; /* Blue border */
 }
 
 /* Footer Section */
@@ -1005,35 +801,51 @@ body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang
     </style>
 </head>
 <body>
-   
-    <div class="top-bar">
+  
+
+<div class="top-bar">
     <div class="logo">
         <span class="labor">Labor</span><span class="linko">Linko</span>
     </div>
-    <div class="nav">
-        <a href="home.html">
+
+    <nav class="nav">
+        <a href="home.html" class="active" aria-label="Go to Home" class="nav-link">
             <div class="top-bar-item">
-                <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
+                <span class="top-bar-icon home-icon"></span>
                 <span class="top-bar-label">Home</span>
             </div>
         </a>
-        <a href="services.html">
+        <a href="services.html" aria-label="Go to Services" class="nav-link">
             <div class="top-bar-item">
-                <img src="icon/services-icon.png" alt="Message" class="top-bar-icon">
-                <span class="top-bar-label">Message</span>
+                <span class="top-bar-icon services-icon"></span>
+                <span class="top-bar-label">Service</span>
             </div>
         </a>
-        <a href="about.html">
+        <a href="about.html" aria-label="Go to About" class="nav-link">
             <div class="top-bar-item">
-                <img src="icon/about-icon.png" alt="Notification" class="top-bar-icon">
-                <span class="top-bar-label">Notification</span>
+                <span class="top-bar-icon about-icon"></span>
+                <span class="top-bar-label">About</span>
             </div>
         </a>
+    </nav>
+    
+
+    <div class="login-section">
+        <a href="login.html" class="login-btn" aria-label="Go to Login Page">Login</a>
     </div>
-            <div class="login-section">
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
-    </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div class="bottom-nav">
+    <a href="services.html" aria-label="Go to Services">
+        <img src="icon/services-icon.svg" alt="Services" class="bottom-nav-icon" loading="lazy">Service
+    </a>
+    <a href="home.html" class="active" aria-label="Go to Home">
+        <img src="icon/home-icon.svg" alt="Home" class="bottom-nav-icon" loading="lazy">Home
+    </a>
+    <a href="about.html" aria-label="Go to About">
+        <img src="icon/about-icon.svg" alt="About" class="bottom-nav-icon" loading="lazy">About
+    </a>
 </div>
 <!--Hero Section-->
 <section class="search-bar">
