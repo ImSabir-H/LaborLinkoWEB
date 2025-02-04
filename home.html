@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="language.js" defer></script>
-    <title>LaborLinko Top Bar</title>
+    <script src="smooth-scroll.js"></script>
+    <link rel="stylesheet" href="smooth-scroll.js">
+    <link rel="stylesheet" href="topbar-styles.css">
+    <script src="drag.js"></script>
+    
+    <title>LaborLinko Home</title>
     <style>
     /* General Reset */
 /* General Reset */
@@ -23,219 +28,6 @@ body {
     font-family: 'montserrat' sans-serif;
 }
 
-/* For Hindi, Urdu, Sindhi, and Arabic languages */
-body[data-lang="hi"] {
-    font-family: 'Scheherazade New', serif;;
-    
-}
-
-body[data-lang="ur"] {
-    font-family: 'Scheherazade New', serif;;
-    top: 0%;
-}
-
-body[data-lang="sd"] {
-    font-family: 'Scheherazade New', serif;;
-    top: 0%;
-}
-
-body[data-lang="ar"] {
-    font-family: 'Scheherazade New', serif;;
-    top: 0%;
-}
-
-/* For German, Italian, French */
-body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.top-bar {
-    font-family: 'roboto', sans-serif !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 20px;
-    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
-    backdrop-filter: blur(10px); /* Apply the blur effect */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #ddd;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    direction: ltr !important;  /* Prevent any changes from language affecting the top bar */
-}                                                                                                               
-/* Top Bar Item Styling */
-.top-bar-item {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    padding: 10px;  /* Adds spacing around each item */
-}
-
-.top-bar-item:hover {
-    color: #007BFF;
-}
-
-.top-bar-item .top-bar-icon {
-    width: 24px; /* Set icon size to 24px */
-    height: 24px; /* Set icon size to 24px */
-    margin-right: 6px;
-    margin-bottom: 0px;
-}
-
-.top-bar-item .top-bar-label {
-    font-size: 18px;
-    font-weight: 500;
-    color: gray;
-}
-
-.top-bar-item:hover .top-bar-label {
-    color: #007BFF;
-}
-
-/* Logo Styling */
-.logo {
-    font-size: 2rem; /* Default size */
-    font-weight: 600;
-    color: #007BFF;
-    padding-right: 8px;
-}
-
-.logo .labor {
-    font-weight: 700;
-    color: gray;
-}
-
-.logo .linko {
-    font-weight: 400;
-    color: #007BFF;
-}
-
-/* Responsive Logo Size */
-@media (max-width: 768px) {
-    .logo {
-        font-size: 6.4vw;  /* Set size relative to the viewport width */
-    }
-}
-
-/* Navigation styling */
-.nav {
-    display: flex;
-    gap: 30px;
-}
-
-.nav a {
-    text-decoration: none;
-    color: gray;
-    font-size: 20px;
-    font-weight: 500;
-    position: relative;
-}
-
-.nav a:hover {
-    color: #007BFF;
-}
-
-.nav a::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #007BFF;
-    transition: width 0.3s ease-in-out;
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.nav a:hover::after {
-    width: 100%;
-}
-
-/* Mobile-Only Styling (Small Screen) */
-@media (max-width: 768px) {
-    .top-bar {
-        padding: 12px 10px;
-    }
-
-    .top-bar-item .top-bar-label {
-        display: none;  /* Hide text labels on small screens */
-    }
-
-    .top-bar-item .top-bar-icon {
-        display: block;
-        width: 5vw;  /* Icon width relative to viewport width */
-        height: 5vw; /* Icon height relative to viewport width */
-        max-width: 28px;  /* Ensure icons do not get too big on larger screens */
-        max-height: 28px; /* Maintain a max size */
-        min-width: 20px; /* Ensure icons do not shrink too small */
-        min-height: 20px; /* Minimum size for better usability */
-    }
-
-    .top-bar-item {
-        padding: 0px;
-    }
-
-    .nav {
-        display: flex;
-        gap: 16px;
-        justify-content: center;
-    }
-}
-
-@media (min-width: 769px) {
-    .top-bar-item .top-bar-icon {
-        display: block;
-        width: 24px;  /* Static size on desktop */
-        height: 24px; /* Static size on desktop */
-    }
-}
-
-
-/* Desktop-Only Styling (Larger Screen) */
-@media (min-width: 769px) {
-    /* Show only text on desktop */
-    .top-bar-item .top-bar-label {
-        display: inline-block; /* Show text labels */
-    }
-
-    .top-bar-item .top-bar-icon {
-        display: none; /* Hide icons */
-    }
-}
-/* Login Button Container (for alignment) */
-.login-btn-container {
-    margin-left: 20px; /* Spacing from other top bar items */
-    display: flex;
-    align-items: center;
-}
-
-/* Login Button Styling */
-/* Adjusted Login Button */
-
-.login-btn {
-    background-color: rgba(0, 123, 255, 0.1); /* Subtle blue background */
-    border: 1px solid transparent;
-    padding: 8px 16px;
-    font-size: 16px; /* Adjusted font size for consistency */
-    border-radius: 4px;
-    color: #007BFF; /* Brand blue color */
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif !important; /* Brand font */
-    font-weight: 500 !important; /* Medium weight for balance */
-    text-transform: uppercase;
-    text-decoration: none; /* Remove underline */
-    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transitions */
-}
-
-/* Hover Effect for Login Button */
-.login-btn:hover {
-    background-color: #007BFF; /* Solid blue background */
-    color: #FFFFFF; /* White text */
-    border: 1px solid #007BFF; /* Blue border */
-}
 /* Footer Section */
 .footer {
     background-color: #fff;
@@ -441,19 +233,6 @@ main {
         font-size: 1.1rem;
         margin-bottom: 15px;
     }
-  
-/* Language-specific styling for the body */
-body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] body[data-lang="ar"] {
-    font-family: 'Scheherazade New', serif;
-    direction: rtl;  /* Apply rtl only to the body */
-    text-align: right;
-}
-
-/* For other languages, ensure left-to-right text direction and proper layout */
-body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
-    font-family: 'Roboto', sans-serif;
-    direction: ltr;
-}
 
     </style>
     <style>
@@ -625,18 +404,89 @@ body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang
                 font-size: 14px;
             }
         }
+        /* Welcome Text Styling */
 
-        /* RTL Languages Styling */
-        body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
-            font-family: var(--font-family-rtl);
-            direction: rtl;
-            text-align: right;
-        }
+.hero h1 {
+    user-select: none;
+    font-size: 3vw; /* Responsive size */
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 12px; /* Space between Welcome text and logo */
 
-        body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
-            font-family: var(--font-family-ltr);
-            direction: ltr;
-        }
+}
+/* Homepage Hero Logo Styling */
+.hero-logo {
+    user-select: none;
+    font-family: roboto, sans-serif;
+    font-size: 6vw !important;/* Responsive size */
+    font-weight: 600;
+    color: black; /* Changed to Black */
+    direction: ltr; /* Enforces Left-to-Right direction */
+    unicode-bidi: embed; /* Prevents direction changes inside this block */
+}
+
+/* Styling for Labor text */
+.hero-logo .labor {
+    font-weight: 700;
+    color: white;
+    direction: ltr; /* Enforces Left-to-Right direction */
+    unicode-bidi: embed; /* Prevents direction changes inside this block */
+}
+
+/* Styling for Linko text and refined animation */
+.hero-logo .linko {
+    font-weight: 300;
+    color: white;
+    position: relative;
+    opacity: 0; /* Hidden initially */
+    animation: connectFlowFromRight 4s ease-in-out forwards; /* Animation for flowing effect */
+    direction: ltr; /* Enforces Left-to-Right direction */
+    unicode-bidi: embed; /* Prevents direction changes inside this block */
+}
+
+/* Keyframe animation for subtle connection effect */
+@keyframes connectFlowFromRight {
+    0% {
+        letter-spacing: 15px; /* Letters far apart initially */
+        opacity: 0; /* Fully hidden */
+        transform: translateX(100%); /* Start from the right side */
+    }
+    50% {
+        letter-spacing: 5px; /* Letters moving closer */
+        opacity: 0.5; /* Fade in */
+        transform: translateX(0); /* Move to normal position */
+    }
+    80% {
+        letter-spacing: 2px; /* Letters even closer */
+        opacity: 0.9; /* Fully visible */
+        transform: translateX(0); /* Stay at normal position */
+    }
+    100% {
+        letter-spacing: 0px; /* Letters fully connected */
+        opacity: 1; /* Fully visible */
+        transform: translateX(0); /* No movement */
+    }
+}
+
+/* Optional: Apply glow effect to indicate a strong connection */
+.hero-logo .linko.connected {
+    text-shadow: 0 0 15px rgb(3, 3, 3); /* Strong glow effect when fully connected */
+}
+
+/* Responsive Logo & Text */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 6vw !important;
+        flex-direction: column; /* Stack text and logo */
+        white-space: nowrap;
+    }
+    .hero-logo {
+        font-size: 10vw !important;
+        display: block;
+    }
+}
     </style>
 </head>
 <body>
@@ -793,72 +643,51 @@ body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang
     </script>
 
     
-    <div class="top-bar">
-        <div class="logo">
-            <span class="labor">Labor</span><span class="linko">Linko</span>
-        </div>
-        <div class="nav">
-            <a href="home.html">
-                <div class="top-bar-item">
-                    <img src="icon/home-icon2.png" alt="Home" class="top-bar-icon">
-                    <span class="top-bar-label">Home</span>
-                </div>
-            </a>
-            <a href="services.html">
-                <div class="top-bar-item">
-                    <img src="icon/services-icon.png" alt="Services" class="top-bar-icon">
-                    <span class="top-bar-label">Services</span>
-                </div>
-            </a>
-            <a href="about.html">
-                <div class="top-bar-item">
-                    <img src="icon/about-icon.png" alt="About" class="top-bar-icon">
-                    <span class="top-bar-label">About</span>
-                </div>
-            </a>
-        </div>
-        <div class="login-section">
-            <a href="login.html" class="login-btn">Login</a>
-        </div>
-            </div>
+<div class="top-bar">
+    <div class="logo">
+        <span class="labor">Labor</span><span class="linko">Linko</span>
     </div>
+
+    <nav class="nav">
+        <a href="home.html" class="active" aria-label="Go to Home" class="nav-link">
+            <div class="top-bar-item">
+                <span class="top-bar-icon home-icon"></span>
+                <span class="top-bar-label">Home</span>
+            </div>
+        </a>
+        <a href="services.html" aria-label="Go to Services" class="nav-link">
+            <div class="top-bar-item">
+                <span class="top-bar-icon services-icon"></span>
+                <span class="top-bar-label">Service</span>
+            </div>
+        </a>
+        <a href="about.html" aria-label="Go to About" class="nav-link">
+            <div class="top-bar-item">
+                <span class="top-bar-icon about-icon"></span>
+                <span class="top-bar-label">About</span>
+            </div>
+        </a>
+    </nav>
+    
+
+    <div class="login-section">
+        <a href="login.html" class="login-btn" aria-label="Go to Login Page">Login</a>
+    </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div class="bottom-nav">
+    <a href="services.html" aria-label="Go to Services">
+        <img src="icon/services-icon.svg" alt="Services" class="bottom-nav-icon" loading="lazy">Service
+    </a>
+    <a href="home.html" class="active" aria-label="Go to Home">
+        <img src="icon/home-icon.svg" alt="Home" class="bottom-nav-icon" loading="lazy">Home
+    </a>
+    <a href="about.html" aria-label="Go to About">
+        <img src="icon/about-icon.svg" alt="About" class="bottom-nav-icon" loading="lazy">About
+    </a>
+</div>
     <style>
-            /* Top Bar (Unchanged) */
-            #topBar {
-                background-color: #333;
-                color: white;
-                padding: 10px 15px;
-                text-align: center;
-                direction: ltr;  /* Ensure the top bar stays left-to-right */
-            }
-    
-            
-/* For Hindi, Urdu, Sindhi, and Arabic languages */
-body[data-lang="hi"] {
-    font-family: 'Scheherazade New', serif;;
-    
-}
-
-body[data-lang="ur"] {
-    font-family: 'Scheherazade New', serif;;
-    top: 0%;
-}
-
-body[data-lang="sd"] {
-    font-family: 'Scheherazade New', serif;;
-    top: 0%;
-}
-
-body[data-lang="ar"] {
-    font-family: 'Scheherazade New', serif;;
-    top: 0%;
-}
-
-/* For German, Italian, French */
-body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
-    font-family: 'Montserrat', sans-serif;
-}
-    
     
             footer {
                 background-color: #f8f9fa;
@@ -882,34 +711,6 @@ body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
     text-align: center;
     gap: 12px; /* Space between Welcome text and logo */
 
-}
-/* Homepage Hero Logo Styling */
-.hero-logo {
-    font-family: roboto, sans-serif;
-    font-size: 6vw !important;/* Responsive size */
-    font-weight: 600;
-    color: black; /* Changed to Black */
-    direction: ltr; /* Enforces Left-to-Right direction */
-    unicode-bidi: embed; /* Prevents direction changes inside this block */
-}
-
-/* Styling for Labor text */
-.hero-logo .labor {
-    font-weight: 700;
-    color: white;
-    direction: ltr; /* Enforces Left-to-Right direction */
-    unicode-bidi: embed; /* Prevents direction changes inside this block */
-}
-
-/* Styling for Linko text and refined animation */
-.hero-logo .linko {
-    font-weight: 300;
-    color: white;
-    position: relative;
-    opacity: 0; /* Hidden initially */
-    animation: connectFlowFromRight 4s ease-in-out forwards; /* Animation for flowing effect */
-    direction: ltr; /* Enforces Left-to-Right direction */
-    unicode-bidi: embed; /* Prevents direction changes inside this block */
 }
 
 /* Keyframe animation for subtle connection effect */
@@ -936,17 +737,11 @@ body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
     }
 }
 
-/* Optional: Apply glow effect to indicate a strong connection */
-.hero-logo .linko.connected {
-    text-shadow: 0 0 15px rgb(3, 3, 3); /* Strong glow effect when fully connected */
-}
-
 /* Responsive Logo & Text */
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 6vw !important;
         flex-direction: column; /* Stack text and logo */
-        margin-bottom: 10px;
         white-space: nowrap;
     }
     .hero-logo {
@@ -967,15 +762,15 @@ body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
 <h1>
     <span id="welcomeText" style="font-family: 'Roboto', sans-serif !important;"
         data-en="Welcome to LaborLinko" 
-        data-ur="خوش آمدید لیبرلنکو میں" 
+        data-ur="لیبرلنکومیں خوش آمدید" 
         data-hi="लेबरलिंको में आपका स्वागत है" 
-        data-sd="ڀلي ڪري آيا ليبرلنڪو ۾" 
+        data-sd="ليبرلنڪو ۾ خوش آمديد" 
         data-de="Willkommen bei Leberlinko" 
         data-it="Benvenuto su Laborlinko" 
         data-ar="مرحبًا بك في ليبرلنكو"  
         data-zh="欢迎来到 劳博林科" 
         data-ja="ラボルリンコへようこそ" 
-        data-ko="라보르링코에 오신 것을 환영합니다" 
+        data-ko="환영합니다, 라보르링코!" 
         data-tr="Laborlinko'ya hoş geldiniz"
         data-sv="Välkommen till Laborlinko"
         data-el="Καλώς ήρθατε στο Λαμπορλίνκο">
@@ -1026,7 +821,7 @@ body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
             scrambleText(welcomeText.dataset[langKey]);
         }
 
-        setInterval(changeLanguage, 3000); // Change every 3 seconds (slower transition)
+        setInterval(changeLanguage, 4000); // Change every 3 seconds (slower transition)
     });
 </script>
 
@@ -1072,15 +867,16 @@ body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
 <section class="how-it-works">
     <h2 
         data-en="How LaborLinko Works" 
-        data-ur="LaborLinko کیسے کام کرتا ہے" 
+        data-ur="لیبر لنکو کیسے کام کرتا ہے" 
         data-hi="लेबरलिंको कैसे काम करता है" 
-        data-sd="لابرلنڪو ڪيئن ڪم ڪري ٿو" 
+        data-sd="ليبر لنڪو ڪيئن ڪم ڪري ٿو" 
         data-de="Wie LaborLinko funktioniert" 
         data-it="Come funziona LaborLinko" 
-        data-ar="كيف يعمل LaborLinko" 
+        data-ar="كيف يعمل ليبر لنكو" 
         data-ru="Как работает LaborLinko">
         How LaborLinko Works
     </h2>
+
     <p 
         data-en="Get started with these easy steps to find work or hire labor in your area." 
         data-ur="اپنے علاقے میں کام تلاش کرنے یا مزدوروں کو ملازمت دینے کے لئے یہ آسان اقدامات شروع کریں۔" 
@@ -1211,70 +1007,7 @@ body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
         }
     });
 });
-
 </script>
-
-<!--Drag PAGE Js-->
-<script>
-let touchstartX = 0;
-let touchendX = 0;
-let touchstartY = 0;
-let touchendY = 0;
-
-const swipeThreshold = 50; // Minimum horizontal distance (in pixels) to trigger the swipe
-
-function checkSwipe() {
-    // Calculate horizontal and vertical swipe distances
-    const horizontalDistance = touchendX - touchstartX;
-    const verticalDistance = touchendY - touchstartY;
-
-    // Only trigger horizontal swipe if horizontal distance is greater than vertical distance and exceeds the threshold
-    if (Math.abs(horizontalDistance) > Math.abs(verticalDistance) && Math.abs(horizontalDistance) > swipeThreshold) {
-        if (horizontalDistance < 0) {
-            // Swiped left (go to the next page)
-            navigateToNextPage();
-        } else if (horizontalDistance > 0) {
-            // Swiped right (go to the previous page)
-            navigateToPreviousPage();
-        }
-    }
-}
-
-function navigateToNextPage() {
-    let currentPage = window.location.pathname;
-    if (currentPage.includes('home.html')) {
-        window.location.href = 'services.html';
-    } else if (currentPage.includes('services.html')) {
-        window.location.href = 'about.html';
-    } else if (currentPage.includes('about.html')) {
-        window.location.href = 'home.html';
-    }
-}
-
-function navigateToPreviousPage() {
-    let currentPage = window.location.pathname;
-    if (currentPage.includes('home.html')) {
-        window.location.href = 'about.html';
-    } else if (currentPage.includes('services.html')) {
-        window.location.href = 'home.html';
-    } else if (currentPage.includes('about.html')) {
-        window.location.href = 'services.html';
-    }
-}
-
-document.addEventListener('touchstart', (e) => {
-    touchstartX = e.changedTouches[0].screenX;
-    touchstartY = e.changedTouches[0].screenY;
-}, false);
-
-document.addEventListener('touchend', (e) => {
-    touchendX = e.changedTouches[0].screenX;
-    touchendY = e.changedTouches[0].screenY;
-    checkSwipe();
-}, false);
-
-</script>
-
 
 </body>
 </html>
