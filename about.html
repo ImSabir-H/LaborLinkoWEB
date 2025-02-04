@@ -1,78 +1,386 @@
-<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Roboto',sans-serif;margin:0;padding:0;background-color:#F5F5F5;color:#333;line-height:1.6}body[data-lang="hi"]{font-family:'Scheherazade New',serif!important;}body[data-lang="ur"]{font-family:'Scheherazade New',serif!important;;top:0%}body[data-lang="sd"]{font-family:'Scheherazade New',serif!important;;top:0%}body[data-lang="ar"]{font-family:'Scheherazade New',serif!important;;top:0%}body[data-lang="de"],body[data-lang="it"],body[data-lang="fr"]{font-family:'Montserrat',sans-serif}.top-bar{font-family:'roboto',sans-serif!important;display:flex;justify-content:space-between;align-items:center;padding:20px 20px;background-color:rgb(255 255 255 / .7);backdrop-filter:blur(10px);border-bottom:1px solid #ddd;box-shadow:0 2px 8px rgb(0 0 0 / .1);position:sticky;top:0;z-index:100;direction:ltr!important}.top-bar-item{display:flex;align-items:center;cursor:pointer;transition:color 0.3s ease;padding:10px}.top-bar-item:hover{color:#007BFF}.top-bar-item .top-bar-icon{width:24px;height:24px;margin-right:6px;margin-bottom:0}.top-bar-item .top-bar-label{font-size:18px;font-weight:500;color:gray}.top-bar-item:hover .top-bar-label{color:#007BFF}.logo{font-size:2rem;font-weight:600;color:#007BFF;padding-right:8px}.logo .labor{font-weight:700;color:gray}.logo .linko{font-weight:400;color:#007BFF}@media (max-width:768px){.logo{font-size:6.4vw}}@media (min-width:769px){.logo{font-size:2rem}}.nav{display:flex;gap:30px}.nav a{text-decoration:none;color:gray;font-size:20px;font-weight:500;position:relative}.nav a:hover{color:#007BFF}.nav a::after{content:"";display:block;width:0;height:2px;background:#007BFF;transition:width 0.3s ease-in-out;position:absolute;bottom:-2px;left:50%;transform:translateX(-50%)}.nav a:hover::after{width:100%}@media (max-width:768px){.top-bar{padding:12px 10px}.top-bar-item .top-bar-label{display:none}.top-bar-item .top-bar-icon{display:block;width:5vw;height:5vw;max-width:28px;max-height:28px;min-width:20px;min-height:20px}.top-bar-item{padding:0;cursor:pointer}.nav{display:flex;gap:16px;justify-content:center}}@media (min-width:769px){.top-bar-item .top-bar-icon{display:block;width:24px;height:24px}}@media (min-width:769px){.top-bar-item .top-bar-label{display:inline-block}.top-bar-item .top-bar-icon{display:none}}.login-btn-container{margin-left:20px;display:flex;align-items:center}.login-btn{background-color:rgb(0 123 255 / .1);border:1px solid #fff0;padding:8px 16px;font-size:16px;border-radius:4px;color:#007BFF;cursor:pointer;font-family:'Montserrat',sans-serif!important;font-weight:500!important;text-transform:uppercase;text-decoration:none;transition:background-color 0.3s,color 0.3s,border 0.3s}.login-btn:hover{background-color:#007BFF;color:#FFF;border:1px solid #007BFF}.footer{background-color:#fff;color:gray;padding:40px 0;text-align:center;position:relative;width:100%;margin-top:auto}.footer-nav{margin-bottom:10px}.footer-nav a{color:gray;text-decoration:none;margin:0 15px;font-size:1rem}.footer-nav a:hover{text-decoration:underline}.footer p{font-size:.875rem}.hero{background-color:#007BFF;color:#fff;padding:60px 20px;text-align:center}.hero h1{font-size:2.5rem;margin-bottom:10px}.hero p{font-size:1.2rem;max-width:700px;margin:0 auto}.about-content{text-align:center;padding:40px 20px;background-color:#fff;margin:20px auto;border-radius:8px;box-shadow:0 4px 8px rgb(0 0 0 / .1)}.about-content h2{font-size:2rem;margin-bottom:20px}.about-content p{font-size:1rem;max-width:1000px;margin:0 auto;line-height:1.7}.cta{margin-top:20px}.cta-button{display:inline-block;background-color:#007BFF;color:#fff;padding:10px 20px;font-size:1rem;text-decoration:none;border-radius:4px;transition:background-color 0.3s}.cta-button:hover{background-color:#0056b3}.team{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:40px 20px;background-color:#f0f0f0}.team-member{text-align:center;width:100%;max-width:350px;background-color:#fff;box-shadow:0 4px 8px rgb(0 0 0 / .1);border-radius:8px;padding:20px;transition:transform 0.3s ease}.team-member:hover{transform:translateY(-10px)}.team-member img{width:80px;height:80px;border-radius:50%;margin-bottom:15px}.team-member h3{font-size:1.2rem;margin-bottom:5px;color:#007BFF}.team-member p{font-size:.9rem;color:#555;margin-bottom:10px}.testimonials{text-align:center;padding:40px 20px}.testimonials h2{font-size:2rem;margin-bottom:20px}.testimonials .testimonial{max-width:800px;margin:0 auto 20px;padding:20px;background-color:#fff;box-shadow:0 4px 8px rgb(0 0 0 / .1);border-radius:8px}.testimonial p{font-size:1rem;margin-bottom:10px}.testimonial .author{font-size:.9rem;font-weight:500;color:#007BFF}@media (max-width:768px){.hero h1{font-size:2rem}.hero p{font-size:1rem}.about-content h2{font-size:1.8rem}.about-content p{font-size:.95rem}.team-member{max-width:90%}.team-member img{width:70px;height:70px}}@media (max-width:480px){.hero h1{font-size:1.8rem}.hero p{font-size:1rem}.about-content h2{font-size:1.5rem}.about-content p{font-size:.85rem}.cta-button{font-size:.9rem;padding:8px 15px}}.footer{background-color:#fff;color:gray;padding:40px 0;text-align:center;position:relative;width:100%;margin-top:auto}.footer-nav{margin-bottom:10px}.footer-nav a{color:gray;text-decoration:none;margin:0 15px;font-size:1rem}.footer-nav a:hover{text-decoration:underline}.footer p{font-size:.875rem}body{display:flex;flex-direction:column;min-height:100vh}main{flex-grow:1}section.hero{background-color:#007BFF;color:#fff;text-align:center;padding:50px 20px}body[data-lang="ar"],body[data-lang="ur"],body[data-lang="sd"] body[data-lang="ar"]{font-family:'Scheherazade New',serif;direction:rtl;text-align:right}body[data-lang="en"],body[data-lang="de"],body[data-lang="hi"],body[data-lang="it"],body[data-lang="fr"],body[data-lang="ru"]{font-family:'Roboto',sans-serif;direction:ltr}</style>    
-    <div class="top-bar">
-    <div class="logo">
-        <span class="labor">Labor</span><span class="linko">Linko</span>
-    </div>
-    <div class="nav">
-        <a href="home.html">
-            <div class="top-bar-item">
-                <img src="icon/home-icon.png" alt="Home" class="top-bar-icon">
-                <span class="top-bar-label">Home</span>
-            </div>
-        </a>
-        <a href="services.html">
-            <div class="top-bar-item">
-                <img src="icon/services-icon.png" alt="Services" class="top-bar-icon">
-                <span class="top-bar-label">Services</span>
-            </div>
-        </a>
-        <a href="about.html">
-            <div class="top-bar-item">
-                <img src="icon/about-icon2.png" alt="About" class="top-bar-icon">
-                <span class="top-bar-label">About</span>
-            </div>
-        </a>
-    </div>
-            <div class="login-section">
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
-        </div>
-</div>
-<style>
-
-        /* Top Bar (Unchanged) */
-        #topBar {
-            background-color: #333;
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
-            direction: ltr;  /* Ensure the top bar stays left-to-right */
-        }
-
-        /* Body and Footer Styling */
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] {
-            font-family: 'Scheherazade New', serif;
-            direction: rtl; /* Apply rtl only to the body */
-            text-align: right;
-        }
-        body[data-lang="sd"] {
-            font-family: 'Scheherazade New', serif;
-
-}
-
-
-        footer {
-            background-color: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-        }
-
-        footer[data-lang="ar"], footer[data-lang="ur"], footer[data-lang="sd"] {
-            direction: rtl; /* Apply rtl only to footer */
-        }
-    </style>
-<body>
-   
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Selector</title>
+    <script src="smooth-scroll.js"></script>
+    <script src="bottom.js"></script>
+    <link rel="stylesheet" href="topbar-styles.css">
+    <link rel="stylesheet" href="smooth-style.css">
+    <script src="drag.js"></script>
+    <title>LaborLinko About</title>
+    <style>
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif; 
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* For Hindi, Urdu, Sindhi, and Arabic languages */
+body[data-lang="hi"] {
+    font-family: 'Scheherazade New', serif !important;;
+    
+}
+
+body[data-lang="ur"] {
+    font-family: 'Scheherazade New', serif !important;;
+    top: 0%;
+}
+
+body[data-lang="sd"] {
+    font-family: 'Scheherazade New', serif !important;;
+    top: 0%;
+}
+
+body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif !important;;
+    top: 0%;
+}
+
+/* For German, Italian, French */
+body[data-lang="de"], body[data-lang="it"], body[data-lang="fr"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* Hero Section */
+.hero {
+            background-color: #007BFF;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* About Content Section */
+        .about-content {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #fff;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .cta {
+            margin-top: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Team Section */
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+            background-color: #f0f0f0;
+        }
+
+        .team-member {
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-member img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .team-member h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #007BFF;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .testimonials h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonials .testimonial {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .testimonial p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .testimonial .author {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #007BFF;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-content p {
+                font-size: 0.95rem;
+            }
+
+            .team-member {
+                max-width: 90%;
+            }
+
+            .team-member img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .about-content p {
+                font-size: 0.85rem;
+            }
+
+            .cta-button {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+/* Footer Section */
+.footer {
+    background-color: #fff;
+    color: gray;
+    padding: 40px 0;
+    text-align: center;
+    position: relative; /* Keeps footer at the bottom if content is short */
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+/* Footer Navigation Links */
+.footer-nav {
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: gray;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Text */
+.footer p {
+    font-size: 0.875rem;
+}
+
+/* For the entire page to have a flex layout to push the footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+main {
+    flex-grow: 1; /* This ensures the content area takes up available space */
+}
+    /* Hero Section */
+    section.hero {
+        background-color: #007BFF;
+        color: #fff;
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+/* Language-specific styling for the body */
+body[data-lang="ar"], body[data-lang="ur"], body[data-lang="sd"] body[data-lang="ar"] {
+    font-family: 'Scheherazade New', serif;
+    direction: rtl;  /* Apply rtl only to the body */
+    text-align: right;
+}
+
+/* For other languages, ensure left-to-right text direction and proper layout */
+body[data-lang="en"], body[data-lang="de"], body[data-lang="hi"], body[data-lang="it"], body[data-lang="fr"], body[data-lang="ru"] {
+    font-family: 'Roboto', sans-serif;
+    direction: ltr;
+}
+    </style>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <span class="labor">Labor</span><span class="linko">Linko</span>
+        </div>
+    
+        <nav class="nav">
+            <a href="home.html" aria-label="Go to Home">
+                <div class="top-bar-item">
+                    <span class="top-bar-icon home-icon"></span>
+                    <span class="top-bar-label">Home</span>
+                </div>
+            </a>
+            <a href="services.html" aria-label="Go to Services">
+                <div class="top-bar-item">
+                    <span class="top-bar-icon services-icon"></span>
+                    <span class="top-bar-label">Service</span>
+                </div>
+            </a>
+            <a href="about.html" class="active" aria-label="Go to About">
+                <div class="top-bar-item">
+                    <span class="top-bar-icon about-icon"></span>
+                    <span class="top-bar-label">About</span>
+                </div>
+            </a>
+        </nav>
+        
+    
+        <div class="login-section">
+            <a href="login.html" class="login-btn" aria-label="Go to Login Page">Login</a>
+        </div>
+    </div>
+    
+    <!-- Mobile Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="services.html" aria-label="Go to Services">
+            <img src="icon/services-icon.svg" alt="Services" class="bottom-nav-icon" loading="lazy">Service
+        </a>
+        <a href="home.html" aria-label="Go to Home">
+            <img src="icon/home-icon.svg" alt="Home" class="bottom-nav-icon" loading="lazy">Home
+        </a>
+        <a href="about.html" class="active" aria-label="Go to About">
+            <img src="icon/about-icon.svg" alt="About" class="bottom-nav-icon" loading="lazy">About
+        </a>
+    </div>
+    
+    
     <style>
         /* CSS Variables for easy customization */
         :root {
@@ -595,67 +903,6 @@
         &copy; 2025 LaborLinko
     </p>
 </footer>
-
-<!--Drag PAGE Js-->
-<script>
-let touchstartX = 0;
-let touchendX = 0;
-let touchstartY = 0;
-let touchendY = 0;
-
-const swipeThreshold = 50; // Minimum horizontal distance (in pixels) to trigger the swipe
-
-function checkSwipe() {
-    // Calculate horizontal and vertical swipe distances
-    const horizontalDistance = touchendX - touchstartX;
-    const verticalDistance = touchendY - touchstartY;
-
-    // Only trigger horizontal swipe if horizontal distance is greater than vertical distance and exceeds the threshold
-    if (Math.abs(horizontalDistance) > Math.abs(verticalDistance) && Math.abs(horizontalDistance) > swipeThreshold) {
-        if (horizontalDistance < 0) {
-            // Swiped left (go to the next page)
-            navigateToNextPage();
-        } else if (horizontalDistance > 0) {
-            // Swiped right (go to the previous page)
-            navigateToPreviousPage();
-        }
-    }
-}
-
-function navigateToNextPage() {
-    let currentPage = window.location.pathname;
-    if (currentPage.includes('home.html')) {
-        window.location.href = 'services.html';
-    } else if (currentPage.includes('services.html')) {
-        window.location.href = 'about.html';
-    } else if (currentPage.includes('about.html')) {
-        window.location.href = 'home.html';
-    }
-}
-
-function navigateToPreviousPage() {
-    let currentPage = window.location.pathname;
-    if (currentPage.includes('home.html')) {
-        window.location.href = 'about.html';
-    } else if (currentPage.includes('services.html')) {
-        window.location.href = 'home.html';
-    } else if (currentPage.includes('about.html')) {
-        window.location.href = 'services.html';
-    }
-}
-
-document.addEventListener('touchstart', (e) => {
-    touchstartX = e.changedTouches[0].screenX;
-    touchstartY = e.changedTouches[0].screenY;
-}, false);
-
-document.addEventListener('touchend', (e) => {
-    touchendX = e.changedTouches[0].screenX;
-    touchendY = e.changedTouches[0].screenY;
-    checkSwipe();
-}, false);
-
-</script>
 
 </body>
 </html>
