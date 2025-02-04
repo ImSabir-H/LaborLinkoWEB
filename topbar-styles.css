@@ -1,12 +1,12 @@
 
 /*Language font's Styels
-/* Import Optimized Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;500&display=swap');
+/* Importing fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap'); /* Inter font family (weights 400, 600) */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap'); /* Open Sans font family (weights 400, 500) */
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500&display=swap'); /* Mukta font family (weights 400, 500) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap'); /* Playfair Display font family (weights 400, 500) */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap'); /* Manrope font family (weights 400, 500) */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;500&display=swap'); /* Amiri font family (weights 400, 500) */
 
 /* Self-hosted Urdu & Sindhi Fonts */
 @font-face {
