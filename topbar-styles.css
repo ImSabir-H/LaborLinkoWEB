@@ -1,5 +1,4 @@
-
-/*Language font's Styels
+/* Language font's Styles */
 /* Importing fonts from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap'); /* Inter font family (weights 400, 600) */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap'); /* Open Sans font family (weights 400, 500) */
@@ -50,6 +49,7 @@ body[data-lang="ar"] {
 body[data-lang="hi"] {
     font-family: 'Mukta', sans-serif;
 }
+
 
 /* Headings */
 h1 {
