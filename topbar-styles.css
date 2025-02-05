@@ -1,13 +1,14 @@
 /* Language font's Styles */
 /* Importing fonts from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap'); /* Inter font family (weights 400, 600) */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap'); /* Open Sans font family (weights 400, 500) */
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500&display=swap'); /* Mukta font family (weights 400, 500) */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap'); /* Playfair Display font family (weights 400, 500) */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap'); /* Manrope font family (weights 400, 500) */
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;500&display=swap'); /* Amiri font family (weights 400, 500) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap'); /* Inter font family (weights 400, 600) - Used for English, German, Italian, Russian */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap'); /* Open Sans font family (weights 400, 500) - Used for English, German, Italian, Russian */
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;500&display=swap'); /* Mukta font family (weights 400, 500) - Used for Hindi */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap'); /* Playfair Display font family (weights 400, 500) - Used for English, German, Italian, Russian */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap'); /* Manrope font family (weights 400, 500) - Used for English, German, Italian, Russian */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;500&display=swap'); /* Amiri font family (weights 400, 500) - Used for Arabic */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600&display=swap'); /* Noto Nastaliq Urdu font (weights 400, 600) - Used for Sindhi */
 
-/* Self-hosted Urdu & Sindhi Fonts */
+/* Self-hosted Urdu Fonts */
 @font-face {
     font-family: 'Jameel Noori Nastaleeq';
     src: url('../fonts/Jameel-Noori-Nastaleeq.woff2') format('woff2'),
@@ -36,16 +37,28 @@ body {
     padding: 0;
 }
 
-/* RTL Language Support (Urdu, Arabic, Sindhi) */
-body[data-lang="ur"], 
-body[data-lang="sd"], 
-body[data-lang="ar"] {
+/* Urdu (اردو) */
+body[data-lang="ur"] {
     font-family: 'Jameel Noori Nastaleeq', 'Mehr Nastaliq Web', 'Amiri', serif;
     direction: rtl;
     text-align: right;
 }
 
-/* Hindi */
+/* Sindhi (سنڌي) */
+body[data-lang="sd"] {
+    font-family: 'Noto Nastaliq Urdu', 'Mehr Nastaliq Web', 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+}
+
+/* Arabic (العربية) */
+body[data-lang="ar"] {
+    font-family: 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+}
+
+/* Hindi (हिन्दी) */
 body[data-lang="hi"] {
     font-family: 'Mukta', sans-serif;
 }
