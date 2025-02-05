@@ -6,8 +6,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap'); /* Playfair Display font family (weights 400, 500) - Used for English, German, Italian, Russian */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap'); /* Manrope font family (weights 400, 500) - Used for English, German, Italian, Russian */
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;500&display=swap'); /* Amiri font family (weights 400, 500) - Used for Arabic */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600&display=swap'); /* Noto Nastaliq Urdu font (weights 400, 600) - Used for Sindhi */
-
+font-family: 'YourSindhiFontName';
+    src: url('path/to/YourSindhiFontFile.woff2') format('woff2'),
+         url('path/to/YourSindhiFontFile.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 /* Self-hosted Urdu Fonts */
 @font-face {
     font-family: 'Jameel Noori Nastaleeq';
@@ -44,9 +47,9 @@ body[data-lang="ur"] {
     text-align: right;
 }
 
-/* Sindhi (سنڌي) */
+/* Apply the font to Sindhi text */
 body[data-lang="sd"] {
-    font-family: 'Noto Nastaliq Urdu', 'Mehr Nastaliq Web', 'Amiri', serif;
+    font-family: 'YourSindhiFontName', serif;
     direction: rtl;
     text-align: right;
 }
